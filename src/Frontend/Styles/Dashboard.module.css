@@ -387,5 +387,9 @@ margin-top: 40px;
 .chat_bot_builder_card{
     min-width: 60vw;
 }
+
+.how_btn{
+    display: none;
+}
     
 }

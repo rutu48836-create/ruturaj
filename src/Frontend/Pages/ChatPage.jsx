@@ -12,11 +12,12 @@ export function ChatPage(){
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState([])
 
+       const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://localhost:5000"
+
    useEffect(() => {
 
    async function ChatBots() {
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://localhost:5000"
     
    const { data, error } = await supabase
         .from("chatbots")
