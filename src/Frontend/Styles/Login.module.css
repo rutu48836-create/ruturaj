@@ -1,0 +1,115 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+html,body{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.login_wrapper{
+
+width: 100%;
+min-height:100vh;
+display: flex;
+align-items: center;
+justify-content: center;
+background: rgba(240, 172, 94, 0);
+                background: linear-gradient(to bottom, #fff9f0 0%, #ffebcc 40%, #ffd699 70%, #ffc966 100%);
+
+
+}
+
+.Card_Container{
+
+    width: 380px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border:1px solid #ddd;    
+    border-radius:8px;
+    background: #fff;
+
+}
+
+.Top_headings{
+
+width:100%;
+min-height:auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: 4px;
+margin-top: 14px;
+margin-bottom: 0px;
+
+}
+
+.Top_headings h2{
+
+   font-family: "Italiana", sans-serif;
+    font-weight: 350;
+    margin-bottom: 0;
+    font-size: 2em;
+
+}
+
+.Top_headings p{
+
+font-size: .7em;
+width: 80%;
+line-height: 1.4em;
+font-family: "Roboto",sans-serif;
+color: #302f2f;
+
+}
+
+.Login_options_container{
+
+width: 100%;
+display: flex;
+min-height: 200px;
+gap: 14px;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 0;
+
+}
+
+.Login_options_container button{
+
+width: 90%;
+min-height: 44px;
+border-radius: 10px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+border: none;
+font-family: "Roboto",sans-serif;
+background: #fff;
+cursor: pointer;
+margin-top: 0;
+
+}
+
+img{
+
+max-width: 18px;
+max-height: 18px;
+
+}
+
+.login_wrapper span{
+    font-size:14px;
+    margin-top: 1.2em;
+    font-weight: 450;   
+}
+
+.login_wrapper span a {
+    color:#f19f52;
+    text-decoration:none;
+    font-family:'roboto',sans-serif;
+}

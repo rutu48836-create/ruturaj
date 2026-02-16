@@ -1,0 +1,391 @@
+
+body{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.Dashboard_container{
+
+display: flex;
+flex-direction: column;
+min-width: 100%;
+min-height: 100vh;
+background: #fcf7f7;
+margin-top: 0px;
+overflow-y:auto;
+
+}
+
+.Projects_container{
+
+min-width: 100%;
+min-height: 50vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+
+}
+
+.New_Project_section{
+
+min-width: 100%;
+min-height: 14vh;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: center;
+gap: 10px;
+margin-top: 20px;
+
+}
+
+.New_Project_section input{
+
+min-width: 75%;
+padding: .9rem;
+background: #fff;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+border-radius: 6px;
+border: none;
+font-family: "Inter",sans-serif;
+
+}
+
+.New_Project_section input:focus{
+    outline: none;
+}
+
+.create_btn{
+
+    font-family: "Inter",sans-serif;
+    padding: .9rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    color: #fff;
+    background: #000000dd;
+    cursor: pointer;
+
+}
+
+.how_btn{
+
+    font-family: "Inter",sans-serif;
+    padding: .9rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    color: #000000;
+    background: #ffffffdd;
+    cursor: pointer;
+
+}
+
+.chat_bot_builder_wrapper{
+
+min-width: 100%;
+min-height: 100vh;
+display: flex;
+z-index: 10000;
+align-items: center;
+justify-content: center;
+position: fixed;
+top:0;
+left: 0;
+right: 0;
+bottom: 0;
+background: transparent;
+overflow-y: scroll;
+
+}
+
+.chat_bot_builder_card{
+
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
+    
+background: #fff;
+border-radius: 12px;
+min-width: 45vw;
+min-height: 90vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+
+}
+
+.chat_bot_builder_appearance{
+    display: flex;
+    min-width: 95%;
+    min-height: auto;
+    align-items: flex-start;
+    margin-left: 20px;
+    flex-direction: column;
+}
+
+.chat_bot_builder_appearance h3{
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.chat_bot_builder_appearance span{
+    font-size: 14px;
+    color: #7e7b7b;
+    width: 60%;
+    line-height: 1.5rem;
+}
+
+
+.appearance_inputs{
+
+    display: flex;
+    min-width: 95%;
+    min-height: auto;
+    align-items: flex-start;
+    justify-content: flex-start;
+    margin-top: 30px;
+    margin-left: 0px;
+    flex-direction: column;
+}
+
+.appearance_inputs label{
+
+margin-bottom: .8em;
+font-size: 14px;
+font-weight: 450;
+
+}
+
+.appearance_inputs input,textarea{
+    min-width: 90%;
+    padding: .8em;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: "Inter",sans-serif;
+}
+
+.appearance_inputs input:focus,textarea:focus{
+outline: none;
+}
+
+.chat_bot_builder_btn_wrapper{
+    margin-top:5px;
+    min-width: 95%;
+    min-height: 35px;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    margin-bottom: 30px;
+    gap: 10px;
+}
+
+.createe_btn{
+    min-width: 120px;
+    min-height: 35px;
+    border-radius: 6px;
+    background: #000;
+    color: #fff;
+    border: none;
+    font-family: "Inter",sans-serif;
+    cursor: pointer;
+}
+
+.cancel_btn{
+    min-width: 120px;
+    min-height: 35px;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #000000;
+    border: none;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    font-family: "Inter",sans-serif;
+    cursor: pointer; 
+}
+
+.existing_projects_section{
+
+min-width: 100%;
+min-height: 50vh;
+display: grid;
+align-items: center;
+justify-content: center;
+grid-template-columns: repeat(3, 350px);
+gap:40px;
+
+}
+
+.project_card{
+    min-width: 100%;
+    min-height: 140px;
+    display: flex;
+    background: #fff;
+    border-radius: 8px;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    flex-direction: column;
+    padding: .4rem;
+}
+
+.project_card_head{
+
+ min-width: 95%;
+ margin-left:20px;
+ display:flex;
+ align-items: center;
+ justify-content: space-between;
+ min-height: auto;
+ gap:20px;
+
+}
+
+.left_side_head{
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    min-width: auto;
+    min-width: auto;
+    gap: 10px;
+}
+
+.left_side_head h3{
+    font-weight: 450;
+    font-size: 16px;
+}
+
+.head_right_side{
+
+ min-width: auto;
+ min-height: auto;
+ display: flex;
+ margin-right: 10px;
+ align-items: center;
+ justify-content: flex-end;
+ gap: 10px;
+
+}
+
+.head_right_side button{
+
+ min-width: 35px;
+ min-height: 35px;
+ display: flex;
+ border-radius: 50%;
+ border: none;
+ background: #fff;
+ box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+ cursor: pointer;
+ align-items: center;
+ justify-content: center;
+ color: #979494;
+  
+}
+
+.left_side_head img{
+    min-width: 40px;
+    min-height: 40px;
+    display: flex;
+    border-radius: 50%;
+}
+
+.project_card_context{
+    min-width: 95%;
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+    min-height: auto;
+}
+
+.project_card_context p{
+    max-width: 200px;
+      white-space: nowrap;      /* Prevents wrapping to a new line */
+text-overflow: ellipsis;
+overflow: hidden;
+}
+
+.delete_btn{
+    min-width: 90%;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    margin-top: 10px;
+    margin-right: 10px;
+}
+
+.delete_btn button{
+    min-width: 35px;
+    min-height: 35px;
+    display: flex;
+    border-radius: 50%;
+    background: #000;
+    border: none;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+}
+
+.chat_link_div{
+    min-width: 100px;
+    min-height:auto;
+    display:flex;
+    align-items: center;
+    flex-direction: column;
+    gap:0px;
+    justify-content: flex-start;
+    text-align: left;
+}
+
+.chat_link_div h3{
+    margin-bottom: 4px;
+
+}
+
+.Project_h3_wrapper{
+    min-width: 100%;
+    min-height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.Project_h3_wrapper h3{
+    margin-left: 100px;
+    font-weight: 430;
+}
+
+
+@media (max-width:768px) {
+
+    .New_Project_section input{
+        min-width: 60%;
+    }
+
+    .existing_projects_section{
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+        border: none;
+        margin-top: 20px;
+    }
+
+    .Project_h3_wrapper h3{
+        margin-left: 20px;
+    }
+
+    .Projects_container{
+
+min-width: 100%;
+min-height: 50vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+margin-top: 40px;
+
+}
+
+.chat_bot_builder_card{
+    min-width: 60vw;
+}
+    
+}
