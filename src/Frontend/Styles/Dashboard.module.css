@@ -3,6 +3,7 @@ body{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+    color: #000;
 }
 
 .Dashboard_container{
@@ -99,19 +100,23 @@ overflow-y: scroll;
 
 }
 
-.chat_bot_builder_card{
-
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 0px 5px 0px, rgba(0, 0, 0, 0.1) 0px 0px 1px 0px;
-    
-background: #fff;
-border-radius: 12px;
-min-width: 45vw;
-min-height: 90vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-
+.chat_bot_builder_wrapper{ 
+    min-width: 100%; 
+    min-height: 100vh; 
+    display: flex; 
+    z-index: 10000; 
+    align-items: center; 
+    justify-content: center; 
+    position: fixed; 
+    top: 0; 
+    left: 0; 
+    right: 0; 
+    bottom: 0; 
+    background: rgba(0, 0, 0, 0.5);  /* Changed from transparent */
+    overflow-y: auto;  /* Changed from scroll */
+    overflow-x: hidden;  /* Added */
+    -webkit-overflow-scrolling: touch;  /* Added for smooth iOS scrolling */
+    padding: 20px 0;  /* Added vertical padding */
 }
 
 .chat_bot_builder_appearance{
@@ -384,10 +389,6 @@ margin-top: 40px;
 
 }
 
-.chat_bot_builder_card{
-    min-width: 60vw;
-    max-width:70vw;
-}
 
 .how_btn{
     display: none;
