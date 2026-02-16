@@ -114,9 +114,9 @@ overflow-y: scroll;
     bottom: 0; 
     background: rgba(0, 0, 0, 0.5);  /* Changed from transparent */
     overflow-y: auto;  /* Changed from scroll */
-    overflow-x: hidden;  /* Added */
-    -webkit-overflow-scrolling: touch;  /* Added for smooth iOS scrolling */
-    padding: 20px 0;  /* Added vertical padding */
+    overflow-x: hidden; 
+    -webkit-overflow-scrolling: touch;  
+    padding: 20px 0;  
 }
 
 .chat_bot_builder_appearance{
@@ -168,6 +168,7 @@ font-weight: 450;
     border: 1px solid #ddd;
     border-radius: 6px;
     font-family: "Inter",sans-serif;
+    font-size: 16px;
 }
 
 .appearance_inputs input:focus,textarea:focus{
@@ -390,8 +391,29 @@ margin-top: 40px;
 }
 
 
-.how_btn{
-    display: none;
+.chat_bot_builder_card {
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
+  max-height: 90vh; /* Prevent modal from exceeding viewport */
 }
-    
+
+.chat_bot_builder_wrapper {
+  overflow: hidden; /* Prevent body scroll when modal is open */
+}
+ 
+}
+
+@media (max-width: 480px) {
+  .chat_bot_builder_card {
+    max-height: 96vh;
+    width: 100%;
+  }
+  
+  .chat_bot_builder_appearance {
+    padding: 20px 16px; /* Reduce padding on mobile */
+  }
+  
+  .chat_bot_builder_btn_wrapper {
+    flex-direction: column; /* Stack buttons vertically */
+  }
 }
