@@ -386,6 +386,7 @@ margin-top: 40px;
 
 .chat_bot_builder_card{
     min-width: 60vw;
+    max-width:70vw;
 }
 
 .how_btn{
