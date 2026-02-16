@@ -15,6 +15,8 @@ min-height: 100vh;
 background: #fcf7f7;
 margin-top: 0px;
 overflow-y:auto;
+  scrollbar-width: thin;
+
 
 }
 
@@ -82,23 +84,6 @@ font-family: "Inter",sans-serif;
 
 }
 
-.chat_bot_builder_wrapper{
-
-min-width: 100%;
-min-height: 100vh;
-display: flex;
-z-index: 10000;
-align-items: center;
-justify-content: center;
-position: fixed;
-top:0;
-left: 0;
-right: 0;
-bottom: 0;
-background: transparent;
-overflow-y: scroll;
-
-}
 
 .chat_bot_builder_wrapper{ 
     min-width: 100%; 
@@ -117,6 +102,21 @@ overflow-y: scroll;
     overflow-x: hidden; 
     -webkit-overflow-scrolling: touch;  
     padding: 20px 0;  
+}
+
+.chat_bot_builder_card{
+    display: flex;
+    min-width: 40%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    background: #fff;
+    border: 1px solid #ddd;
+    min-height: 90vh;
+    overflow-x: hidden;
+    border-radius: 8px;
+    scrollbar-width: thin;
+
 }
 
 .chat_bot_builder_appearance{
