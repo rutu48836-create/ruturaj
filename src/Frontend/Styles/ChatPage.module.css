@@ -91,6 +91,7 @@ margin-left: 20px;
     font-family: "Inter",sans-serif;
     border: none;
     min-width: 85%;
+    max-width: 100%;
 }
 
 .Chat_bot_input_wrapper input:focus{
@@ -167,5 +168,9 @@ margin-left: 20px;
 
     .Chat_bot_input_wrapper input{
         min-width: 90%;
+    }
+
+    .Chat_bot_input_wrapper{
+        min-width: 100%;
     }
 }
