@@ -158,3 +158,14 @@ margin-left: 20px;
         background: #e2dddd;
 
 }
+
+@media (max-width:768px){
+
+    .Chat_bot_message_container{
+        margin-top: 30px;
+    }
+
+    .Chat_bot_input_wrapper input{
+        min-width: 90%;
+    }
+}
