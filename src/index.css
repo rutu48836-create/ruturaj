@@ -5,8 +5,14 @@ body{
   font-family: "Inter",sans-serif;
   overflow-y: auto;
   overflow-x: hidden;
+
+  scrollbar-width: thin;
+
+
 }
 
 body.modal-open {
   overflow: hidden;
+
 }
+
