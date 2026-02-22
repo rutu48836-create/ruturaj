@@ -20,7 +20,7 @@ export function LOGIN(){
 const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user;
+    const user = result.user 
    
     const response = await fetch(`${BACKEND_URL}/api/register`, {
   method: 'POST',
