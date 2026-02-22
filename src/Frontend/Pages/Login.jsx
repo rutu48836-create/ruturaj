@@ -23,6 +23,8 @@ export function LOGIN(){
       console.log("User:", result.user);
       alert("Logged in with Google!");
 
+      navigate('/')
+      
 const user = auth.currentUser
 
 const response = await fetch(`${BACKEND_URL}/api/register`, {
@@ -31,7 +33,6 @@ const response = await fetch(`${BACKEND_URL}/api/register`, {
   body: JSON.stringify({ userId: user.uid })
 })
 
-      navigate('/')
 
 
     } catch (err) {
