@@ -20,7 +20,6 @@ export function LOGIN(){
 const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-console.log('Register response:', data)
     navigate('/', { replace: true })
   } catch (err) {
     alert(err.message);
