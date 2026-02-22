@@ -15,15 +15,14 @@ export function LOGIN(){
 
   const navigate = useNavigate()
 
-  const BACKEND_URL = "http://localhost:5000"
+  const BACKEND_URL = import.meta.VITE_BACKEND_URL
 
  const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
-      console.log("User:", result.user);
+            navigate('/')
       alert("Logged in with Google!");
 
-      navigate('/')
 
     } catch (err) {
       alert(err.message);
