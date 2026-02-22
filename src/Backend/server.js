@@ -1,22 +1,16 @@
+import { supabase } from './config/supabaseClient.js'
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
 import multer from 'multer'
 import { Chat_handler } from './controllers/chatController.js'
 import { scrapeWebsite } from './services/website_data.js'
-import { supabase } from './config/supabaseClient.js'
 import { extractPDFText } from './services/pdf_data.js'
 
 dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 5000
-
-const supabaseAnonKey = process.env.SUPABASE_ANON_KEY
-const supabaseServiceKey = process.env.SUPABASE_SERVICE_KEY
-
-console.log('SUPABASE_URL:', process.env.SUPABASE_URL)
-console.log('SUPABASE_SERVICE_KEY:', process.env.SUPABASE_SERVICE_KEY?.substring(0, 20))
 
 // Configure multer for file uploads (store in memory)
 const storage = multer.memoryStorage()
