@@ -419,7 +419,7 @@ alert('link copied')
           />
                     <button className={styles.how_btnn}>?</button>
 
-          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create New + </button>
+          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create +</button>
         </div>
 
 <div className={styles.Project_h3_wrapper}><h3>Projects</h3>
