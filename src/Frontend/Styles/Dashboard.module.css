@@ -12,7 +12,7 @@ display: flex;
 flex-direction: column;
 min-width: 100%;
 min-height: 100vh;
-background: #fcf7f7;
+background: #fbfcfc;
 margin-top: 0px;
 overflow-y:auto;
   scrollbar-width: thin;
@@ -34,37 +34,61 @@ justify-content: flex-start;
 .New_Project_section{
 
 min-width: 100%;
-min-height: 14vh;
+min-height: auto;
 display: flex;
 flex-direction: row;
 align-items: center;
 justify-content: center;
 gap: 10px;
-margin-top: 20px;
+margin-top: 60px;
+margin-bottom: 30px;
 
+}
+
+.Search_wrapper{
+    width:auto;
+    min-height: 100%;
+    background: #fff;
+    border: 1px solid black;
+    margin-right: 0;
+    right: 0;
 }
 
 .New_Project_section input{
 
-min-width: 75%;
+min-width: 70%;
 padding: .9rem;
 background: #fff;
 box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
 border-radius: 6px;
 border: none;
 font-family: "Inter",sans-serif;
+margin-left:0;
 
 }
 
 .New_Project_section input:focus{
-    outline: none;
+    outline: 2px solid #ccc;
+}
+
+.how_btnn{
+
+        font-family: "Inter",sans-serif;
+    padding: .9rem;
+    border-radius: 12px;
+    border: 1px solid #ddd;
+    color: #000000;
+    background: #ffffffdd;
+    cursor: pointer;
+
+
 }
 
 .create_btn{
 
     font-family: "Inter",sans-serif;
     padding: .9rem;
-    border-radius: 12px;
+    border-radius: 8px;
     border: 1px solid #ddd;
     color: #fff;
     background: #000000dd;
@@ -166,6 +190,7 @@ font-weight: 450;
 
 .appearance_inputs input,textarea{
     min-width: 90%;
+    max-width: 95%;
     padding: .8em;
     background: #fff;
     border: 1px solid #ddd;
@@ -173,6 +198,16 @@ font-weight: 450;
     font-family: "Inter",sans-serif;
     font-size: 16px;
 }
+
+input[type="file"] {
+    font-size: 15px;
+}
+
+textarea{
+    resize: none;
+}
+
+
 
 .appearance_inputs input:focus,textarea:focus{
 outline: none;
@@ -217,7 +252,7 @@ outline: none;
 min-width: 100%;
 min-height: 50vh;
 display: grid;
-align-items: center;
+align-items: flex-start;
 justify-content: center;
 grid-template-columns: repeat(3, 350px);
 gap:40px;
@@ -231,7 +266,7 @@ margin-top:10px;
     display: flex;
     background: #fff;
     border-radius: 8px;
-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
     flex-direction: column;
     padding: .4rem;
 }
@@ -361,10 +396,41 @@ overflow: hidden;
 .Project_h3_wrapper h3{
     margin-left: 100px;
     font-weight: 430;
+    margin-bottom: 10px;
+}
+
+.paywall_wrapper{
+    background:#fff;
+    min-height:100vh;
+    width:100vw;
+    display:flex;
+    border: 1x solid black;
 }
 
 
 @media (max-width:768px) {
+
+    
+.appearance_inputs input,textarea{
+    min-width: 80%;
+    max-width: 85%;
+    padding: .8em;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-family: "Inter",sans-serif;
+    font-size: 16px;
+}
+
+.appearance_inputs textarea{
+    max-height: 50px;
+    resize: none;
+}
+
+    .how_btnn{
+        display: none;
+        width: 20%;
+    }
 
     .New_Project_section input{
         min-width: 60%;
@@ -423,3 +489,5 @@ margin-top: 40px;
   
 
 }
+
+
