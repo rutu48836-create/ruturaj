@@ -19,7 +19,9 @@ export function NavBar(){
 
 useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (!user) return
+    if (!user){
+navigate('/Login')
+    }
 
     const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
     const data = await response.json()
@@ -43,8 +45,6 @@ useEffect(() => {
   catch(error){
     console.log("error in logging out")
   }
-
-
 
   }
 
