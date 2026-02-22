@@ -21,7 +21,7 @@ useEffect(() => {
   const unsubscribe = onAuthStateChanged(auth, async (user) => {
     if (!user) return
 
-    const response = await fetch(`http://localhost:5000/api/credits/${user.uid}`)
+    const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
     const data = await response.json()
     console.log('credits response:', data)
     if (data.credits !== undefined) {
