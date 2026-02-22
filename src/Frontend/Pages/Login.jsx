@@ -15,19 +15,17 @@ export function LOGIN(){
 
   const navigate = useNavigate()
 
-  const BACKEND_URL = import.meta.VITE_BACKEND_URL
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
- const loginWithGoogle = async () => {
-    try {
-      const result = await signInWithPopup(auth, googleProvider);
-            navigate('/')
-      alert("Logged in with Google!");
+const loginWithGoogle = async () => {
+  try {
+    const result = await signInWithPopup(auth, googleProvider);
+    navigate('/', { replace: true })
+  } catch (err) {
+    alert(err.message);
+  }
+};
 
-
-    } catch (err) {
-      alert(err.message);
-    }
-  };
 
   return(
 
