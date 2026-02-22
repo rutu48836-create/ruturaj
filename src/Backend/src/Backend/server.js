@@ -24,22 +24,16 @@ const upload = multer({
 app.use(cors())
 app.use(express.json())
 
-
-
+// Updated route with multer middleware
 app.post('/api/create', 
-
   upload.fields([
     { name: 'logo', maxCount: 1 },
     { name: 'pdfs', maxCount: 10 }
   ]), 
   async (req, res) => {
     try {
+      const { website, name, systemPrompt, userId } = req.body
 
-const { website, name, systemPrompt, userId } = req.body
-console.log('=== DEBUG ===')
-console.log('userId:', userId)
-console.log('name:', name)
-console.log('body:', req.body)
 
   let pdfText = ""
 
@@ -123,40 +117,31 @@ if (req.files?.pdfs) {
       const shareToken =
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15)
+        
 
-const { error: userError } = await supabase
-  .from('users')
-  .insert({ firebase_uid: userId, credits: 10 })
-  .select()
+      // Insert into Supabase
+      const { data, error } = await supabase
+        .from("chatbots")
+        .insert({
+          user_id: userId,
+          name,
+          system_prompt: systemPrompt,
+          website_url: website || null,
+          website_content: website_data,
+          logo_url: logoUrl,
+          pdf_urls: pdfUrls, 
+          share_token: shareToken,
+          pdf_content:pdfText
+        })
+        .select()
+        .single()
 
-// Ignore duplicate error (user already exists)
-if (userError && userError.code !== '23505') {
-  console.error('User insert error:', userError)
-  return res.status(400).json({ message: userError.message })
-}
-const { data, error } = await supabase.rpc(
-  "create_chatbot_with_credits",
-  {
-    p_firebase_uid: userId,
-    p_name: name,
-    p_system_prompt: systemPrompt,
-    p_share_token: shareToken,
-    p_logo_url: logoUrl,
-    p_website_url: website || null,
-    p_website_content: website_data || '',
-    p_pdf_content: pdfText || null,
-    p_pdf_urls: pdfUrls.length > 0 ? JSON.stringify(pdfUrls) : null
-  }
-)
+      if (error) throw error
 
-  if (error) {
-    return res.status(400).json({message : "YOU HAVE USED ALL CREDITS.UPGRADE TO ENJOY LIMITLESS USEAGE"})
-  }
       return res.status(201).json({
         success: true,
         chatbot: data
       })
-
 
     } catch (error) {
       console.error("Create chatbot error:", error)
@@ -184,48 +169,11 @@ const { id } = req.params
 
   res.json({ success: true })
 
-})
 
-app.get('/api/credits/:userId', async (req, res) => {
-  const { userId } = req.params
 
-  const { data, error } = await supabase
-    .from('users')
-    .select('credits')
-    .eq('firebase_uid', userId)
-    .maybeSingle()
-
-  if (error) {
-    return res.status(400).json({ message: error.message })
-  }
-
-  if (!data) {
-    return res.status(404).json({ message: 'User not found' })
-  }
-
-  res.json({ credits: data.credits })
-})
-
-app.post('/api/register', async(req,res) => {
-
-  const { userId } = req.body
-
-  const { error } = await supabase
-    .from('users')
-    .insert({ firebase_uid: userId, credits: 10 })
-
-  if (error && error.code !== '23505') {
-    return res.status(400).json({ message: error.message })
-  }
-
-  const data = await response.json()
-console.log('Register response:', data)
-
-  res.json({ success: true })
 
 
 })
-
 
 app.use("/api", Chat_handler)
 

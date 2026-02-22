@@ -6,31 +6,17 @@ import { signInWithPopup } from "firebase/auth";
 import { auth, googleProvider } from "../config/Firebase.js";
 import { useNavigate } from 'react-router';
 import { getAuth } from "firebase/auth"
-import google from '../assets/google.svg'
-import facebook from "../assets/facebook.svg"
-import apple from "../assets/apple.svg"
-import {SendHorizontal} from "lucide-react"
+
 
 export function LOGIN(){
 
   const navigate = useNavigate()
-
-  const BACKEND_URL = "http://localhost:5000"
 
  const loginWithGoogle = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider);
       console.log("User:", result.user);
       alert("Logged in with Google!");
-
-const user = auth.currentUser
-
-const response = await fetch(`${BACKEND_URL}/api/register`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ userId: user.uid })
-})
-
       navigate('/')
 
 
@@ -43,26 +29,29 @@ const response = await fetch(`${BACKEND_URL}/api/register`, {
 
  <>
  
- 
  <div className={styles.login_wrapper}>
-<Nav/>
+
 
  <div className={styles.Card_Container}>
 
 <div className={styles.Top_headings}>
 
-<h2>Log in to Lunaar</h2>
+<h2>Let's start</h2>
+<p>Please select the method you want to sign up.with sign up you would get 100 credits</p>
 
 </div>
 
  <div className={styles.Login_options_container}>
 
- <button onClick={loginWithGoogle}><img src={google}/> Google </button>
-   <button><img src={apple}/>Apple</button>
- <button><img src={facebook}/>Facebook</button>
+ <button onClick={loginWithGoogle}>Google</button>
+   <button>APPle</button>
+ <button>Facebook</button>
  </div>
 
  
+
+ <span>Already have an account? <a href="#">Sign In</a></span>
+
  </div>
 
  </div>
@@ -72,25 +61,6 @@ const response = await fetch(`${BACKEND_URL}/api/register`, {
  </>
 
     )
-
-
-
-}
-
-const Nav = () => {
-
-return(
-
-<div className={styles.Nav_wrapper}>
-
-
-<h4>Lunaar<SendHorizontal size={20}/></h4>
-
-<button>Contact</button>
-
-</div>
-
-)
 
 
 

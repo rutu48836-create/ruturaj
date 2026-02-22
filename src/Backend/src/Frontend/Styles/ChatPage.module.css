@@ -1,0 +1,236 @@
+body{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background:#fff;
+}
+
+.ChatPage_wrapper {
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.ChatPage_header {
+  background: #000;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  min-height: 14vh;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 20px;
+  z-index: 100;
+  color:#fff;
+}
+
+.header_right {
+  display: flex;
+  min-height: 100%;
+  align-items: center;
+  gap: 10px;
+  flex: 1;
+}
+
+.btn_wrapper_head {
+  flex: 1;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-right: 20px;
+}
+
+.btn_wrapper_head button {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 40px;
+  min-height: 40px;
+  border: none;
+  cursor: pointer;
+}
+
+.Chat_bot_logo {
+  min-width: 40px;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-left: 20px;
+  flex-shrink: 0;
+}
+
+.ChatPage_header h2 {
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  color: #fff;
+}
+
+.Chat_bot_message_container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 100px 20px 100px 20px;
+  background: #e2dddd;
+  overflow-y: auto;
+  width: 100%;
+  gap: 10px;
+}
+
+.Chat_bot_input_wrapper {
+  width: 60%;
+  min-height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #fff;
+  border-radius: 30px;
+  padding: 0.8rem;
+  box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px,
+              rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 100;
+}
+
+.Chat_bot_input_wrapper input {
+  font-family: "Inter", sans-serif;
+  border: none;
+  min-width: 85%;
+  max-width: 100%;
+}
+
+.Chat_bot_input_wrapper input:focus {
+  outline: none;
+}
+
+.Chat_bot_input_wrapper button {
+  min-width: 35px;
+  min-height: 35px;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #000;
+  border: none;
+  cursor: pointer;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.message_box {
+  background: #ffffff;
+  padding: 0.6rem 0.9rem;
+  border-radius: 18px;
+  max-width: 60%;
+  word-wrap: break-word;
+  display: flex;
+  align-self: flex-start;
+  justify-self:flex-start;
+  margin-left: 20px;
+  border-bottom-left-radius: 1px;
+  border-bottom-right-radius: 10px;
+  width:auto;
+}
+
+.chatbot_container {
+  background: #000000;
+  color: white;
+  padding: 0.6rem 0.9rem;
+  border-radius: 20px;
+  max-width: 60%;
+  word-wrap: break-word;
+  display: flex;
+  align-self: flex-end;
+  justify-self:flex-end;
+  margin-right: 30px;
+  width:auto;
+}
+
+.chat_bot_display_none {
+  display: none;
+}
+
+.chatbot_img_container {
+  display: flex;
+  min-width: 30px;
+  min-height: 30px;
+  border-radius: 50%;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile_pic {
+  min-width: 10%;
+  min-height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #e2dddd;
+}
+
+/* ── TABLET ── */
+@media (max-width: 768px) {
+  .Chat_bot_message_container {
+    margin-top: 30px;
+  }
+
+  .Chat_bot_input_wrapper {
+    width: 86%;
+  }
+
+  .Chat_bot_input_wrapper input {
+    min-width: 80%;
+  }
+
+  .Chat_bot_input_wrapper button {
+    margin-right: 12px;
+  }
+
+  .Chat_bot_logo {
+    min-width: 60px;
+    min-height: 60px;
+  }
+
+  .chatbot_container {
+    max-width: 85%;
+    margin-right: 4px;
+  }
+
+  .ChatPage_header h2 {
+    font-size: 1.2rem;
+  }
+
+  .btn_wrapper_head {
+    display: none;
+  }
+}
+
+/* ── SMALL MOBILE ── */
+@media (max-width: 500px) {
+  .Chat_bot_input_wrapper {
+    width: 92%;
+  }
+
+  .Chat_bot_input_wrapper button {
+    margin-right: 8px;
+  }
+
+  .message_box,
+  .chatbot_container {
+    max-width: 90%;
+  }
+}

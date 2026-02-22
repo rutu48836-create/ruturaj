@@ -1,35 +1,25 @@
 
 import { useState,useEffect } from "react";
 import styles from "../Styles/Navbar.module.css"
-import { LogOut,Menu,X,SendHorizontal} from 'lucide-react';
-import {data, useNavigate} from "react-router"
+import { LogOut,Menu,X } from 'lucide-react';
+import {useNavigate} from "react-router"
 import { useAuth } from "../Components/Auth.jsx";
 import { signOut } from "firebase/auth";
 import {auth} from "../config/Firebase.js"
-import { onAuthStateChanged } from 'firebase/auth'
-import { supabase } from "../config/supabaseClient.js";
 
 export function NavBar(){
     
-
     const [Side_bar_open,setSide_bar_open] = useState(false)
     const navigate = useNavigate()
+
     const { user } = useAuth();
-    const [Credit, setCredit] = useState(null)
 
-useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (!user) return
-
-    const response = await fetch(`http://localhost:5000/api/credits/${user.uid}`)
-    const data = await response.json()
-    console.log('credits response:', data)
-    if (data.credits !== undefined) {
-      setCredit(data.credits)
+  useEffect(() => {
+    if (!user) {
+      navigate('/Login')
+      return
     }
-  })
-  return () => unsubscribe()
-}, [])
+},[user])
 
   async function Log_out(){
 
@@ -59,8 +49,8 @@ useEffect(() => {
  <div className={styles.Navbar_wrapper}>
 
  <div className={styles.Navbar_details_section}>
-<div className={styles.User_details}><SendHorizontal/> /
-<img src={user?.photoUrl}/><span>{user?.displayName}</span></div> <div className={styles.User_settings}>
+<div className={styles.User_details}> <img src={user?.photoUrl|| ""}/>
+<span>Lunaar</span></div> <div className={styles.User_settings}>
     <button className={styles.Support_btn}>Support</button>
     <button className={styles.Logout_btn}><LogOut size={16}/></button>
     <button className={styles.Setting_btn} onClick={() => setSide_bar_open(true)}><Menu size={16}/></button>
@@ -91,7 +81,7 @@ useEffect(() => {
 
     <div className={styles.Side_bar_head}>
 
-  <h3>Lunaar<SendHorizontal /></h3> <button onClick={() => setSide_bar_open(false)}><X size={18}/></button>
+  <h3>Lunaar</h3> <button onClick={() => setSide_bar_open(false)}><X size={18}/></button>
 
     </div>
 
@@ -114,11 +104,6 @@ useEffect(() => {
 
   <div className={styles.user_detail_row}>
   <span>Log Out?</span> <button onClick={Log_out}><LogOut size={16}/></button>
- </div>
-
-   <div className={styles.user_detail_row}>
-  <span>Credits</span>
-<h4>{Credit !== null ? Credit : '...'}</h4> 
  </div>
 
   </div>

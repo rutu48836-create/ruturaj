@@ -1,33 +1,14 @@
-
 import React, { useState,useEffect } from 'react'
 import { NavBar } from '../Components/NavBar'
 import styles from '../Styles/Dashboard.module.css'
 import { supabase } from '../config/supabaseClient.js'
 import { auth } from '../config/Firebase.js'
-import {Trash2,SendHorizontal,Search} from "lucide-react"
+import {Trash2,SendHorizontal} from "lucide-react"
 import { Link } from "react-router-dom";
-import { onAuthStateChanged } from 'firebase/auth'
-
 
 export function Dashboard({ onclose }) {
-
   const [builder, setBuilder] = useState(false)
   const [link,setLink] = useState(null)
-  const [search,setSearch] = useState("")
-  const [credits,setCredits] = useState(null)
-  const [paywall,setPayWall] = useState(false)
-  const [userId, setUserId] = useState(null)
-
-
-  useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserId(user.uid)
-    }
-  })
-  return () => unsubscribe()
-}, [])
-  
   const [formData, setFormData] = useState({
     name: '',
     systemPrompt: '',
@@ -35,7 +16,6 @@ export function Dashboard({ onclose }) {
     logo: null,
     pdfs: []
   })
-
   const [loading, setLoading] = useState(false)
   const [projects,setProjects] = useState([])
 
@@ -53,7 +33,6 @@ const fetchProjects = async () => {
       .select("*")
       .eq("user_id", currentUser.uid)
       .order("created_at", { ascending: false })
-      .ilike("name", `%${search}%`);
 
     if (!error) {
       setProjects(data)
@@ -62,38 +41,11 @@ const fetchProjects = async () => {
     }
   }
 
-
-  useEffect(() => {
-    const delay = setTimeout(() => {
-      fetchProjects()
-    }, 400); 
-
-    return () => clearTimeout(delay);
-  }, [search]);
-
-
  useEffect(() => {
   fetchProjects()
 }, [])
 
-
-useEffect(() => {
-
-  const fetchCredits = async () => {
-  const response = await fetch(`${BACKEND_URL}/api/credits/${userId}`)
-  const data = await response.json()
-  if (data.credits !== undefined) {
-    setCredits(data.credits)
-  }
-
-  console.log(data.credits)
-}
-
-if(userId) fetchCredits()
-}, [userId])
-
-
-
+  // Generate unique share token
   function generateShareToken() {
     return Math.random().toString(36).substring(2, 15) +
       Math.random().toString(36).substring(2, 15)
@@ -139,7 +91,6 @@ const handleCreateChatbot = async (e) => {
   try {
     const currentUser = auth.currentUser
 
-  
     if (!currentUser) {
       alert("Please login first")
       setLoading(false)
@@ -289,22 +240,73 @@ alert('link copied')
   }
 
 
+  const Projects = () => {
+    return (
+      <div className={styles.Projects_container}>
+        <div className={styles.New_Project_section}>
+          <input
+            type='text'
+            placeholder='Enter a name for chatbot'
+            onFocus={() => setBuilder(true)}
+          />
+          <button className={styles.create_btn}>Create</button>
+          <button className={styles.how_btn}>?</button>
+        </div>
+
+<div className={styles.Project_h3_wrapper}><h3>Projects</h3>
+</div>
+<div className={styles.existing_projects_section}>
+
+{projects.length === 0 ? (
+  <p>No project yet</p>
+) : (
+
+ projects.map((project) => (
+  <div className={styles.project_card} key={project.id}>
+      <div className={styles.project_card_head}>
+<div className={styles.left_side_head}>
+      <img src={project.logo_url} alt={project.name} style={{width: '50px', height: '50px'}} />
+    <div className={styles.chat_link_div}>
+     <h3>{project.name || 'Unnamed Project'}</h3> 
+<Link to={`/chat/${project.share_token}`}>
+  Open Chat
+</Link>
+</div>
+</div>
+     <div className={styles.head_right_side}><button><SendHorizontal
+  size={16}
+  onClick={() => CopyLink(project.share_token)}
+/>
+</button></div>
+     
+     </div>
+    <div className={styles.project_card_context}>
+    <p>{project.system_prompt?.substring(0, 100)}...</p>
+
+    <small>Created: {new Date(project.created_at).toLocaleDateString()}</small>
+    <div className={styles.delete_btn}><button onClick={() => delete_project(project.id)}><Trash2 color='#fff' size={14}/></button></div>
+  </div></div>
+))
+
+
+)}
+
+
+</div>
+        
+
+      </div>
+    )
+  }
+
   return (
     <>
       <div className={styles.Dashboard_container}>
         <NavBar />
-<Projects
-  search={search}
-  setSearch={setSearch}
-  projects={projects}
-  styles={styles}
-  setBuilder={setBuilder}
-  delete_project={delete_project}
-  CopyLink={CopyLink}
-/> </div>
+        <Projects />
+      </div>
 
       {builder && (
-
         <div className={styles.chat_bot_builder_wrapper} onClick={onclose}>
           <div
             className={styles.chat_bot_builder_card}
@@ -395,74 +397,4 @@ alert('link copied')
       )}
     </>
   )
-} 
-
-  function Projects({
-     search,
-  setSearch,
-  projects,
-  styles,
-  setBuilder,
-  delete_project,
-  CopyLink,
-  credits
-  }) {
-    return (
-      <div className={styles.Projects_container}>
-        <div className={styles.New_Project_section}>
-         
-          <input
-            type='text'
-            placeholder='Search for chatbot'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-                    <button className={styles.how_btnn}>?</button>
-
-          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create New + </button>
-        </div>
-
-<div className={styles.Project_h3_wrapper}><h3>Projects</h3>
-</div>
-<div className={styles.existing_projects_section}>
-
-{projects.length === 0 ? (
-  <p>No project yet</p>
-) : (
-
- projects.map((project) => (
-  <div className={styles.project_card} key={project.id}>
-      <div className={styles.project_card_head}>
-<div className={styles.left_side_head}>
-      <img src={project.logo_url} alt={project.name} style={{width: '50px', height: '50px'}} />
-    <div className={styles.chat_link_div}>
-     <h3>{project.name || 'Unnamed Project'}</h3> 
-<Link to={`/chat/${project.share_token}`}>
-  Open Chat
-</Link>
-</div>
-</div>
-     <div className={styles.head_right_side}><button><SendHorizontal
-  size={16}
-  onClick={() => CopyLink(project.share_token)}
-/>
-</button></div>
-     
-     </div>
-    <div className={styles.project_card_context}>
-    <p>{project.system_prompt?.substring(0, 100)}...</p>
-    <small>Created: {new Date(project.created_at).toLocaleDateString()}</small>
-    <div className={styles.delete_btn}><button onClick={() => delete_project(project.id)}><Trash2 color='#fff' size={14}/></button></div>
-  </div></div>
-))
-
-
-)}
-
-
-</div>
-        
-
-      </div>
-    )
-  }
+}

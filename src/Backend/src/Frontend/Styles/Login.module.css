@@ -17,7 +17,6 @@ display: flex;
 align-items: center;
 justify-content: center;
 background: rgba(240, 172, 94, 0);
-                background: linear-gradient(to bottom, #fff9f0 0%, #ffebcc 40%, #ffd699 70%, #ffc966 100%);
 
 
 }
@@ -30,7 +29,6 @@ background: rgba(240, 172, 94, 0);
     flex-direction: column;
     align-items: center;
     justify-content: flex-start;
-    border:1px solid #ddd;    
     border-radius:8px;
     background: #fff;
 
@@ -52,9 +50,9 @@ margin-bottom: 0px;
 
 .Top_headings h2{
 
-   font-family: "Italiana", sans-serif;
-    font-weight: 350;
-    margin-bottom: 0;
+   font-family: "Inter", sans-serif;
+    font-weight: 550;
+    margin-bottom: 10px;
     font-size: 2em;
 
 }
@@ -86,13 +84,15 @@ margin-top: 0;
 
 width: 90%;
 min-height: 44px;
-border-radius: 10px;
-box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
+border-radius: 5px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
 border: none;
-font-family: "Roboto",sans-serif;
+font-family: "Inter",sans-serif;
 background: #fff;
 cursor: pointer;
 margin-top: 0;
+padding: .4rem;
+font-weight: 500;
 
 }
 
@@ -114,3 +114,4 @@ max-height: 18px;
     text-decoration:none;
     font-family:'roboto',sans-serif;
 }
+
