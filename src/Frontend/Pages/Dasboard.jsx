@@ -24,6 +24,11 @@ export function Dashboard({ onclose }) {
     if (user) {
       setUserId(user.uid)
     }
+
+ else{
+ navigate('/Login')
+ }
+    
   })
   return () => unsubscribe()
 }, [])
