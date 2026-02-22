@@ -24,16 +24,6 @@ export function LOGIN(){
       alert("Logged in with Google!");
 
       navigate('/')
-      
-const user = auth.currentUser
-
-const response = await fetch(`${BACKEND_URL}/api/register`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ userId: user.uid })
-})
-
-
 
     } catch (err) {
       alert(err.message);
