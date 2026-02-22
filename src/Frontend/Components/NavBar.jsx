@@ -11,7 +11,7 @@ import { supabase } from "../config/supabaseClient.js";
 
 export function NavBar(){
     
-
+   const BACKEND_URL = import.meta.VITE_BACKEND_URL
     const [Side_bar_open,setSide_bar_open] = useState(false)
     const navigate = useNavigate()
     const { user } = useAuth();
