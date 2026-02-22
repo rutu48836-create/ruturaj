@@ -20,15 +20,6 @@ export function LOGIN(){
 const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    const user = result.user 
-   
-    const response = await fetch(`${BACKEND_URL}/api/register`, {
-  method: 'POST',
-  headers: { 'Content-Type': 'application/json' },
-  body: JSON.stringify({ userId: user.uid })
-})
-
-const data = await response.json()
 console.log('Register response:', data)
     navigate('/', { replace: true })
   } catch (err) {
