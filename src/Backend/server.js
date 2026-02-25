@@ -4,6 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import multer from 'multer'
 import { Chat_handler } from './controllers/chatController.js'
+import chatRoutes from './routes/chat.js'
 import { scrapeWebsite } from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
 
@@ -191,7 +192,7 @@ app.get('/api/credits/:userId', async (req, res) => {
 
   const { data, error } = await supabase
     .from('users')
-    .select('credits')
+    .select('credits','plan')
     .eq('firebase_uid', userId)
     .maybeSingle()
 
@@ -203,7 +204,7 @@ app.get('/api/credits/:userId', async (req, res) => {
     return res.status(404).json({ message: 'User not found' })
   }
 
-  res.json({ credits: data.credits })
+  res.json({ credits: data.credits,plan:data.plan})
 })
 
 app.post('/api/register', async(req,res) => {
@@ -227,7 +228,7 @@ console.log('Register response:', data)
 })
 
 
-app.use("/api", Chat_handler)
+app.use("/api", chatRoutes)
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
