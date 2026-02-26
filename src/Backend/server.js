@@ -192,7 +192,7 @@ app.get('/api/credits/:userId', async (req, res) => {
 
   const { data, error } = await supabase
     .from('users')
-    .select('credits','plan')
+    .select('credits, plan')
     .eq('firebase_uid', userId)
     .maybeSingle()
 
@@ -219,8 +219,6 @@ app.post('/api/register', async(req,res) => {
     return res.status(400).json({ message: error.message })
   }
 
-  const data = await response.json()
-console.log('Register response:', data)
 
   res.json({ success: true })
 
