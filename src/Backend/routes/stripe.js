@@ -3,8 +3,7 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import express from "express"
 import cors from 'cors'
-
-
+import supabase from "../config/supabaseClient.js"
 
 export const Create_checkout_session = async (req,res) =>{
 
@@ -16,7 +15,7 @@ export const Create_checkout_session = async (req,res) =>{
     customer_email: email,
     line_items: [
       {
-        price: "price_1T5MB6CHRn55lhqvGXXzDWI7", 
+        price: "prod_U3T7AJiXhVeMv8", 
         quantity: 1,
       },
     ],
