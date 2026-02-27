@@ -58,6 +58,12 @@ export const Stripe_webhook =  async (req, res) => {
       return res.json({ received: true });
     }
 
+     if (!subscription || !subscription.id) {
+    console.log("❌ Subscription object missing");
+    return res.json({ received: true });
+  }
+
+
     const { error } = await supabase
       .from("users")
       .update({
