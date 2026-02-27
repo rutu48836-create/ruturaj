@@ -72,7 +72,7 @@ export const Stripe_webhook =  async (req, res) => {
       .from("users")
       .update({
         plan: "premium",
-        message_limit: 2000,
+       credits: 200,
         subscription_status: "active",
       })
       .eq("id", userId);
