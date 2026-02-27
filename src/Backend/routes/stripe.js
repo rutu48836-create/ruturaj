@@ -58,21 +58,12 @@ export const Stripe_webhook =  async (req, res) => {
       return res.json({ received: true });
     }
 
-    if (event.type === "customer.subscription.deleted") {
-  const subscription = event.data.object;
-
-     if (!subscription || !subscription.id) {
-    console.log("❌ Subscription object missing");
-    return res.json({ received: true });
-  }
-    }
-
-
     const { error } = await supabase
       .from("users")
       .update({
         plan: "premium",
-       credits: 200,
+       credits: 40,
+             monthly_message_limit: 2000,
         subscription_status: "active",
       })
       .eq("id", userId);
@@ -87,7 +78,7 @@ export const Stripe_webhook =  async (req, res) => {
       .from("users")
       .update({
         plan: "free",
-        message_limit: 500,
+              monthly_message_limit: 500,
         subscription_status: "inactive",
       })
       .eq("stripe_subscription_id", subscription.id);
