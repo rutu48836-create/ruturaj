@@ -61,7 +61,11 @@ export const Stripe_webhook =  async (req, res) => {
    const { data, error } = await supabase
   .from("users")
   .update({
-    monthly_message_limit: 2000
+    plan: "premium",
+      subscription_status: "active",
+      monthly_message_limit: 2000,
+      stripe_subscription_id: session.subscription,
+    credits:40
   })
   .eq("firebase_uid", userId)
   .select(); // 🔥 ADD THIS
