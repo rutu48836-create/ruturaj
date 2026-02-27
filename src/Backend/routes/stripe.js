@@ -58,16 +58,13 @@ export const Stripe_webhook =  async (req, res) => {
       return res.json({ received: true });
     }
 
-    const { error } = await supabase
-      .from("users")
-      .update({
-        plan: "premium",
-       credits: 40,
-             monthly_message_limit: 2000,
-        subscription_status: "active",
-      })
-      .eq("id", userId);
-      .select(); 
+   const { data, error } = await supabase
+  .from("users")
+  .update({
+    monthly_message_limit: 2000
+  })
+  .eq("firebase_uid", userId)
+  .select(); // 🔥 ADD THIS
 
 console.log("Update result:", data);
 console.log("Update error:", error);
