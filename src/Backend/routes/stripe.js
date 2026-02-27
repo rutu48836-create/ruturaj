@@ -19,7 +19,10 @@ export const Create_checkout_session = async (req,res) =>{
         price: "price_1T5MB6CHRn55lhqvGXXzDWI7", 
         quantity: 1,
       },
-    ],
+    ],     
+  metadata: {
+    user_id: userId,
+  },
     success_url: "https://alexa-mighty.vercel.app/",
     cancel_url: "https://alexa-mighty.vercel.app/Login",
   });
@@ -32,38 +35,45 @@ export const Create_checkout_session = async (req,res) =>{
 export const Stripe_webhook =  async (req, res) => {
   const sig = req.headers["stripe-signature"];
 
-  const event = stripe.webhooks.constructEvent(
-    req.body,
-    sig,
-    process.env.STRIPE_WEBHOOK_SECRET
-  );
+  let event;
+
+  try {
+    event = stripe.webhooks.constructEvent(
+      req.body,
+      sig,
+      process.env.STRIPE_WEBHOOK_SECRET
+    );
+  } catch (err) {
+    console.log("Signature failed:", err.message);
+    return res.status(400).send(`Webhook Error: ${err.message}`);
+  }
 
   if (event.type === "checkout.session.completed") {
     const session = event.data.object;
 
-    const email = session.customer_email;
+    const userId = session.metadata?.user_id;
 
-    // find user in supabase
-    const { data: user } = await supabase
-      .from("users")
-      .select("*")
-      .eq("email", email)
-      .single();
+    if (!userId) {
+      console.log("❌ No user_id in metadata");
+      return res.json({ received: true });
+    }
 
-    await supabase
+    const { error } = await supabase
       .from("users")
       .update({
         plan: "premium",
         message_limit: 2000,
         subscription_status: "active",
       })
-      .eq("id", user.id);
+      .eq("id", userId);
+
+    if (error) console.log("Supabase error:", error);
   }
 
   if (event.type === "customer.subscription.deleted") {
     const subscription = event.data.object;
 
-    await supabase
+    const { error } = await supabase
       .from("users")
       .update({
         plan: "free",
@@ -71,6 +81,8 @@ export const Stripe_webhook =  async (req, res) => {
         subscription_status: "inactive",
       })
       .eq("stripe_subscription_id", subscription.id);
+
+    if (error) console.log("Supabase error:", error);
   }
 
   res.json({ received: true });
