@@ -67,6 +67,10 @@ export const Stripe_webhook =  async (req, res) => {
         subscription_status: "active",
       })
       .eq("id", userId);
+      .select(); 
+
+console.log("Update result:", data);
+console.log("Update error:", error);
 
     if (error) console.log("Supabase error:", error);
   }
