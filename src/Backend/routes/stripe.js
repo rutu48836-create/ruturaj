@@ -58,10 +58,14 @@ export const Stripe_webhook =  async (req, res) => {
       return res.json({ received: true });
     }
 
+    if (event.type === "customer.subscription.deleted") {
+  const subscription = event.data.object;
+
      if (!subscription || !subscription.id) {
     console.log("❌ Subscription object missing");
     return res.json({ received: true });
   }
+    }
 
 
     const { error } = await supabase
