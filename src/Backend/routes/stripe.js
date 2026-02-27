@@ -16,7 +16,7 @@ export const Create_checkout_session = async (req,res) =>{
     customer_email: email,
     line_items: [
       {
-        price: "prod_U3T7AJiXhVeMv8", 
+        price: "price_1T5MB6CHRn55lhqvGXXzDWI7", 
         quantity: 1,
       },
     ],
