@@ -3,7 +3,8 @@ import Stripe from "stripe";
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 import express from "express"
 import cors from 'cors'
-import supabase from "../config/supabaseClient.js"
+import {supabase} from "../config/supabaseClient.js"
+
 
 export const Create_checkout_session = async (req,res) =>{
 
