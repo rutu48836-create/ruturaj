@@ -198,7 +198,7 @@ app.get('/api/credits/:userId', async (req, res) => {
 
   const { data, error } = await supabase
     .from('users')
-    .select('credits, plan,monthly_message_count')
+    .select('credits, plan,monthly_message_count,monthly_message_limit,plan')
     .eq('firebase_uid', userId)
     .maybeSingle()
 
@@ -210,7 +210,7 @@ app.get('/api/credits/:userId', async (req, res) => {
     return res.status(404).json({ message: 'User not found' })
   }
 
-  res.json({ credits: data.credits,plan:data.plan,message_count:data.monthly_message_count})
+  res.json({ credits: data.credits,plan:data.plan,message_count:data.monthly_message_count,limit:data.monthly_message_limit,plan:data.plan})
 })
 
 app.post('/api/register', async(req,res) => {
