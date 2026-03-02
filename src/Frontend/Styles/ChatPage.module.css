@@ -16,7 +16,7 @@ align-items: center;
 background: #fff;
 position:relative;
 background: #ffffff;
-overflow-y: auto;
+overflow-y: hidden;
 overflow-x:hidden;
 scrollbar-width: thin;
 
@@ -96,7 +96,7 @@ margin-left: 20px;
     margin-bottom: 100px; /* space for fixed input */
     padding: 20px;
     background: #e2dddd;
-    overflow-y: auto;
+    overflow-y: scroll;
     width: 100%;
     gap:10px;
 }
