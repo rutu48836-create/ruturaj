@@ -22,10 +22,7 @@ const upload = multer({
   }
 })
 
-app.post('/api/webhook',
-  express.raw({ type: "application/json" }),
-  Stripe_webhook
-)
+
 
 app.use(cors())
 app.use(express.json())
@@ -228,9 +225,6 @@ app.post('/api/register', async(req,res) => {
 
 
 })
-
-app.post('/api/create-checkout-session', Create_checkout_session)
-
 
 
 app.use("/api", chatRoutes)
