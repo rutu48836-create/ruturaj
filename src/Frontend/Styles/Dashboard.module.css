@@ -1,52 +1,168 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
 
 body{
     padding: 0;
     margin: 0;
     box-sizing: border-box;
     background:#fff;
+        scrollbar-width: thin;
+}
+
+
+.upgrade_hidden{
+    display: none;
 }
 
 .Dashboard_container{
-
-display: flex;
-flex-direction: column;
-min-width: 100%;
-min-height: 100vh;
-background: #fbfcfc;
-margin-top: 0px;
-overflow-y:auto;
-  scrollbar-width: thin;
-
-
+    display: flex;
+    scrollbar-width: thin;
+    flex-direction: column;
+    min-width: 100%;
+    min-height: 100vh;
+    background: #fff;
+    margin-top: 0px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+    overflow-x: hidden;
 }
 
 .Projects_container{
+    min-width: 100%;
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+ border-top: 1px solid #f0ecec;    
+ border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+}
 
-min-width: 100%;
-min-height: 50vh;
+.Main_content_wrapper{
+
+width: 100%;
+min-height: auto;
 display: flex;
-flex-direction: column;
 align-items: center;
+justify-content: flex-start;
+gap:40px;
+
+}
+
+.Left_side_section{
+
+display:flex;
+min-width: 250px;
+align-items: center;
+margin-left: 10px;
+height: 300px;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+border-radius: 8px;
+flex-direction: column;
 justify-content: flex-start;
 
 }
 
-.New_Project_section{
-
-min-width: 100%;
-min-height: auto;
-display: flex;
-flex-direction: row;
-align-items: center;
-justify-content: center;
-gap: 10px;
-margin-top: 60px;
-margin-bottom: 30px;
+.left_side_section_head{
+    
+ display: flex;
+ width: 100%;
+ min-height: auto;
 
 }
 
+.left_side_section_head h3{
+
+margin-left: 20px;
+font-weight: 500;
+font-size: 15px;
+
+}
+
+.left_side_head_main{
+    width: 100%;
+    min-height: auto;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+    flex-direction: column;
+}
+
+.left_side_head_main ul{
+    width:100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    justify-content: flex-start;
+    padding: 0;
+}
+
+.left_side_head_main ul li{
+
+    margin-left: 20px;
+width:90%;
+max-height: 34px;
+align-items: center;
+display: flex;
+justify-self: flex-start;
+justify-content: space-between;
+
+}
+
+.left_side_head_main ul li span{
+    color: #444242;
+}
+
+.left_side_head_main ul li h4{
+    font-weight: 450;
+    margin-right: 10px;
+}
+
+.New_Project_section{
+    min-width: 90%;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 60px;
+    margin-bottom: 30px;
+}
+
+
+.User_greeting{
+    width:100%;
+    max-height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.User_greeting h2{
+ font-size: 3.8rem;
+ font-weight: 380;
+ color:#2b2a2a;
+ font-family: "Cormorant Garamond", serif;
+text-shadow: 0px 2px 4px rgba(0,0,0,0.12);
+}
+
+.Project_search_wrapper{
+    width:100%;
+    height:auto;
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
 .Search_wrapper{
-    width:auto;
+    width: auto;
     min-height: 100%;
     background: #fff;
     border: 1px solid black;
@@ -55,16 +171,14 @@ margin-bottom: 30px;
 }
 
 .New_Project_section input{
-
-min-width: 70%;
-padding: .9rem;
-background: #fff;
-box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-border-radius: 6px;
-border: none;
-font-family: "Inter",sans-serif;
-margin-left:0;
-
+    min-width: 80%;
+    padding: .9rem;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 6px;
+    border: none;
+    font-family: "Inter", sans-serif;
+    margin-left: 0;
 }
 
 .New_Project_section input:focus{
@@ -72,192 +186,302 @@ margin-left:0;
 }
 
 .how_btnn{
-
-        font-family: "Inter",sans-serif;
+    font-family: "Inter", sans-serif;
     padding: .9rem;
     border-radius: 12px;
     border: 1px solid #ddd;
     color: #000000;
     background: #ffffffdd;
     cursor: pointer;
-
-
 }
 
 .create_btn{
-
-    font-family: "Inter",sans-serif;
+    font-family: "Inter", sans-serif;
     padding: .9rem;
     border-radius: 8px;
     border: 1px solid #ddd;
     color: #fff;
     background: #000000dd;
     cursor: pointer;
-
 }
 
 .how_btn{
-
-    font-family: "Inter",sans-serif;
+    font-family: "Inter", sans-serif;
     padding: .9rem;
     border-radius: 12px;
     border: 1px solid #ddd;
     color: #000000;
     background: #ffffffdd;
     cursor: pointer;
-    display:none;
-
+    display: none;
 }
 
-
-.chat_bot_builder_wrapper{ 
-    min-width: 100%; 
-    min-height: 100vh; 
-    display: flex; 
-    z-index: 10000; 
-    align-items: center; 
-    justify-content: center; 
-    position: fixed; 
-    top: 0; 
-    left: 0; 
-    right: 0; 
-    bottom: 0; 
-    background: rgba(0, 0, 0, 0.5);  /* Changed from transparent */
-    overflow-y: auto;  /* Changed from scroll */
-    overflow-x: hidden; 
-    -webkit-overflow-scrolling: touch;  
-    padding: 20px 0;  
-    background:#fcf7f7;
+/* ─────────────────────────────────────────
+   BUILDER OVERLAY
+───────────────────────────────────────── */
+.chat_bot_builder_wrapper{
+    min-width: 100%;
+    min-height: 100vh;
+    display: flex;
+    z-index: 10000;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+    padding: 24px 16px;
 }
 
+/* ─────────────────────────────────────────
+   BUILDER CARD
+   FIX 1: align-items: stretch (was center)
+───────────────────────────────────────── */
 .chat_bot_builder_card{
     display: flex;
-    min-width: 50%;
+    width: 100%;
+    max-width: 540px;
     flex-direction: column;
-    align-items: center;
+    align-items: stretch;
     justify-content: flex-start;
     background: #fff;
-    border: 1px solid #ddd;
+    border: 1px solid #e0e0e0;
     overflow-y: auto;
-    min-height: 90vh;
+    max-height: 92vh;
     overflow-x: hidden;
-    border-radius: 8px;
+    border-radius: 12px;
     scrollbar-width: thin;
-
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    animation: cardReveal 0.3s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+.chat_bot_builder_card form {
+    width: 100%;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+}
+
+@keyframes cardReveal {
+    from { opacity: 0; transform: translateY(16px) scale(0.99); }
+    to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+
+/* ─────────────────────────────────────────
+   CARD HEADER
+   FIX 2: width:100% + padding (was margin-left + min-width:95%)
+───────────────────────────────────────── */
 .chat_bot_builder_appearance{
     display: flex;
-    min-width: 95%;
+    width: 100%;
+    box-sizing: border-box;
     min-height: auto;
     align-items: flex-start;
-    margin-left: 20px;
     flex-direction: column;
+    padding: 32px 36px 28px;
+    margin: 0;
+    border-bottom: 1px solid #f0f0f0;
+    background: #fafafa;
+    border-radius: 12px 12px 0 0;
 }
 
 .chat_bot_builder_appearance h3{
-    font-weight: 500;
-    margin-bottom: 8px;
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0a0a0a;
+    margin-bottom: 6px;
+    margin-top: 0;
+    letter-spacing: -0.02em;
 }
 
 .chat_bot_builder_appearance span{
-    font-size: 14px;
-    color: #7e7b7b;
-    width: 60%;
-    line-height: 1.5rem;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 13.5px;
+    color: #888;
+    width: 100%;
+    line-height: 1.6;
 }
 
-
+/* ─────────────────────────────────────────
+   FORM FIELDS
+   FIX 3: width:100% + box-sizing (was min-width:100%)
+───────────────────────────────────────── */
 .appearance_inputs{
-
     display: flex;
-    min-width: 95%;
+    width: 100%;
+    box-sizing: border-box;
     min-height: auto;
     align-items: flex-start;
     justify-content: flex-start;
-    margin-top: 30px;
-    margin-left: 0px;
     flex-direction: column;
-}
-
-.appearance_inputs label{
-
-margin-bottom: .8em;
-font-size: 14px;
-font-weight: 450;
-
-}
-
-.appearance_inputs input,textarea{
-    min-width: 90%;
-    max-width: 95%;
-    padding: .8em;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: "Inter",sans-serif;
-    font-size: 16px;
-}
-
-input[type="file"] {
-    font-size: 15px;
-}
-
-textarea{
-    resize: none;
-}
-
-
-
-.appearance_inputs input:focus,textarea:focus{
-outline: none;
-}
-
-.chat_bot_builder_btn_wrapper{
-    margin-top:5px;
-    min-width: 95%;
-    min-height: 35px;
-    align-items: center;
-    justify-content: flex-end;
-    display: flex;
-    margin-bottom: 30px;
+    padding: 28px 0px 0px;
+    margin: 0;
     gap: 10px;
 }
 
-.createe_btn{
-    min-width: 120px;
-    min-height: 35px;
-    border-radius: 6px;
-    background: #000;
-    color: #fff;
-    border: none;
-    font-family: "Inter",sans-serif;
+.appearance_inputs label{
+    font-family: 'Inter', sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 3px;
+    display: block;
+}
+
+.appearance_inputs input,
+.appearance_inputs textarea {
+    width: 100%;
+    box-sizing: border-box;
+    min-width: unset;
+    max-width: 100%;
+    min-height: unset;
+    max-height: unset;
+    padding: 11px 14px;
+    background: #fff;
+    border: 1.5px solid #e4e4e4;
+    border-radius: 8px;
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 14px;
+    color: #111;
+    transition: border-color 0.15s, box-shadow 0.15s;
+    outline: none;
+}
+
+.appearance_inputs input::placeholder,
+.appearance_inputs textarea::placeholder {
+    color: #c0c0c0;
+}
+
+.appearance_inputs input:focus,
+.appearance_inputs textarea:focus {
+    border-color: #111;
+    box-shadow: 0 0 0 3px rgba(0, 0, 0, 0.07);
+    outline: none;
+    background: #fff;
+}
+
+.appearance_inputs textarea {
+    resize: vertical;
+    min-height: 110px;
+    line-height: 1.65;
+}
+
+input[type="file"] {
+    font-family: 'Instrument Sans', sans-serif;
+    font-size: 13px;
+    color: #555;
+    padding: 10px 0;
     cursor: pointer;
+    background: none;
+    border: none;
+    box-shadow: none;
+    width: 100%;
+}
+
+input[type="file"]:focus {
+    outline: none;
+    box-shadow: none;
+    border: none;
+    background: none;
+}
+
+/* ─────────────────────────────────────────
+   BUTTON ROW
+───────────────────────────────────────── */
+.chat_bot_builder_btn_wrapper{
+    width: 100%;
+    box-sizing: border-box;
+    min-height: auto;
+    align-items: center;
+    justify-content: flex-end;
+    display: flex;
+    padding: 20px 36px 28px;
+    margin: 0;
+    gap: 10px;
+    border-top: 1px solid #f0f0f0;
+}
+
+.createe_btn{
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    min-width: 120px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    background: #0a0a0a;
+    color: #fff;
+    border: 1.5px solid #0a0a0a;
+    cursor: pointer;
+    transition: background 0.15s, transform 0.1s;
+    justify-self: flex-end;
+}
+
+.createe_btn:hover:not(:disabled) {
+    background: #2a2a2a;
+}
+
+.createe_btn:active:not(:disabled) {
+    transform: scale(0.98);
+}
+
+.createe_btn:disabled {
+    background: #999;
+    border-color: #999;
+    cursor: not-allowed;
 }
 
 .cancel_btn{
-    min-width: 120px;
-    min-height: 35px;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #000000;
-    border: none;
-    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
-    font-family: "Inter",sans-serif;
-    cursor: pointer; 
+    font-family: 'Inter', sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    min-width: 100px;
+    height: 40px;
+    padding: 0 20px;
+    border-radius: 8px;
+    background: #fff;
+    color: #555;
+    border: 1.5px solid #e0e0e0;
+    cursor: pointer;
+    transition: border-color 0.15s, color 0.15s;
+    box-shadow: none;
 }
 
+.cancel_btn:hover:not(:disabled) {
+    border-color: #aaa;
+    color: #111;
+}
+
+.cancel_btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* ─────────────────────────────────────────
+   PROJECT CARDS (unchanged)
+───────────────────────────────────────── */
 .existing_projects_section{
-
-min-width: 100%;
-min-height: 50vh;
-display: grid;
-align-items: flex-start;
-justify-content: center;
-grid-template-columns: repeat(3, 350px);
-gap:40px;
-margin-top:10px;    
-
+    min-width: 100%;
+    min-height: 50vh;
+    display: grid;
+    align-items: flex-start;
+    justify-content: flex-start;
+    grid-template-columns: repeat(2, 450px);
+    gap: 40px;
+    margin-top: 20px;
 }
 
 .project_card{
@@ -272,22 +496,19 @@ margin-top:10px;
 }
 
 .project_card_head{
-
- min-width: 95%;
- margin-left:20px;
- display:flex;
- align-items: center;
- justify-content: space-between;
- min-height: auto;
- gap:20px;
-
+    min-width: 95%;
+    margin-left: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: auto;
+    gap: 20px;
 }
 
 .left_side_head{
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    min-width: auto;
     min-width: auto;
     gap: 10px;
 }
@@ -298,31 +519,27 @@ margin-top:10px;
 }
 
 .head_right_side{
-
- min-width: auto;
- min-height: auto;
- display: flex;
- margin-right: 10px;
- align-items: center;
- justify-content: flex-end;
- gap: 10px;
-
+    min-width: auto;
+    min-height: auto;
+    display: flex;
+    margin-right: 10px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 10px;
 }
 
 .head_right_side button{
-
- min-width: 35px;
- min-height: 35px;
- display: flex;
- border-radius: 50%;
- border: none;
- background: #fff;
- box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
- cursor: pointer;
- align-items: center;
- justify-content: center;
- color: #979494;
-  
+    min-width: 35px;
+    min-height: 35px;
+    display: flex;
+    border-radius: 50%;
+    border: none;
+    background: #fff;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    cursor: pointer;
+    align-items: center;
+    justify-content: center;
+    color: #979494;
 }
 
 .left_side_head img{
@@ -342,9 +559,9 @@ margin-top:10px;
 
 .project_card_context p{
     max-width: 200px;
-      white-space: nowrap;      /* Prevents wrapping to a new line */
-text-overflow: ellipsis;
-overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
 
 .delete_btn{
@@ -371,18 +588,17 @@ overflow: hidden;
 
 .chat_link_div{
     min-width: 100px;
-    min-height:auto;
-    display:flex;
+    min-height: auto;
+    display: flex;
     align-items: center;
     flex-direction: column;
-    gap:0px;
+    gap: 0px;
     justify-content: flex-start;
     text-align: left;
 }
 
 .chat_link_div h3{
     margin-bottom: 4px;
-
 }
 
 .Project_h3_wrapper{
@@ -400,40 +616,85 @@ overflow: hidden;
 }
 
 .paywall_wrapper{
-    background:#fff;
-    min-height:100vh;
-    width:100vw;
-    display:flex;
-    border: 1x solid black;
-}
-
-
-@media (max-width:768px) {
-
-    
-.appearance_inputs input,textarea{
-    min-width: 80%;
-    max-width: 85%;
-    padding: .8em;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-family: "Inter",sans-serif;
-    font-size: 16px;
+    min-height: 100vh;
+    width: 100vw;
+    display: flex;
+    border: 1px solid black;
 }
 
-.appearance_inputs textarea{
-    max-height: 50px;
-    resize: none;
+.main_content_btn_wrapper{
+
+ width:100%;
+ display:flex;
+ flex-direction: column;
+ height:auto;
+ align-items: center;
+ justify-content: center;
+ margin-top: 10px;
+ gap:12px;
+
 }
+
+.upgrade_btn{
+
+width:96%;
+padding: .6rem;
+font-family: "Inter",sans-serif;
+border-radius: 8px;
+border:none;
+font-size:12px;
+color: #fff;
+background: #111;
+cursor: pointer;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+}
+
+.pricing_btn{
+
+width:96%;
+padding: .6rem;
+font-family: "Inter",sans-serif;
+border-radius: 8px;
+border:none;
+font-size:12px;
+color: #555;
+background: #fff;
+cursor: pointer;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+
+}
+
+.upgrade_btn::before {
+    background-image: conic-gradient(
+      from 0deg,
+      transparent 0deg,
+      rgba(160,160,200,0.12) 60deg,
+      transparent 120deg,
+      rgba(140,180,160,0.08) 200deg,
+      transparent 280deg,
+      rgba(180,150,200,0.1) 340deg,
+      transparent 360deg
+    );
+
+}
+
+/* ─────────────────────────────────────────
+   RESPONSIVE
+───────────────────────────────────────── */
+@media (max-width: 768px) {
 
     .how_btnn{
         display: none;
         width: 20%;
     }
 
+    .how_btn{
+        display: none;
+    }
+
     .New_Project_section input{
-        min-width: 60%;
+        min-width: 85%;
     }
 
     .existing_projects_section{
@@ -446,48 +707,114 @@ overflow: hidden;
 
     .Project_h3_wrapper h3{
         margin-left: 20px;
+        display: none;
     }
 
     .Projects_container{
+        min-width: 100%;
+        min-height: 50vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        margin-top: 40px;
+    }
 
-min-width: 100%;
-min-height: 50vh;
-display: flex;
-flex-direction: column;
-align-items: center;
-justify-content: flex-start;
-margin-top: 40px;
+    .chat_bot_builder_wrapper{
+        padding: 0;
+        align-items: flex-end;
+        overflow: hidden;
+    }
 
-}
+    .chat_bot_builder_card{
+        max-width: 100%;
+        width: 100%;
+        max-height: 92vh;
+        border-radius: 16px 16px 0 0;
+        animation: sheetUp 0.3s cubic-bezier(0.22, 1, 0.36, 1);
+    }
 
+    .chat_bot_builder_appearance{
+        padding: 24px 20px 20px;
+        border-radius: 16px 16px 0 0;
+    }
 
-.chat_bot_builder_card {
-  overflow-y: auto;
-  -webkit-overflow-scrolling: touch; /* Momentum scrolling on iOS */
-  max-height: 90vh; /* Prevent modal from exceeding viewport */
-}
+    .appearance_inputs{
+        padding: 20px 20px 8px;
+    }
 
-.chat_bot_builder_wrapper {
-  overflow: hidden; /* Prevent body scroll when modal is open */
-}
+    .appearance_inputs input,
+    .appearance_inputs textarea {
+        font-size: 16px;
+    }
 
-.how_btn{
+    .chat_bot_builder_btn_wrapper{
+        padding: 16px 20px 24px;
+    }
+
+ .Main_content_wrapper{
+    display:flex;
+    flex-direction:column;
+ }
+
+ .Left_side_section{
+    min-width: 96%;
+    height:220px;
+    display:flex;
+ }
+
+ .left_side_head_main{
+    margin-top:-18px;
+    margin-bottom: 0;
+ }
+
+ .left_side_head_main ul{
+    gap:6px;
+ }
+
+ .left_side_head h3{
+    margin-bottom: 0;
+ }
+
+ .main_content_btn_wrapper{
+
+ margin-top: -6px;
+
+ }
+
+ .pricing_btn{
     display:none;
+ }
+
+ .User_greeting h2{
+    font-size:2.8rem;
+    margin-bottom: 0px;
+ }
+
+ .New_Project_section{
+    margin-top: 50px;
+    margin-bottom: 30px;
+ }
+
 }
- 
+
+@keyframes sheetUp {
+    from { transform: translateY(100%); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
 }
 
 @media (max-width: 480px) {
-  .chat_bot_builder_card {
-    max-height: 96vh;
-    width: 100%;
-  }
-  
-  .chat_bot_builder_appearance {
-    padding: 20px 16px; /* Reduce padding on mobile */
-  }
-  
+    .chat_bot_builder_card{
+        max-height: 97vh;
+    }
 
+    .chat_bot_builder_appearance h3{
+        font-size: 17px;
+    }
+
+    .createe_btn,
+    .cancel_btn{
+        min-width: 0;
+        flex: 1;
+    }
 }
-
-

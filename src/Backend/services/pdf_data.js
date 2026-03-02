@@ -1,10 +1,8 @@
-
 import fs from "fs"
 import { createRequire } from "module"
 
 const require = createRequire(import.meta.url)
-const pdf = require("pdf-parse")
-
+const pdf = require("pdf-parse-fork")
 
 export async function extractPDFText(buffer) {
   if (!buffer) {

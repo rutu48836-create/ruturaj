@@ -5,10 +5,11 @@ body{
   font-family: "Inter",sans-serif;
   overflow-y: auto;
   overflow-x: hidden;
+<<<<<<< HEAD
   color:black;
+=======
+>>>>>>> 8939437 (updated code)
   scrollbar-width: thin;
-
-
 }
 
 body.modal-open {

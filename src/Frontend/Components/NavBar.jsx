@@ -23,7 +23,11 @@ useEffect(() => {
 navigate('/Login')
     }
 
+<<<<<<< HEAD
     const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
+=======
+    const response = await fetch(`https://ruturaj-2.onrender.com/api/credits/${user.uid}`)
+>>>>>>> 8939437 (updated code)
     const data = await response.json()
     console.log('credits response:', data)
     if (data.credits !== undefined) {
@@ -60,10 +64,25 @@ navigate('/Login')
 
  <div className={styles.Navbar_details_section}>
 <div className={styles.User_details}><SendHorizontal/> /
-<img src={user?.photoUrl}/><span>{user?.displayName}</span></div> <div className={styles.User_settings}>
+  <img src={user?.photoURL} referrerPolicy="no-referrer" alt="User Profile" />
+    <span>{user?.displayName}</span>
+</div>
+ <div className={styles.links}>
+    <ul>
+      
+          <li><a href="/">Home</a></li>
+    <li><a href="/Terms">Terms & Conditons</a></li>
+  <li><a href="#">Pricing</a></li>
+  <li><a href="/About">About</a></li>
+    <li><a href="/Contact">Contact</a></li>
+
+
+  </ul></div>
+ <div className={styles.User_settings}>
+ 
     <button className={styles.Support_btn}>Support</button>
-    <button className={styles.Logout_btn}><LogOut size={16}/></button>
-    <button className={styles.Setting_btn} onClick={() => setSide_bar_open(true)}><Menu size={16}/></button>
+    <button className={styles.Logout_btn}><LogOut color="#000" size={16}/></button>
+    <button className={styles.Setting_btn} onClick={() => setSide_bar_open(true)}><Menu color="#000" size={16}/></button>
 </div>
  </div>
  
@@ -98,7 +117,11 @@ navigate('/Login')
   <div className={styles.Side_bar_main_content}>
 
   <div className={styles.button_wrapper}>
-    <button className={styles.upgrade_btn}>Upgrade</button>
+    <button className={styles.upgrade_btn} onClick={() => {
+
+ alert('This is a beta version we are working on making upgrade avalible')
+
+    }}>Upgrade</button>
     <button className={styles.pricing_btn}>Pricing</button>
   </div>
 
@@ -119,6 +142,27 @@ navigate('/Login')
    <div className={styles.user_detail_row}>
   <span>Credits</span>
 <h4>{Credit !== null ? Credit : '...'}</h4> 
+ </div>
+
+
+
+   <div className={styles.user_detail_row}><span>Links</span></div>
+
+  <div className={styles.links_wrapper}>
+
+    <button className={styles.link_btn}>
+      <a href="/Terms">Terms</a>
+    </button>
+    <button className={styles.link_btn}>
+      <a href="/Contact">Contact</a>
+    </button>
+    <button className={styles.link_btn}>
+      <a href="/About">About</a>
+    </button>
+        <button className={styles.link_btn}>
+      <a href="/About">Pricing</a>
+    </button>
+
  </div>
 
   </div>

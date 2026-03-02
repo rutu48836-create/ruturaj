@@ -7,6 +7,7 @@ import { Chat_handler } from './controllers/chatController.js'
 import chatRoutes from './routes/chat.js'
 import { scrapeWebsite } from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
+import { Create_checkout_session,Stripe_webhook} from './routes/stripe.js'
 
 dotenv.config()
 
@@ -22,7 +23,14 @@ const upload = multer({
   }
 })
 
+<<<<<<< HEAD
 
+=======
+app.post('/api/webhook',
+  express.raw({ type: "application/json" }),
+  Stripe_webhook
+)
+>>>>>>> 8939437 (updated code)
 
 app.use(cors())
 app.use(express.json())
@@ -229,6 +237,7 @@ console.log('Register response:', data)
 
 })
 
+app.post('/api/create-checkout-session', Create_checkout_session)
 
 
 

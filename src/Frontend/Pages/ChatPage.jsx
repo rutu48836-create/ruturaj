@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom"
 import { useEffect, useState } from "react"
 import { supabase } from "../config/supabaseClient"
 import styles from "../Styles/ChatPage.module.css"
-import { Move, MoveUp,SendHorizontal  } from 'lucide-react';
+import {MoveUp,SendHorizontal,RefreshCw} from 'lucide-react';
 
 export function ChatPage(){
 
@@ -12,7 +12,7 @@ export function ChatPage(){
   const [message, setMessage] = useState("")
   const [messages, setMessages] = useState([])
 
-       const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://localhost:5000"
+       const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"
 
    useEffect(() => {
 
@@ -98,6 +98,11 @@ const sendMessage = async () => {
 </div>
 
    <div className={styles.btn_wrapper_head}>
+    <button onClick={() => {
+window.location.reload();
+
+
+    }}><RefreshCw color="#fff" size={18}/></button>
     <button><SendHorizontal color="#fff" size={18} onClick={handle_copy}/></button>
     </div>
 </div>
@@ -119,12 +124,11 @@ const sendMessage = async () => {
 ))}
 
  <div className={styles.Chat_bot_input_wrapper}>
-
- <input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Ask something"/>
+ <input value={message} onChange={(e) => setMessage(e.target.value)} placeholder="Powered by Lunaar"/>
  <button onClick={sendMessage}><MoveUp size={16}/></button>
-
-
  </div>
+
+
 
  </div>
 

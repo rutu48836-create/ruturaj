@@ -69,7 +69,18 @@ Your goal is to be helpful, clear, and human-like.
 `;
 
  console.log(`chat bot name ${chatbot.name}`)
+ 
 
+const { error: usageError } = await supabase.rpc(
+  "check_and_increment_message",
+  { uid: chatbot.user_id }
+)
+
+if (usageError) {
+  return res.status(403).json({
+    error: "Monthly limit reached. Upgrade to Pro."
+  })
+}
 
  const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
