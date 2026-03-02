@@ -225,9 +225,6 @@ app.post('/api/register', async(req,res) => {
     return res.status(400).json({ message: error.message })
   }
 
-  const data = await response.json()
-console.log('Register response:', data)
-
   res.json({ success: true })
 
 
