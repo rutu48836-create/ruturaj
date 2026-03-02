@@ -73,7 +73,7 @@ Your goal is to be helpful, clear, and human-like.
 const { data: usageData, error: usageError } = await supabase
   .from("users")
   .select("monthly_message_count, monthly_message_limit")
-  .eq("id", userId)
+   .eq("firebase_uid", userId)
   .single();
 
 if (usageError) {
