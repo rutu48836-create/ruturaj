@@ -12,7 +12,7 @@ app.use(cors())
 
 export const Chat_handler = async(req,res) => {
 
-const {message,shareToken} = req.body
+const {message,shareToken,userId} = req.body
 console.log(message)
 
 try{
@@ -71,22 +71,28 @@ Your goal is to be helpful, clear, and human-like.
  console.log(`chat bot name ${chatbot.name}`)
  
 
-const { data: usageAllowed, error: usageError } = await supabase.rpc(
-  "check_and_increment_message",
-  { uid: chatbot.user_id }
-)
+const { data: usageAllowed, error: usageError } = await supabase
+	.from("users")
+	 .select("monthly_message_count,monthly_message_limit")
+     .eq("id", userId)
+      .single();
 
-if (usageError) {
-  return res.status(403).json({
-    error: "RPC FAILED."
-  })
+	
+if (error) {
+  console.log(error);
+  return;
 }
 
-	if (!usageAllowed) {
-  return res.status(403).json({
-    error: "Monthly limit reached"
-  })
-}
+	if(data.monthly_message_count >= data.monthly_message_limit){
+  return res.status(403).json({ error: "limit reached" })
+	}
+
+	const newCount = (data.monthly_message_count || 0) + 1;
+
+await supabase
+  .from("users")
+  .update({ monthly_message_count: newCount })
+  .eq("id", userId);
 
  const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
