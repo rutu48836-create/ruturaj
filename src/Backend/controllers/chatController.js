@@ -80,6 +80,7 @@ if (usageError) {
   return res.status(403).json({
     error: "RPC FAILED."
   })
+}
 
 	if (!usageAllowed) {
   return res.status(403).json({
@@ -109,17 +110,18 @@ if (usageError) {
 	);
 	const data = await response.json();
 
-        console.log("HF RAW:", data);
 
 return res.json({
   reply: data.choices?.[0]?.message?.content || "No response"
 });
 
-    console.log(data)
-
 }catch(error){
   console.error("SERVER ERROR:", error);
-    return res.status(500).json({ error: "Internal server error" });}
+    return res.status(500).json({ error: "Internal server error" });
 
 }
+
+}
+
+
 
