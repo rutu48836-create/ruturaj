@@ -14,7 +14,7 @@ flex-direction: column;
 justify-content: flex-start;
 align-items: center;
 background: #fff;
-position:fixed;
+position:relative;
 background: #ffffff;
 overflow-y: auto;
 overflow-x:hidden;
@@ -85,13 +85,16 @@ margin-left: 20px;
 
 .ChatPage_header h2{
     font-weight: 500;
+    width:auto;
 }
 
 .Chat_bot_message_container{
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 100px 20px 100px 20px; /* space for header + input */
+    margin-top: 14vh;     /* space for fixed header */
+    margin-bottom: 100px; /* space for fixed input */
+    padding: 20px;
     background: #e2dddd;
     overflow-y: auto;
     width: 100%;
