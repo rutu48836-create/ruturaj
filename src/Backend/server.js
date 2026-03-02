@@ -7,7 +7,6 @@ import { Chat_handler } from './controllers/chatController.js'
 import chatRoutes from './routes/chat.js'
 import { scrapeWebsite } from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
-import { Create_checkout_session,Stripe_webhook} from './routes/stripe.js'
 
 dotenv.config()
 
