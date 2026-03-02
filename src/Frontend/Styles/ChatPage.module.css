@@ -219,13 +219,18 @@ margin-left: 20px;
 }
 
 .Chat_bot_input_wrapper{
-    padding: .2rem;
+    padding: .4rem;
+    width:86%;
 }
 
 .Chat_bot_input_wrapper button{
-    margin-right:20px;
+    margin-right:10px;
 }
 
+    
+.ChatPage_header h2{
+    font-size: 14px;
+}
 
 }
 
