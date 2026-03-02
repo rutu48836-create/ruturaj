@@ -117,13 +117,9 @@ return res.json({
 
     console.log(data)
 
-}
-
-catch(error){
+}catch(error){
   console.error("SERVER ERROR:", error);
     return res.status(500).json({ error: "Internal server error" });}
-
-
 
 }
 
