@@ -71,7 +71,7 @@ Your goal is to be helpful, clear, and human-like.
  console.log(`chat bot name ${chatbot.name}`)
  
 
-const { data: usageAllowed, error: usageError } = await supabase
+const { data: usageData, error: usageError } = await supabase
 	.from("users")
 	 .select("monthly_message_count,monthly_message_limit")
      .eq("id", userId)
@@ -83,11 +83,19 @@ if (usageError) {
   return;
 }
 
-	if(usageAllowed.monthly_message_count >= usageError.monthly_message_limit){
-  return res.status(403).json({ error: "limit reached" })
-	}
 
-	const newCount = (useageAllowed.monthly_message_count || 0) + 1;
+if (!usageData) {
+  return res.status(404).json({ error: "User not found" });
+}
+
+if (
+  (usageData.monthly_message_count || 0) >=
+  (usageData.monthly_message_limit || 0)
+) {
+  return res.status(403).json({ error: "Limit reached" });
+}
+
+	const newCount = (usageData.monthly_message_count || 0) + 1;
 
 await supabase
   .from("users")
