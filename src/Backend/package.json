@@ -20,12 +20,11 @@
     "express": "^5.2.1",
     "firebase": "^12.9.0",
     "multer": "^2.0.2",
-<<<<<<< HEAD
-    "pdf-parse": "^2.4.5",
-      "stripe": "^20.4.0"
 
-=======
+    "pdf-parse": "^2.4.5",
+      "stripe": "^20.4.0",
+
     "pdf-parse-fork": "^1.2.0"
->>>>>>> 8939437 (updated code)
+
   }
 }

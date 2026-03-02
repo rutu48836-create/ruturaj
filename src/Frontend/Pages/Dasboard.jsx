@@ -32,16 +32,7 @@ useEffect(() => {
     } else {
       navigate("/Login");
     }
-<<<<<<< HEAD
 
- else{
- navigate('/Login')
- }
-    
-  })
-  return () => unsubscribe()
-}, [])
-=======
   });
 
   return () => unsubscribe();
@@ -73,9 +64,6 @@ useEffect(() => {
   Plan_call();
 }, [userId]);
 
-
-
->>>>>>> 8939437 (updated code)
   
   const [formData, setFormData] = useState({
     name: '',
@@ -552,17 +540,7 @@ useEffect(() => {
 
   {
   
-    useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUserId(user.uid);
-    } else {
-    }
-  });
-
-  return () => unsubscribe();
-}, [navigate]);
-  
+    
     return (
       <div className={styles.Projects_container}>
         <div className={styles.New_Project_section}>
@@ -579,12 +557,11 @@ useEffect(() => {
           />
                     <button className={styles.how_btnn}>?</button>
 
-<<<<<<< HEAD
+
           <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create +</button>
-=======
           <button className={styles.create_btn} onClick={() => setBuilder(true)}>+</button>
         </div>
->>>>>>> 8939437 (updated code)
+
         </div>
 
 
@@ -663,7 +640,5 @@ useEffect(() => {
       </div>
     )
   }
-<<<<<<< HEAD
-=======
+
 }
->>>>>>> 8939437 (updated code)

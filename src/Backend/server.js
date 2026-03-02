@@ -23,14 +23,10 @@ const upload = multer({
   }
 })
 
-<<<<<<< HEAD
-
-=======
 app.post('/api/webhook',
   express.raw({ type: "application/json" }),
   Stripe_webhook
 )
->>>>>>> 8939437 (updated code)
 
 app.use(cors())
 app.use(express.json())
