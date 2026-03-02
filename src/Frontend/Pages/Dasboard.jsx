@@ -580,7 +580,7 @@ useEffect(() => {
  <li><span>Credits</span> <h4>{credits}</h4></li>
     <li><span>Messages</span> <h4>{message_count}</h4></li>
       <li><span>Plan</span> <h4>{plan}</h4></li>
-     {plan === "premium" &&  (<li className={styles.upgrade_hidden}><span>Limit</span> <h4>{limit}</h4></li>)} 
+    <li className={styles.upgrade_hidden}><span>Limit</span> <h4>{limit}</h4></li>
 </ul>
  <div className={styles.main_content_btn_wrapper}>
 
