@@ -82,8 +82,21 @@ if (usageError) {
 }
 
 if (!usageData) {
-  return res.status(404).json({ error: "User not found" });
-}
+  const { data: newUser, error: insertError } = await supabase
+    .from("users")
+    .insert({
+      firebase_uid: userId,
+      credits: 10,
+      monthly_message_count: 0,
+      monthly_message_limit: 300
+    })
+    .select()
+    .single();
+
+  if (insertError) {
+    console.error("User creation failed:", insertError);
+    return res.status(500).json({ error: "Failed to create user" });
+  }
 
 if (
   (usageData.monthly_message_count || 0) >=
