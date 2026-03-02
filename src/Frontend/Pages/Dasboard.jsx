@@ -77,7 +77,7 @@ useEffect(() => {
   const [projects,setProjects] = useState([])
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://localhost:5000"
-    const FRONTEND_URL = "https://alexa-mighty.vercel.app"
+    const FRONTEND_URL = "https://ruturaj-koqs.vercel.app"
 
 const fetchProjects = async () => {
 
