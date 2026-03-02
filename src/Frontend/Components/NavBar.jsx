@@ -25,7 +25,6 @@ navigate('/Login')
 
     const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
 
-    const response = await fetch(`https://ruturaj-2.onrender.com/api/credits/${user.uid}`)
 
     const data = await response.json()
     console.log('credits response:', data)
