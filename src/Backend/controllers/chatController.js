@@ -78,8 +78,8 @@ const { data: usageAllowed, error: usageError } = await supabase
       .single();
 
 	
-if (error) {
-  console.log(error);
+if (usageError) {
+  console.log("error in fetching limit,count");
   return;
 }
 
