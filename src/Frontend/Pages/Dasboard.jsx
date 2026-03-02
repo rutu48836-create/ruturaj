@@ -39,7 +39,7 @@ useEffect(() => {
 }, [navigate]);
 
 
-/* const Plan_call = async() => {
+ const Plan_call = async() => {
     const user = auth.currentUser;
 
   if(!userId) return
@@ -64,7 +64,6 @@ useEffect(() => {
   Plan_call();
 }, [userId]);
 
-*/
   
   const [formData, setFormData] = useState({
     name: '',
