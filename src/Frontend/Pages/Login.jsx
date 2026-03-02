@@ -10,6 +10,7 @@ import google from '../assets/google.svg'
 import facebook from "../assets/facebook.svg"
 import apple from "../assets/apple.svg"
 import {SendHorizontal} from "lucide-react"
+import { supabase } from '../config/supabaseClient.js';
 
 export function LOGIN(){
 
@@ -20,6 +21,24 @@ export function LOGIN(){
 const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
+
+const user = auth.currentUser;
+
+const { data: existingUser } = await supabase
+  .from("users")
+  .select("*")
+  .eq("firebase_uid", user.uid)
+  .single();
+
+if (!existingUser) {
+  await supabase.from("users").insert([
+    {
+      firebase_uid: user.uid
+    }
+  ]);
+}
+
+
     navigate('/', { replace: true })
   } catch (err) {
     alert(err.message);
