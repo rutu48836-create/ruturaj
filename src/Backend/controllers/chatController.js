@@ -12,7 +12,7 @@ app.use(cors())
 
 export const Chat_handler = async(req,res) => {
 
-const {message,shareToken,userId} = req.body
+const {message,shareToken} = req.body
 console.log(message)
 
 try{
@@ -70,52 +70,18 @@ Your goal is to be helpful, clear, and human-like.
 
  console.log(`chat bot name ${chatbot.name}`)
  
-const { data: usageData, error: usageError } = await supabase
-  .from("users")
-  .select("monthly_message_count, monthly_message_limit")
-   .eq("firebase_uid", userId)
-  .single();
+
+const { error: usageError } = await supabase.rpc(
+  "check_and_increment_message",
+  { uid: chatbot.user_id }
+)
 
 if (usageError) {
-  console.error("Error fetching usage:", usageError);
-  return res.status(500).json({ error: "Database error" });
+  return res.status(403).json({
+    error: "Monthly limit reached. Upgrade to Pro."
+  })
 }
 
-if (!usageData) {
-  const { data: newUser, error: insertError } = await supabase
-    .from("users")
-    .insert({
-      firebase_uid: userId,
-      credits: 10,
-      monthly_message_count: 0,
-      monthly_message_limit: 300
-    })
-    .select()
-    .single();
-
-  if (insertError) {
-    console.error("User creation failed:", insertError);
-    return res.status(500).json({ error: "Failed to create user" });
-  }
-
-if (
-  (usageData.monthly_message_count || 0) >=
-  (usageData.monthly_message_limit || 0)
-) {
-  return res.status(403).json({ error: "Limit reached" });
-}
-
-const newCount = (usageData.monthly_message_count || 0) + 1;
-
-const { error: updateError } = await supabase
-  .from("users")
-  .update({ monthly_message_count: newCount })
-  .eq("id", userId);
-
-if (updateError) {
-  console.error("Update error:", updateError);
-  return res.status(500).json({ error: "Failed to update count" });
-}
  const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
 		{
@@ -136,27 +102,22 @@ if (updateError) {
 
 }
 	);
+	const data = await response.json();
 
-	if (!response.ok) {
-  const errorText = await response.text()
-  console.error("Groq API error:", errorText)
-  return res.status(500).json({ error: "AI provider failed" })
-}
-
-const aiData = await response.json()
-
+        console.log("HF RAW:", data);
 
 return res.json({
-  reply: aiData.choices?.[0]?.message?.content || "No response"
+  reply: data.choices?.[0]?.message?.content || "No response"
 });
 
-}catch(error){
-  console.error("SERVER ERROR:", error);
-    return res.status(500).json({ error: "Internal server error" });
 
 }
 
+catch(error){
+  console.error("SERVER ERROR:", err);
+    return res.status(500).json({ error: "Internal server error" });}
+
+
+
 }
-
-
 
