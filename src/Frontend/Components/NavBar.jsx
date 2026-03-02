@@ -23,11 +23,10 @@ useEffect(() => {
 navigate('/Login')
     }
 
-<<<<<<< HEAD
     const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
-=======
+
     const response = await fetch(`https://ruturaj-2.onrender.com/api/credits/${user.uid}`)
->>>>>>> 8939437 (updated code)
+
     const data = await response.json()
     console.log('credits response:', data)
     if (data.credits !== undefined) {
