@@ -15,7 +15,7 @@ justify-content: flex-start;
 align-items: center;
 background: #fff;
 position:relative;
-background: #ffffff;
+background: #e2dddd;
 overflow-y: hidden;
 overflow-x:hidden;
 scrollbar-width: thin;
@@ -195,7 +195,7 @@ margin-left: 20px;
 @media (max-width:768px){
 
     .Chat_bot_message_container{
-        margin-top: 30px;
+        margin-top: 90px;
     }
 
     .Chat_bot_input_wrapper input{
@@ -234,6 +234,10 @@ margin-left: 20px;
 .ChatPage_header h2{
     font-size: 14px;
 }
+
+        .Chat_bot_message_container{
+        margin-top: 120px;
+    }
 
 }
 
