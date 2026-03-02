@@ -134,7 +134,7 @@ const aiData = await response.json()
 
 
 return res.json({
-  reply: data.choices?.[0]?.message?.content || "No response"
+  reply: aiData.choices?.[0]?.message?.content || "No response"
 });
 
 }catch(error){
