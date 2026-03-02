@@ -13,15 +13,13 @@ display: flex;
 flex-direction: column;
 justify-content: flex-start;
 align-items: center;
-<<<<<<< HEAD
 background: #fff;
-    position:fixed;
-=======
+position:fixed;
 background: #ffffff;
 overflow-y: auto;
 overflow-x:hidden;
 scrollbar-width: thin;
->>>>>>> 8939437 (updated code)
+
 
 }
 
