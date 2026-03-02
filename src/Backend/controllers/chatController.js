@@ -83,11 +83,11 @@ if (usageError) {
   return;
 }
 
-	if(data.monthly_message_count >= data.monthly_message_limit){
+	if(usageAllowed.monthly_message_count >= usageError.monthly_message_limit){
   return res.status(403).json({ error: "limit reached" })
 	}
 
-	const newCount = (data.monthly_message_count || 0) + 1;
+	const newCount = (useageAllowed.monthly_message_count || 0) + 1;
 
 await supabase
   .from("users")
