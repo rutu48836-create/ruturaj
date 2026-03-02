@@ -557,8 +557,6 @@ useEffect(() => {
           />
                     <button className={styles.how_btnn}>?</button>
 
-
-          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create +</button>
           <button className={styles.create_btn} onClick={() => setBuilder(true)}>+</button>
         </div>
 
