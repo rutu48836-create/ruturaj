@@ -70,19 +70,16 @@ Your goal is to be helpful, clear, and human-like.
 
  console.log(`chat bot name ${chatbot.name}`)
  
-
 const { data: usageData, error: usageError } = await supabase
-	.from("users")
-	 .select("monthly_message_count,monthly_message_limit")
-     .eq("id", userId)
-      .single();
+  .from("users")
+  .select("monthly_message_count, monthly_message_limit")
+  .eq("id", userId)
+  .single();
 
-	
 if (usageError) {
-  console.log("error in fetching limit,count");
-  return;
+  console.error("Error fetching usage:", usageError);
+  return res.status(500).json({ error: "Database error" });
 }
-
 
 if (!usageData) {
   return res.status(404).json({ error: "User not found" });
@@ -95,13 +92,17 @@ if (
   return res.status(403).json({ error: "Limit reached" });
 }
 
-	const newCount = (usageData.monthly_message_count || 0) + 1;
+const newCount = (usageData.monthly_message_count || 0) + 1;
 
-await supabase
+const { error: updateError } = await supabase
   .from("users")
   .update({ monthly_message_count: newCount })
   .eq("id", userId);
 
+if (updateError) {
+  console.error("Update error:", updateError);
+  return res.status(500).json({ error: "Failed to update count" });
+}
  const response = await fetch(
       "https://api.groq.com/openai/v1/chat/completions",
 		{
