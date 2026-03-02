@@ -108,7 +108,14 @@ if (usageError) {
 
 }
 	);
-	const data = await response.json();
+
+	if (!response.ok) {
+  const errorText = await response.text()
+  console.error("Groq API error:", errorText)
+  return res.status(500).json({ error: "AI provider failed" })
+}
+
+const aiData = await response.json()
 
 
 return res.json({
