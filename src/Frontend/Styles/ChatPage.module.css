@@ -239,6 +239,16 @@ margin-left: 20px;
         margin-top: 120px;
     }
 
+    .chatbot_container{
+align-self:flex-end;
+        justify-self:flex-end;  
+    }
+
+    .message_box{
+width:auto;
+        align-self:flex-start;
+        justify-self:flex-start;
+    }
 }
 
 
