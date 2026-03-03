@@ -205,8 +205,8 @@ app.post('/api/register', async(req,res) => {
 const { firebase_uid } = req.body
 
 if(!firebase_uid){
-
   return res.statues(403).jsoon({message:"no userId for registeration"})
+}
   
   const { error } = await supabase
     .from('users')
@@ -223,8 +223,9 @@ if(!firebase_uid){
 
   res.json({ success: true })
 
-
 })
+
+         
 
 
 app.use("/api", chatRoutes)
