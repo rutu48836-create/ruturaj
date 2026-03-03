@@ -32,11 +32,13 @@ const user = result.user;
     firebase_uid: user.uid
   })
 });
+
+    const data = await response.json()
     if(response.ok){
     navigate('/', { replace: true })
     }
 
-if(!response.ok){
+if(data.error){
 alert('error is registering')
   navigate('/Login')
 }
