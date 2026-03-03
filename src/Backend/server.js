@@ -129,7 +129,7 @@ if (req.files?.pdfs) {
 
 const { error: userError } = await supabase
   .from('users')
-  .insert({ firebase_uid: userId, credits: 10 })
+  .insert({ firebase_uid: userId, credits: 10,plan:"free",monthly_message_limit:500})
   .select()
 
 // Ignore duplicate error (user already exists)
