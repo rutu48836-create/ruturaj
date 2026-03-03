@@ -127,16 +127,7 @@ if (req.files?.pdfs) {
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15)
 
-const { error: userError } = await supabase
-  .from('users')
-  .insert({ firebase_uid: userId, credits: 10})
-  .select()
 
-// Ignore duplicate error (user already exists)
-if (userError && userError.code !== '23505') {
-  console.error('User insert error:', userError)
-  return res.status(400).json({ message: userError.message })
-}
 const { data, error } = await supabase.rpc(
   "create_chatbot_with_credits",
   {
@@ -211,12 +202,21 @@ app.get('/api/credits/:userId', async (req, res) => {
 
 app.post('/api/register', async(req,res) => {
 
-  const { userId } = req.body
+const { firebase_uid } = req.body
 
+if(!firebase_uid){
+
+  return res.statues(403).jsoon({message:"no userId for registeration"})
+  
   const { error } = await supabase
     .from('users')
-    .insert({ firebase_uid: userId, credits: 10,plan:"free",monthly_message_limit:500})
-
+    .insert({
+      firebase_uid,
+      credits: 10,
+      plan: "free",
+      monthly_message_limit: 500,
+      monthly_message_count: 0
+    })
   if (error && error.code !== '23505') {
     return res.status(400).json({ message: error.message })
   }
