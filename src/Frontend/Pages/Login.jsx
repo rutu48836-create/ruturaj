@@ -21,25 +21,25 @@ export function LOGIN(){
 const loginWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
+const user = result.user;
 
-const user = auth.currentUser;
-
-const { data: existingUser } = await supabase
-  .from("users")
-  .select("*")
-  .eq("firebase_uid", user.uid)
-  .single();
-
-if (!existingUser) {
-  await supabase.from("users").insert([
-    {
-      firebase_uid: user.uid
-    }
-  ]);
-}
-
-
+    const response = await fetch(`${BACKEND_URL}/api/register`, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json"
+  },
+  body: JSON.stringify({
+    firebase_uid: user.uid
+  })
+});
+    if(response.ok){
     navigate('/', { replace: true })
+    }
+
+if(!response.ok){
+navigate('/Login')
+}
+    
   } catch (err) {
     alert(err.message);
   }
