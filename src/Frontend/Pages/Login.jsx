@@ -37,7 +37,8 @@ const user = result.user;
     }
 
 if(!response.ok){
-navigate('/Login')
+alert('error is registering')
+  navigate('/Login')
 }
     
   } catch (err) {
