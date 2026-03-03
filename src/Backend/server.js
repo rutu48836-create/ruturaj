@@ -129,7 +129,7 @@ if (req.files?.pdfs) {
 
 const { error: userError } = await supabase
   .from('users')
-  .insert({ firebase_uid: userId, credits: 10,plan:"free",monthly_message_limit:500})
+  .insert({ firebase_uid: userId, credits: 10})
   .select()
 
 // Ignore duplicate error (user already exists)
@@ -215,7 +215,7 @@ app.post('/api/register', async(req,res) => {
 
   const { error } = await supabase
     .from('users')
-    .insert({ firebase_uid: userId, credits: 10 })
+    .insert({ firebase_uid: userId, credits: 10,plan:"free",monthly_message_limit:500})
 
   if (error && error.code !== '23505') {
     return res.status(400).json({ message: error.message })
