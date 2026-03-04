@@ -61,7 +61,7 @@ navigate('/Login')
  <div className={styles.Navbar_wrapper}>
 
  <div className={styles.Navbar_details_section}>
-<div className={styles.User_details}><SendHorizontal size={20}/> /
+<div className={styles.User_details}><SendHorizontal size={20} className={styles.lunaar}/> /
   <img src={user?.photoURL} referrerPolicy="no-referrer" alt="User Profile" />
     <span>{user?.displayName}</span>
 </div>
