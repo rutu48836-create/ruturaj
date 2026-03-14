@@ -112,7 +112,6 @@ export function About() {
         <div className={styles.divider} />
 
       
-
         <section className={styles.section}>
           <span className={styles.beta_notice}>
             ⚠️ Lunaar is currently in beta. Features are actively being developed.

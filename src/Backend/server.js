@@ -5,9 +5,9 @@ import dotenv from 'dotenv'
 import multer from 'multer'
 import { Chat_handler } from './controllers/chatController.js'
 import chatRoutes from './routes/chat.js'
-import { scrapeWebsite } from './services/website_data.js'
+import {scrapeWebsite} from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
-import { Create_checkout_session,Stripe_webhook} from './routes/stripe.js'
+import { LetterText } from 'lucide-react'
 
 dotenv.config()
 
@@ -23,10 +23,7 @@ const upload = multer({
   }
 })
 
-app.post('/api/webhook',
-  express.raw({ type: "application/json" }),
-  Stripe_webhook
-)
+
 
 app.use(cors())
 app.use(express.json())
@@ -42,11 +39,63 @@ app.post('/api/create',
   async (req, res) => {
     try {
 
-const { website, name, systemPrompt, userId } = req.body
+const { website, name, systemPrompt, userId,color,agentType,notificationEmail} = req.body
 console.log('=== DEBUG ===')
-console.log('userId:', userId)
 console.log('name:', name)
 console.log('body:', req.body)
+
+
+// Move cleanText BEFORE it's used
+function cleanText(text) {
+  if (!text) return ''
+  return text
+    .replace(/\s+/g, ' ')
+    .replace(/(.)\1{3,}/g, '$1')
+    .replace(/https?:\/\/\S+/g, '')
+    .replace(/[^\w\s.,!?-]/g, '')
+    .trim()
+}
+
+async function prepareScrapedContent(pages, maxTokens = 8000) {
+  const maxChars = maxTokens * 4
+  let result = ''
+
+  for (const page of pages) {
+    // ✅ use page.url not content_pages.url
+    const chunk = `\n\n--- ${page.url} ---\n${page.text}`
+    if ((result + chunk).length > maxChars) break
+    result += chunk
+  }
+
+  return result
+}
+
+
+
+let content_pages;
+let trimmed;
+
+
+if(website){
+  content_pages  = await scrapeWebsite(website, 12)
+  const cleaned = content_pages
+  .filter(p => p.text && p.url)
+  .map(p => ({ url: p.url, text: cleanText(p.text) }))
+
+const prioritized = cleaned.sort((a, b) => {
+  const important = ['/about', '/services', '/pricing', '/contact', '/faq']
+  const aScore = important.some(p => a.url.includes(p)) ? 1 : 0
+  const bScore = important.some(p => b.url.includes(p)) ? 1 : 0
+  return bScore - aScore
+})
+
+const content = await prepareScrapedContent(prioritized, 8000)
+
+trimmed = content.slice(0, 32000)
+
+}
+
+
 
   let pdfText = ""
 
@@ -117,30 +166,13 @@ if (req.files?.pdfs) {
         pdfUrls.push(publicUrl)
       }
 
-      let website_data = null
-      if (website) {
-        try {
-          website_data = await scrapeWebsite(website)
-        } catch (err) {
-          console.log('Error scraping website:', err)
-        }
-      }
 
       // Generate share token
       const shareToken =
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15)
 
-const { error: userError } = await supabase
-  .from('users')
-  .insert({ firebase_uid: userId, credits: 10 })
-  .select()
 
-// Ignore duplicate error (user already exists)
-if (userError && userError.code !== '23505') {
-  console.error('User insert error:', userError)
-  return res.status(400).json({ message: userError.message })
-}
 const { data, error } = await supabase.rpc(
   "create_chatbot_with_credits",
   {
@@ -150,14 +182,18 @@ const { data, error } = await supabase.rpc(
     p_share_token: shareToken,
     p_logo_url: logoUrl,
     p_website_url: website || null,
-    p_website_content: website_data || '',
+    p_website_content: trimmed || '',
     p_pdf_content: pdfText || null,
-    p_pdf_urls: pdfUrls.length > 0 ? JSON.stringify(pdfUrls) : null
+    p_pdf_urls: pdfUrls.length > 0 ? JSON.stringify(pdfUrls) : null,
+    p_color: color || "#000",
+    p_agent_type: agentType || 'info',
+    p_notification_email: notificationEmail || null,
   }
 )
 
+
   if (error) {
-    return res.status(400).json({message : "YOU HAVE USED ALL CREDITS.UPGRADE TO ENJOY LIMITLESS USEAGE"})
+  console.error("RPC error:", error)  // ← Add this to see the REAL error
   }
       return res.status(201).json({
         success: true,
@@ -215,26 +251,30 @@ app.get('/api/credits/:userId', async (req, res) => {
 
 app.post('/api/register', async(req,res) => {
 
-  const { userId } = req.body
+const { firebase_uid } = req.body
 
+if(!firebase_uid){
+  return res.status(403).json({message:"no userId for registeration"})
+}
+  
   const { error } = await supabase
     .from('users')
-    .insert({ firebase_uid: userId, credits: 10 })
-
+    .insert({
+      firebase_uid,
+      credits: 10,
+      plan: "free",
+      monthly_message_limit: 500,
+      monthly_message_count: 0
+    })
   if (error && error.code !== '23505') {
     return res.status(400).json({ message: error.message })
   }
 
-  const data = await response.json()
-console.log('Register response:', data)
-
   res.json({ success: true })
-
 
 })
 
-app.post('/api/create-checkout-session', Create_checkout_session)
-
+         
 
 
 app.use("/api", chatRoutes)

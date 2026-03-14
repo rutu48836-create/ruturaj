@@ -1,7 +1,7 @@
 
 import { useState,useEffect } from "react";
 import styles from "../Styles/Navbar.module.css"
-import { LogOut,Menu,X,SendHorizontal} from 'lucide-react';
+import { LogOut,Menu,X,SendHorizontal,BadgeQuestionMark,Wallet, CircleQuestionMark } from 'lucide-react';
 import {data, useNavigate} from "react-router"
 import { useAuth } from "../Components/Auth.jsx";
 import { signOut } from "firebase/auth";
@@ -23,11 +23,9 @@ useEffect(() => {
 navigate('/Login')
     }
 
-<<<<<<< HEAD
     const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
-=======
-    const response = await fetch(`https://ruturaj-2.onrender.com/api/credits/${user.uid}`)
->>>>>>> 8939437 (updated code)
+
+
     const data = await response.json()
     console.log('credits response:', data)
     if (data.credits !== undefined) {
@@ -63,26 +61,17 @@ navigate('/Login')
  <div className={styles.Navbar_wrapper}>
 
  <div className={styles.Navbar_details_section}>
-<div className={styles.User_details}><SendHorizontal/> /
+<div className={styles.User_details}><SendHorizontal size={20} className={styles.lunaar}/> /
   <img src={user?.photoURL} referrerPolicy="no-referrer" alt="User Profile" />
     <span>{user?.displayName}</span>
 </div>
- <div className={styles.links}>
-    <ul>
-      
-          <li><a href="/">Home</a></li>
-    <li><a href="/Terms">Terms & Conditons</a></li>
-  <li><a href="#">Pricing</a></li>
-  <li><a href="/About">About</a></li>
-    <li><a href="/Contact">Contact</a></li>
-
-
-  </ul></div>
+ 
  <div className={styles.User_settings}>
  
-    <button className={styles.Support_btn}>Support</button>
-    <button className={styles.Logout_btn}><LogOut color="#000" size={16}/></button>
-    <button className={styles.Setting_btn} onClick={() => setSide_bar_open(true)}><Menu color="#000" size={16}/></button>
+    <button className={styles.Icon_btn}><Wallet color='#797373' size={18}/></button>
+    <button className={styles.Icon_btn}><CircleQuestionMark color='#797373' size={18}/></button>
+    <button className={styles.Icon_btn}><LogOut color="#797373" size={18}/></button>
+    <button className={styles.Icon_btn} onClick={() => setSide_bar_open(true)}><Menu color="#797373" size={18}/></button>
 </div>
  </div>
  

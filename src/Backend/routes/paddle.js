@@ -1,4 +1,5 @@
 
+
 import express from "express"
 import cors from 'cors'
 import {supabase} from "../config/supabaseClient.js"
@@ -71,5 +72,4 @@ async function handleSubscriptionCreated(data) {
     })
     .eq("email", email);
 }
-
 
