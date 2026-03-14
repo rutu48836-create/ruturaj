@@ -7,19 +7,17 @@ import { Chat_handler } from './controllers/chatController.js'
 import chatRoutes from './routes/chat.js'
 import {scrapeWebsite} from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
-import { LetterText } from 'lucide-react'
 
 dotenv.config()
 
 const app = express();
 const PORT = process.env.PORT || 5000
 
-// Configure multer for file uploads (store in memory)
 const storage = multer.memoryStorage()
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB max
+    fileSize: 60 * 1024 * 1024 
   }
 })
 
