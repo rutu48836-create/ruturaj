@@ -508,7 +508,7 @@ formPayload.append('notificationEmail', formData.notificationEmail || '')
             </div>
 
 <small>
- The agent will email you about new orders or requests. Ensure the prompt instructs them to include all specific details provided by the user (e.g., payment, address, or custom requirements) </small>
+ The agent will email you about new orders or requests. Ensure the prompt instructs them</small>
 
           </div>{/* /appearance_inputs */}
 
