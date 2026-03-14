@@ -251,6 +251,11 @@ export function Dashboard({ onclose }) {
       const currentUser = auth.currentUser
       if (!currentUser) { alert("Please login first"); setLoading(false); return }
 
+      if(!formData.logo){
+alert('Logo is required')
+        return
+      }
+
       const formPayload = new FormData()
       formPayload.append('agentType', formData.agentType)
 formPayload.append('notificationEmail', formData.notificationEmail || '')
@@ -399,8 +404,6 @@ formPayload.append('notificationEmail', formData.notificationEmail || '')
                   accept="image/*"
                   onChange={handleLogoChange}
                   style={{ display: 'none' }}
-                  required
-                 
                 />
               </div>
 
