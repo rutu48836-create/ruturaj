@@ -25,7 +25,7 @@ export function ChatPage() {
                 .from("chatbots")
                 .select("*")
                 .eq("share_token", shareToken)
-                .single()
+                .maybeSingle()
 
             if (!error) {
                 setChatbot(data)
