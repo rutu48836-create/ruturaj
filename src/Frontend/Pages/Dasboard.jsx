@@ -13,7 +13,7 @@ import No_agent from "../assets/No_agent.png"
 function Projects({
   search, setSearch, projects, styles, setBuilder,
   delete_project, CopyLink, credits, plan, message_count,
-  handleUpgrade, limit, upgrade_hidden, user,
+  limit, upgrade_hidden, user,
   form, setForm,chatbot,formData
 }) 
 {
@@ -356,7 +356,6 @@ formPayload.append('notificationEmail', formData.notificationEmail || '')
           credits={credits}
           plan={plan}
           message_count={message_count}
-          handleUpgrade={handleUpgrade}
           limit={MessageLimit}
           upgrade_hidden={upgrade_hidden}
           user={currentUser}
