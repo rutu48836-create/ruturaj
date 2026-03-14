@@ -237,7 +237,7 @@ app.get('/api/credits/:userId', async (req, res) => {
     .maybeSingle()
 
   if (error) {
-    return res.status(400).json({ message: error.message })
+    return res.status(400).json({ message: "all credits have been used" })
   }
 
   if (!data) {
