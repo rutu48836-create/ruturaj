@@ -180,7 +180,7 @@ export function Dashboard({ onclose }) {
                 .from("chatbots")
                 .select("*")
             .eq("user_id", userId)  
-                .single()
+                .maybeSingle()
 
             if (!error) {
                 setChatbot(data)
