@@ -340,19 +340,6 @@ formPayload.append('notificationEmail', formData.notificationEmail || '')
    
   }
 
-  useEffect(() => {
-    if (window.Paddle) {
-      window.Paddle.Environment.set("sandbox");
-      window.Paddle.Initialize({ token: import.meta.env.VITE_PADDLE_VENDOR_ID });
-    }
-  }, []);
-
-  const handleUpgrade = () => {
-    window.Paddle.Checkout.open({
-      items: [{ priceId: "pri_01kjj24vjf35673q2xg6324eag", quantity: 1 }],
-      customer: { email: auth.currentUser?.email },
-    });
-  };
 
   return (
     <>
