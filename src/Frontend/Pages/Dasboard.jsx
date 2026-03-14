@@ -137,7 +137,7 @@ export function Dashboard({ onclose }) {
     return () => unsubscribe();
   }, [navigate]);
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://ruturaj-2.onrender.com"
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000"
   const FRONTEND_URL = "https://ruturaj-gito.vercel.app"
 
   const Plan_call = async () => {
