@@ -138,7 +138,7 @@ export function Dashboard({ onclose }) {
   }, [navigate]);
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL || "https://localhost:5000"
-  const FRONTEND_URL = "http://localhost:5173"
+  const FRONTEND_URL = "https://ruturaj-gito.vercel.app"
 
   const Plan_call = async () => {
     if (!userId) return
