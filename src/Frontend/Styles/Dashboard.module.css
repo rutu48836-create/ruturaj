@@ -1288,6 +1288,7 @@ cursor: pointer;
         border-radius: 20px;
         place-self: center;
         min-width: 90%;
+        max-width:92%;
         min-height: 300px;
     }
 
