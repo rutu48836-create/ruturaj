@@ -1287,7 +1287,7 @@ cursor: pointer;
     .No_agent{
         border-radius: 20px;
         place-self: center;
-        min-width: 400px;
+        min-width: 340px;
         min-height: 300px;
     }
 
