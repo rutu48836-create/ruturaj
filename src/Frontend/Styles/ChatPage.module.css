@@ -89,7 +89,7 @@ margin-left: 20px;
     display: flex;
     flex-direction: column;
     padding: 100px 20px 100px 20px; /* space for header + input */
-    background: #ffffff;
+    background: #fcf5f5;
     overflow-y: auto;
     width: 100%;
     gap:16px;
