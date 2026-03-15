@@ -244,7 +244,7 @@ font-size:12px;
     border-radius: 8px;
     border: 1px solid #ddd;
     color: #fff;
-    min-width: 100px;
+    min-width: auto;
     background: #000000dd;
     cursor: pointer;
 }
