@@ -1287,7 +1287,7 @@ cursor: pointer;
         border: none;
         font-family: "Inter", sans-serif;
         margin-left: 0;
-        display: flex;
+        display: none;
     }
 
     .No_agent{
