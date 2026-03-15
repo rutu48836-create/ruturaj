@@ -12,7 +12,7 @@ body{
 }
 
 .small{
-font-size:13px;
+font-size:12px;
 }
 
 .usage_active{
@@ -1289,8 +1289,10 @@ cursor: pointer;
     }
 
     .No_agent{
+        min-width: unset;   
         border-radius: 20px;
         place-self: center;
+        width:90%;
         max-width: 300px;
         min-height: 300px;
     }
@@ -1326,9 +1328,11 @@ cursor: pointer;
         flex: 1;
     }
 
-       .No_agent{
+      .No_agent{
+        min-width: unset;   
         border-radius: 20px;
         place-self: center;
+        width:90%;
         max-width: 300px;
         min-height: 300px;
     }
