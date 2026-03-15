@@ -1291,7 +1291,7 @@ cursor: pointer;
     .No_agent{
         border-radius: 20px;
         place-self: center;
-        max-width: 90%;
+        max-width: 300px;
         min-height: 300px;
     }
 
@@ -1326,10 +1326,10 @@ cursor: pointer;
         flex: 1;
     }
 
-     .No_agent{
+       .No_agent{
         border-radius: 20px;
         place-self: center;
-        min-width: 400px;
+        max-width: 300px;
         min-height: 300px;
     }
 
