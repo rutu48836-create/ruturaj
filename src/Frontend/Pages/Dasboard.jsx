@@ -510,7 +510,7 @@ formPayload.append('notificationEmail', formData.notificationEmail || '')
               />
             </div>
 
-<small>
+<small className={styles.small}>
  The agent will email you about new orders or requests. Ensure the prompt instructs them</small>
 
           </div>{/* /appearance_inputs */}
