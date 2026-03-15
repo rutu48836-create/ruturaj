@@ -37,7 +37,7 @@ function Projects({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create + </button>
+          <button className={styles.create_btn} onClick={() => setBuilder(true)}>+</button>
         </div>
         </div>
       </div>
@@ -162,7 +162,7 @@ export function Dashboard({ onclose }) {
     website: '',
     logo: null,
     pdfs: [],
-    color:"#000",
+    color:"#1a1a1a",
     agentType:'',
     notificationEmail:null
   })
