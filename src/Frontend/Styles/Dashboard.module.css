@@ -11,6 +11,10 @@ body{
     scrollbar-width: thin;
 }
 
+.small{
+font-size:13px;
+}
+
 .usage_active{
     display:none !important;
 }
