@@ -16,7 +16,7 @@ body{
  flex-direction: column;
  min-width: 100%;
  min-height: 9vh;
- max-height: 16vh;
+ max-height: 14vh;
  background: #ffffff;
  align-items: center;
  justify-content: center;
@@ -376,7 +376,7 @@ height:40px;
 .Navbar_wrapper{
     position: fixed;
     background: #fff;
-    min-height: 13vh;
+    min-height: 11vh;
 }
 
 .Navbar_links_section{
