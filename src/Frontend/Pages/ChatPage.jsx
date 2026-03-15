@@ -88,7 +88,7 @@ historyRef.current.push({ role: 'user', content: message })
     return (
         <div className={styles.ChatPage_wrapper} style={{color : getTextColor(chatbot.color)}}>
             <div className={styles.ChatPage_header}  style={{
-    backgroundColor: `${chatbot.color || '#000'}80`,
+    backgroundColor: `${chatbot.color || '#000'}120`,
     boxShadow: `inset 0 1px 0 rgba(255,255,255,0.3), 0 4px 12px ${chatbot.color || '#000'}30`,
     color : getTextColor(chatbot.color)
   }}>
