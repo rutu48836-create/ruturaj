@@ -37,7 +37,7 @@ function Projects({
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <button className={styles.create_btn} onClick={() => setBuilder(true)}>+</button>
+          <button className={styles.create_btn} onClick={() => setBuilder(true)}>Create +</button>
         </div>
         </div>
       </div>
