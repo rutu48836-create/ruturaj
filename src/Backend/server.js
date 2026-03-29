@@ -10,7 +10,7 @@ import { extractPDFText } from './services/pdf_data.js'
 import { LetterText } from 'lucide-react'
 import {sendConfirmation,sendUserCancelled,sendUserConfirmed,pendingBookings} from "./services/email_assistant.js"
 import { bookCalendarEvent } from './services/google_calender.js'
-import { google } from 'googleapis'
+import { google } from 'googleapis' 
 
 dotenv.config()
 
