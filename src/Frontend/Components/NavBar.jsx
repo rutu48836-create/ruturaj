@@ -71,7 +71,7 @@ function Upgrade({ upgrade, setUpgrade }) {
       window.paypal.Buttons({
         style: { shape: "rect", color: "gold", layout: "vertical", label: "subscribe" },
         createSubscription: (data, actions) =>
-          actions.subscription.create({ plan_id : import.meta.env.VITE_PAYPAL_PLAN_ID_SANDBOX  }),
+          actions.subscription.create({plan_id: import.meta.env.VITE_PAYPAL_PLAN_ID}),
         onApprove: async (data) => {
           await fetch(`${BACKEND_URL}/api/save-subscription`, {
             method: "POST",
