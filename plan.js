@@ -1,70 +1,28 @@
-const CLIENT_ID = "AUIiQcs6jJbgEUw57ayFzBKRKPcbyz7o50lz7XS2bQ85dYUklgH1Plfn2oEHm5JNUyuo_KSMRJalju5H";
-const SECRET = "EChGd2kbcIGbjOt7zfz_OMTxPalAFXpHzaQ-0Gx4E6T3_wuvdZgFl1V14Lp3ALtrc1anRM67JCnJ_BNN";
+const CLIENT_ID = 'AbAUOZEXXFLh9xqM986-A0YDkMbGbaXjSyyfYsf2Y-F8EfZJerrU9bMKMvivpZpZhrM2EYIQSdYiqbR9';
+const SECRET = 'EJVcKTZwrh5h6f2KOpbNxRUeHM7hTqQAbpxrHqulE3etRdOLfeod-yeNmgAp5mgZHk861vJAUiuVXke0';
 
-const tokenRes = await fetch("https://api-m.paypal.com/v1/oauth2/token", {
-  method: "POST",
-  headers: {
-    "Accept": "application/json",
-    "Authorization": "Basic " + btoa(`${CLIENT_ID}:${SECRET}`),
-    "Content-Type": "application/x-www-form-urlencoded",
-  },
-  body: "grant_type=client_credentials",
-});
+async function checkCredentials() {
+  const credentials = Buffer.from(`${CLIENT_ID}:${SECRET}`).toString('base64');
 
-const tokenData = await tokenRes.json();
-if (!tokenData.access_token) {
-  console.error("❌ Failed to get token:", tokenData);
-  process.exit(1);
+  const response = await fetch('https://api-m.sandbox.paypal.com/v1/oauth2/token', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: 'grant_type=client_credentials',
+  });
+
+  const data = await response.json();
+
+  if (response.ok) {
+    console.log('✅ Credentials valid!');
+    console.log('Access Token:', data.access_token);
+    console.log('Expires in:', data.expires_in, 'seconds');
+    console.log('App ID:', data.app_id);
+  } else {
+    console.error('❌ Credentials invalid:', data.error_description);
+  }
 }
-const access_token = tokenData.access_token;
-console.log("✅ Got access token!");
 
-const productRes = await fetch("https://api-m.paypal.com/v1/catalogs/products", {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${access_token}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    name: "Lunaar Pro",
-    description: "Lunaar Pro subscription",
-    type: "SERVICE",
-    category: "SOFTWARE",
-  }),
-});
-
-const product = await productRes.json();
-if (!product.id) {
-  console.error("❌ Product creation failed:", product);
-  process.exit(1);
-}
-console.log("✅ Product created! ID:", product.id);
-
-const planRes = await fetch("https://api-m.paypal.com/v1/billing/plans", {
-  method: "POST",
-  headers: {
-    "Authorization": `Bearer ${access_token}`,
-    "Content-Type": "application/json",
-  },
-  body: JSON.stringify({
-    product_id: product.id,
-    name: "Lunaar Pro Monthly",
-    billing_cycles: [{
-      frequency: { interval_unit: "MONTH", interval_count: 1 },
-      tenure_type: "REGULAR",
-      sequence: 1,
-      total_cycles: 0,
-      pricing_scheme: { fixed_price: { value: "9.99", currency_code: "USD" }}
-    }],
-    payment_preferences: { auto_bill_outstanding: true }
-  }),
-});
-
-const plan = await planRes.json();
-
-if (plan.id) {
-  console.log("\n✅ Your LIVE Plan ID:", plan.id);
-  console.log("👉 Add to .env: VITE_PAYPAL_PLAN_ID=" + plan.id);
-} else {
-  console.error("❌ Plan creation failed:", JSON.stringify(plan, null, 2));
-}
+checkCredentials();
