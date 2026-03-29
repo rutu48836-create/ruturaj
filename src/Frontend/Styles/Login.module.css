@@ -1,0 +1,161 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Italiana&display=swap');
+
+html,body{
+
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color:#000;
+}
+
+.login_wrapper{
+
+width: 100%;
+min-height:100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+background: rgba(240, 172, 94, 0);
+
+
+}
+
+.Card_Container{
+
+    width: 380px;
+    min-height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    border-radius:8px;
+    background: #fff;
+    margin-top: 50px;
+
+}
+
+.Top_headings{
+
+width:100%;
+min-height:auto;
+display: flex;
+flex-direction: column;
+align-items: center;
+text-align: center;
+gap: 4px;
+margin-top: 14px;
+margin-bottom: 0px;
+
+}
+
+.Top_headings h2{
+
+   font-family: "Inter", sans-serif;
+    font-weight: 550;
+    margin-bottom: 10px;
+    font-size: 2em;
+
+}
+
+.Top_headings p{
+
+font-size: .7em;
+width: 80%;
+line-height: 1.4em;
+font-family: "Roboto",sans-serif;
+color: #302f2f;
+
+}
+
+.Login_options_container{
+
+width: 100%;
+display: flex;
+min-height: 200px;
+gap: 14px;
+flex-direction: column;
+align-items: center;
+justify-content: center;
+margin-top: 0;
+
+}
+
+.Login_options_container button{
+
+width: 90%;
+min-height: 44px;
+border-radius: 5px;
+box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+border: none;
+font-family: "Inter",sans-serif;
+background: #000000;
+cursor: pointer;
+margin-top: 0;
+padding: .4rem;
+font-weight: 500;
+color: #fff;
+align-items: center;
+display: flex;
+justify-content:center;
+gap:10px;
+
+}
+
+img{
+
+max-width: 18px;
+max-height: 18px;
+
+}
+
+.login_wrapper span{
+    font-size:14px;
+    margin-top: 1.2em;
+    font-weight: 450;   
+}
+
+.login_wrapper span a {
+    color:#f19f52;
+    text-decoration:none;
+    font-family:'roboto',sans-serif;
+}
+
+.Nav_wrapper{
+ display:flex;
+ width:100%;
+ min-height: auto;
+ top:0;
+ margin-top:0;
+ align-items: center;
+ justify-content: space-between;
+ max-height: 10vh;
+}
+
+.Nav_wrapper h4{
+    display: flex;
+    align-items: center;
+    margin-left: 20px;
+    gap:12px;
+    font-size: 22px;
+    font-weight: 550;
+}
+
+.Nav_wrapper button{
+
+    border: none;
+    background:#fff;
+    display: flex;
+    margin-right: 20px;
+    font-family: "Inter",sans-serif;
+    padding: .6rem;
+    min-width: 8%;
+    align-items: center;
+    justify-content: center;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border-radius: 30px;
+    font-size: 14px;
+    cursor: pointer;
+
+}

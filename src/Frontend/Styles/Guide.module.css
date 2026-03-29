@@ -1,0 +1,386 @@
+/* ── Fonts ── */
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+.guide_wrapper {
+  min-height: 100vh;
+  background: #fafaf8;
+  font-family: 'DM Sans', sans-serif;
+  color: #111;
+}
+
+.guide_content {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+/* ── Hero ── */
+.hero {
+  text-align: center;
+  padding: 80px 0 56px;
+  max-width: 720px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #888;
+  margin-bottom: 20px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 20px;
+  color: #0e0e0e;
+}
+
+.hero p {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.7;
+  margin: 0 0 36px;
+}
+
+.hero_nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.hero_nav_btn {
+  padding: 8px 20px;
+  border-radius: 999px;
+  border: 1.5px solid;
+  font-size: 13px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s;
+  background: transparent;
+}
+
+.hero_nav_btn:hover {
+  opacity: 0.7;
+}
+
+/* ── Common requirements ── */
+.common_section {
+  margin-bottom: 56px;
+}
+
+.common_inner {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 16px;
+  padding: 28px 32px;
+}
+
+.common_label {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #aaa;
+  margin-bottom: 20px;
+}
+
+.common_items {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+}
+
+.common_item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.common_icon {
+  font-size: 20px;
+  margin-top: 2px;
+  flex-shrink: 0;
+}
+
+.common_item strong {
+  display: block;
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 3px;
+  color: #111;
+}
+
+.common_item span {
+  font-size: 13px;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* ── Divider ── */
+.divider {
+  height: 1px;
+  background: #e8e8e4;
+  margin: 56px 0;
+}
+
+/* ── Agent sections ── */
+.agent_section {
+  padding: 56px 0;
+}
+
+.agent_section.odd {
+  background: transparent;
+}
+
+.agent_inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 64px;
+  align-items: start;
+}
+
+@media (max-width: 768px) {
+  .agent_inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+}
+
+/* ── Agent left ── */
+.agent_left {
+  position: sticky;
+  top: 80px;
+}
+
+.agent_tag {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 4px 12px;
+  border-radius: 999px;
+  margin-bottom: 20px;
+}
+
+.agent_headline {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  font-weight: 400;
+  line-height: 1.2;
+  margin: 0 0 16px;
+  color: #0e0e0e;
+}
+
+.agent_description {
+  font-size: 0.95rem;
+  color: #555;
+  line-height: 1.75;
+  margin: 0 0 28px;
+}
+
+.use_cases {
+  margin-bottom: 24px;
+}
+
+.use_cases_label {
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: #aaa;
+  display: block;
+  margin-bottom: 10px;
+}
+
+.use_cases_list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.use_case_pill {
+  font-size: 12px;
+  font-weight: 500;
+  padding: 4px 12px;
+  background: #f3f3f0;
+  border-radius: 999px;
+  color: #444;
+}
+
+.agent_note {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  background: #fffbeb;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 12px 16px;
+  font-size: 13px;
+  color: #78350f;
+  line-height: 1.5;
+}
+
+.note_icon {
+  flex-shrink: 0;
+  font-size: 15px;
+  margin-top: 1px;
+}
+
+/* ── Steps card ── */
+.steps_card {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 2px 16px rgba(0,0,0,0.04);
+}
+
+.steps_card_header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f0ec;
+  background: #fafaf8;
+}
+
+.steps_card_header span {
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #888;
+}
+
+.steps_count {
+  background: #f0f0ec;
+  border-radius: 999px;
+  padding: 2px 10px;
+  font-size: 11px !important;
+}
+
+.steps_list {
+  padding: 8px 0;
+}
+
+.step_item {
+  border-bottom: 1px solid #f5f5f2;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.step_item:last-child {
+  border-bottom: none;
+}
+
+.step_item:hover {
+  background: #fafaf8;
+}
+
+.step_header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px 20px;
+}
+
+.step_number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 18px;
+  font-weight: 400;
+  min-width: 28px;
+  flex-shrink: 0;
+}
+
+.step_title {
+  font-size: 14px;
+  font-weight: 500;
+  color: #111;
+  flex: 1;
+  line-height: 1.4;
+}
+
+.step_chevron {
+  font-size: 18px;
+  color: #aaa;
+  font-weight: 300;
+  flex-shrink: 0;
+}
+
+.step_body {
+  padding: 0 20px 16px 62px;
+  font-size: 13.5px;
+  color: #555;
+  line-height: 1.7;
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── CTA ── */
+.cta_section {
+  text-align: center;
+  padding: 56px 0 0;
+}
+
+.cta_section h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 400;
+  margin: 0 0 14px;
+  color: #0e0e0e;
+}
+
+.cta_section p {
+  font-size: 1rem;
+  color: #666;
+  margin: 0 0 32px;
+}
+
+.cta_btn {
+  display: inline-block;
+  padding: 14px 32px;
+  background: #0e0e0e;
+  color: #fff;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  text-decoration: none;
+  transition: opacity 0.15s, transform 0.15s;
+}
+
+.cta_btn:hover {
+  opacity: 0.85;
+  transform: translateY(-1px);
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .guide_content {
+    padding: 0 16px 60px;
+  }
+
+  .hero {
+    padding: 48px 0 40px;
+  }
+
+  .common_inner {
+    padding: 20px;
+  }
+
+  .step_body {
+    padding-left: 20px;
+  }
+}
