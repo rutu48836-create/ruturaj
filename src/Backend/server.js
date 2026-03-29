@@ -4,7 +4,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import multer from 'multer'
 import { Chat_handler } from './controllers/chatController.js'
-import chatRoutes from './routes/chat.js'
+import chatRoutes from "./routes/chat.js";
 import {scrapeWebsite} from './services/website_data.js'
 import { extractPDFText } from './services/pdf_data.js'
 import { LetterText } from 'lucide-react'
