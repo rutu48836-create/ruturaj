@@ -496,7 +496,8 @@ height:40px;
 }
 
 .Side_bar_main_content{
-    min-width: 100%;
+    min-width: 90%;
+    max-width:92%;
     height: auto;           /* ✅ was min-height:90vh — this was causing overflow */
     display:flex;
     flex-direction: column;
