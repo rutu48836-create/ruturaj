@@ -217,25 +217,23 @@ color: black;
 
 }
 
-.Side_bar_full_screen{
+.Side_bar_full_screen {
     min-width: 30%;
     max-width: 42%;
-    min-height: 100vh;
+    height: 100vh;        /* fixed height instead of min-height */
     display: flex;
     flex-direction: column;
     align-items: center;
-    background: transparent;
+    background: #fff;
     z-index: 10000;
     top: 0;
-    right: 0;
-    left: 0;
+    right: 0;             /* anchor to right side */
+    left: auto;           /* remove left:0 — it was stretching across screen */
     bottom: 0;
-    position:fixed;
-    justify-self: flex-end;
-    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;    background: #fff;
-    overflow: hidden;
-    transition: .4s ease;
-    overflow-y:auto;
+    position: fixed;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    overflow-y: auto;     /* scroll inside sidebar */
+    overflow-x: hidden;
 }
 
 .Side_bar_head{
@@ -266,15 +264,16 @@ color: black;
     color:#000;
 }
 
-.Side_bar_main_content{
+.Side_bar_main_content {
     min-width: 86%;
-    min-height:90vh;
-    display:flex;
+    height: auto;          /* remove min-height:90vh — this was the main culprit */
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
     background: #fff;
     padding: .6rem;
+    padding-bottom: 40px; /* breathing room at bottom */
 }
 
 .button_wrapper{
@@ -394,18 +393,17 @@ color: black;
 box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 1px inset;
 }
 
-.user_usage{
+.user_usage {
     width: 90%;
-    height: 35%;
-box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
+    height: auto;          /* remove fixed 35% height */
+    box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     display: flex;
     place-self: center;
     margin-top: 50px;
-    position: sticky;
-    padding-bottom: 0;
-    border-radius:14px;
+    border-radius: 14px;
     flex-direction: column;
     align-items: flex-start;
+    padding-bottom: 16px;  /* replaces the broken height:35% */
 }
 
 .user_usage button{
