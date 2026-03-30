@@ -200,6 +200,7 @@ export function NavBar({ credits }) {
               <button
                 className={styles.up_btn}
                 onClick={() => setUpgrade(true)}
+                style={{display:'hidden'}}
               >
                 Pro{" "}
                 <svg
