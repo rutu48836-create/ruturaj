@@ -100,6 +100,10 @@ function Upgrade({ upgrade, setUpgrade }) {
       }
     }, 100); // wait 100ms for modal to mount
 
+      onError: (err) => {
+  console.error("PayPal error:", JSON.stringify(err));
+}
+
     return () => clearTimeout(timer);
   }, [upgrade]);
 
