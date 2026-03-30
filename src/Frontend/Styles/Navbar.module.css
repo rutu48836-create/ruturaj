@@ -1,4 +1,3 @@
-
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
@@ -187,12 +186,12 @@ border-radius: 50%;
 
 .Navbar_links_section ul{
     display: flex;
-    flex-direction: row;  /* This makes li items align horizontally */
+    flex-direction: row;
     align-items: center;
     gap: 30px;
     list-style: none;
-    padding: 0;  /* Remove default ul padding */
-    margin: 0;   /* Remove default ul margin */
+    padding: 0;
+    margin: 0;
     margin-left: 40px;
     align-items: flex-start;
     justify-content: flex-start;
@@ -220,19 +219,19 @@ color: black;
 .Side_bar_full_screen {
     min-width: 30%;
     max-width: 42%;
-    height: 100vh;        /* fixed height instead of min-height */
+    height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: #fff;
     z-index: 10000;
     top: 0;
-    right: 0;             /* anchor to right side */
-    left: auto;           /* remove left:0 — it was stretching across screen */
+    right: 0;
+    left: auto;
     bottom: 0;
     position: fixed;
     box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
-    overflow-y: auto;     /* scroll inside sidebar */
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -266,14 +265,14 @@ color: black;
 
 .Side_bar_main_content {
     min-width: 86%;
-    height: auto;          /* remove min-height:90vh — this was the main culprit */
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
     background: #fff;
     padding: .6rem;
-    padding-bottom: 40px; /* breathing room at bottom */
+    padding-bottom: 40px;
 }
 
 .button_wrapper{
@@ -395,7 +394,7 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
 
 .user_usage {
     width: 90%;
-    height: auto;          /* remove fixed 35% height */
+    height: auto;
     box-shadow: rgba(9, 30, 66, 0.25) 0px 1px 1px, rgba(9, 30, 66, 0.13) 0px 0px 1px 1px;
     display: flex;
     place-self: center;
@@ -403,7 +402,7 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
     border-radius: 14px;
     flex-direction: column;
     align-items: flex-start;
-    padding-bottom: 16px;  /* replaces the broken height:35% */
+    padding-bottom: 16px;
 }
 
 .user_usage button{
@@ -459,7 +458,8 @@ height:40px;
 
 .Side_bar_full_screen{
     min-width: 100%;
-    min-height: 100vh;
+    max-width: 100%;
+    height: 100vh;          /* ✅ fixed height so it doesn't overflow */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -470,6 +470,8 @@ height:40px;
     left: 0;
     bottom: 0;
     position:fixed;
+    overflow-y: auto;       /* ✅ scroll inside instead of overflowing */
+    overflow-x: hidden;
 }
 
 .Side_bar_head{
@@ -495,11 +497,12 @@ height:40px;
 
 .Side_bar_main_content{
     min-width: 100%;
-    min-height:90vh;
+    height: auto;           /* ✅ was min-height:90vh — this was causing overflow */
     display:flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+    padding-bottom: 40px;   /* ✅ breathing room at bottom */
 }
 
 .button_wrapper{
@@ -668,7 +671,8 @@ justify-content:center;
 
 .Side_bar_full_screen{
     min-width: 100%;
-    min-height: 100vh;
+    max-width: 100%;
+    height: 100vh;          /* ✅ fixed height so it doesn't overflow */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -679,6 +683,8 @@ justify-content:center;
     left: 0;
     bottom: 0;
     position:fixed;
+    overflow-y: auto;       /* ✅ scroll inside instead of overflowing */
+    overflow-x: hidden;
 }
 
 .Side_bar_head{
@@ -704,11 +710,12 @@ justify-content:center;
 
 .Side_bar_main_content{
     min-width: 100%;
-    min-height:90vh;
+    height: auto;           /* ✅ was min-height:90vh — this was causing overflow */
     display:flex;
     flex-direction: column;
     align-items: center;
     margin-top: 30px;
+    padding-bottom: 40px;   /* ✅ breathing room at bottom */
 }
 
 .button_wrapper{
@@ -846,4 +853,4 @@ justify-content:center;
 
         }
 
-}   
+}
