@@ -70,6 +70,8 @@ function Upgrade({ upgrade, setUpgrade }) {
 
       window.paypal.Buttons({
         style: { shape: "rect", color: "gold", layout: "vertical", label: "subscribe" },
+fundingSource: undefined,
+          
         createSubscription: (data, actions) =>
           actions.subscription.create({plan_id: import.meta.env.VITE_PAYPAL_PLAN_ID.trim()}),
         onApprove: async (data) => {
@@ -92,17 +94,13 @@ function Upgrade({ upgrade, setUpgrade }) {
         // Script not loaded yet — load it, then render
         if (!document.querySelector('script[src*="paypal.com/sdk"]')) {
           const script = document.createElement("script");
-     script.src = `https://www.paypal.com/sdk/js?client-id=${import.meta.env.VITE_PAYPAL_CLIENT_ID}&vault=true&intent=subscription`
-          script.async = true;
+script.src = `https://www.paypal.com/sdk/js?client-id=${import.meta.env.VITE_PAYPAL_CLIENT_ID}&vault=true&intent=subscription&components=buttons,card-fields`
+    script.async = true;
           script.onload = renderButton;
           document.body.appendChild(script);
         }
       }
-    }, 100); // wait 100ms for modal to mount
-
-      onError: (err) => {
-  console.error("PayPal error:", JSON.stringify(err));
-}
+    }, 100); 
 
     return () => clearTimeout(timer);
   }, [upgrade]);
