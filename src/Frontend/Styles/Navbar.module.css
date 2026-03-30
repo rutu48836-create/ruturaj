@@ -424,12 +424,13 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
 @media(max-width:768px){
 
     .links_wrapper{
-    min-width:80%;
-        max-width:85%;
+    width:unset;
+    min-width:90%;
+     max-width:92%;
     place-self: center;
     margin-top: 30px;
     height: auto;
-    display:flex;
+    display:column;
     grid-template-columns: repeat(2,1fr);
     gap:10px;
     justify-content: center;
