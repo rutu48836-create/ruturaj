@@ -213,12 +213,6 @@ export function NavBar({ credits }) {
                 </svg>
               </button>
             )}
-
-            <a href="/Contact">
-              <button className={styles.Icon_btn}>
-                <CircleQuestionMark color="#797373" size={18} />
-              </button>
-            </a>
             <button className={styles.Icon_btn}>
               <LogOut color="#797373" size={18} />
             </button>
