@@ -13,7 +13,7 @@ const loadRazorpayScript = () => {
   });
 };
 
-const BACKEND_URL = import.env.meta.BACKEND_URL 
+   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL
 
 export const useRazorpay = () => {
   const [loading, setLoading] = useState(false);
