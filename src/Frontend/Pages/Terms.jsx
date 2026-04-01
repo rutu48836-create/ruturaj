@@ -83,7 +83,6 @@ const sections = [
 export function Terms() {
   return (
     <div className={styles.terms_wrapper}>
-      <NavBar />
       <div className={styles.terms_content}>
 
         {/* Hero */}

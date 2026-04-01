@@ -26,6 +26,7 @@
     "pdf-parse": "^2.4.5",
     "pdf-parse-fork": "^1.2.0",
     "puppeteer": "^24.39.0",
+    "razorpay": "^2.9.6",
     "stripe": "^20.4.0"
   }
 }

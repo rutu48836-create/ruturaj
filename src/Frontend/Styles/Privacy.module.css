@@ -1,0 +1,280 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap');
+
+.terms_wrapper {
+  min-height: 100vh;
+  background: #fafaf8;
+  font-family: 'DM Sans', sans-serif;
+  color: #111;
+}
+
+.terms_content {
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 24px 96px;
+}
+
+/* ── Hero ── */
+.hero {
+  padding: 80px 0 48px;
+}
+
+.eyebrow {
+  display: inline-block;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #aaa;
+  margin-bottom: 16px;
+}
+
+.hero h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 400;
+  line-height: 1.15;
+  margin: 0 0 14px;
+  color: #0e0e0e;
+}
+
+.hero p {
+  font-size: 0.9rem;
+  color: #999;
+  margin: 0;
+}
+
+/* ── Google compliance banner ── */
+.google_banner {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 48px;
+}
+
+.google_banner_icon {
+  font-size: 18px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.google_banner strong {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: #1e40af;
+  margin-bottom: 3px;
+}
+
+.google_banner span {
+  font-size: 13px;
+  color: #1d4ed8;
+  line-height: 1.6;
+}
+
+.google_banner a {
+  color: #1d4ed8;
+  text-decoration: underline;
+}
+
+/* ── Sections ── */
+.sections_list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.section {
+  padding: 32px 0;
+  border-bottom: 1px solid #eeeeea;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section.highlighted {
+  background: #fafaf8;
+  border-radius: 12px;
+  padding: 28px 24px;
+  border: 1px solid #e8e8e4;
+  margin-bottom: 8px;
+}
+
+.section_header {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 18px;
+}
+
+.section_number {
+  font-family: 'DM Serif Display', serif;
+  font-size: 22px;
+  color: #d0cfc8;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.section_title {
+  font-size: 17px;
+  font-weight: 600;
+  color: #0e0e0e;
+  margin: 0;
+  text-transform: capitalize;
+}
+
+/* ── Items ── */
+.section_items {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.section_item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  font-size: 14px;
+  color: #555;
+  line-height: 1.7;
+}
+
+.bullet {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #ccc;
+  flex-shrink: 0;
+  margin-top: 9px;
+}
+
+/* ── Google scope cards ── */
+.scope_cards {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.scope_card {
+  background: #fff;
+  border: 1px solid #e8e8e4;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+.scope_card_header {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.scope_icon {
+  font-size: 24px;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.scope_service {
+  font-family: 'DM Serif Display', serif;
+  font-size: 15px;
+  color: #0e0e0e;
+  margin-bottom: 6px;
+}
+
+.scope_badges {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.scope_chip {
+  background: #f3f4f6;
+  color: #374151;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: 4px;
+  padding: 2px 8px;
+}
+
+.scope_code {
+  background: #f3f4f6;
+  color: #6b7280;
+  font-size: 11px;
+  border-radius: 4px;
+  padding: 2px 8px;
+  font-family: monospace;
+}
+
+.scope_purpose {
+  font-size: 13px;
+  color: #555;
+  line-height: 1.65;
+  margin-bottom: 12px;
+}
+
+.scope_actions {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.scope_action {
+  display: flex;
+  gap: 8px;
+  font-size: 13px;
+  color: #777;
+  line-height: 1.5;
+}
+
+.scope_check {
+  color: #16a34a;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+/* ── Footer note ── */
+.footer_note {
+  margin-top: 56px;
+  text-align: center;
+  font-size: 13px;
+  color: #aaa;
+}
+
+.footer_note a {
+  color: #2563eb;
+  text-decoration: none;
+}
+
+.footer_note a:hover {
+  text-decoration: underline;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  .terms_content {
+    padding: 0 16px 72px;
+  }
+
+  .hero {
+    padding: 48px 0 36px;
+  }
+
+  .section.highlighted {
+    padding: 20px 16px;
+  }
+}

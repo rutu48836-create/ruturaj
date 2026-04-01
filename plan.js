@@ -1,4 +1,4 @@
-const CLIENT_ID = 'AbAUOZEXXFLh9xqM986-A0YDkMbGbaXjSyyfYsf2Y-F8EfZJerrU9bMKMvivpZpZhrM2EYIQSdYiqbR9';
+const CLIENT_ID = 'AUIiQcs6jJbgEUw57ayFz...';
 const SECRET = 'EJVcKTZwrh5h6f2KOpbNxRUeHM7hTqQAbpxrHqulE3etRdOLfeod-yeNmgAp5mgZHk861vJAUiuVXke0';
 
 async function checkCredentials() {

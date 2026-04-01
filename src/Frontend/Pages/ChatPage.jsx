@@ -67,7 +67,9 @@ historyRef.current.push({ role: 'user', content: message })
 
     function getTextColor(bgColor) {
   const hex = parseInt(bgColor.replace('#', ''), 16)
-  return hex < 0xcccccc ? '#000000' : '#ffffff' 
+  if(hex < 0x918989) return '#ffffff'
+  else if(hex < 0xcccccc) return '#000000'
+  else return '#ffffff'
 }
 
     if (!chatbot) return <div>Loading chatbot...</div>

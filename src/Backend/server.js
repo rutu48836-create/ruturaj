@@ -10,6 +10,7 @@ import { extractPDFText } from './services/pdf_data.js'
 import {sendConfirmation,sendUserCancelled,sendUserConfirmed,pendingBookings} from "./services/email_assistant.js"
 import { bookCalendarEvent } from './services/google_calender.js'
 import { google } from 'googleapis' 
+import paymentRoutes from "./routes/payment.js";
 
 dotenv.config()
 
@@ -360,6 +361,8 @@ app.get('/auth/google/callback', async (req, res) => {
   }
 })
 
+
+app.use("/api", paymentRoutes);
 
 app.use("/api", chatRoutes)
 

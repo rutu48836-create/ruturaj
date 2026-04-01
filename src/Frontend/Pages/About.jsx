@@ -4,7 +4,6 @@ import styles from "../Styles/About.module.css";
 export function About() {
   return (
     <div className={styles.About_wrapper}>
-      <NavBar />
       <div className={styles.About_content}>
 
         {/* Hero */}

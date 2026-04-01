@@ -37,7 +37,6 @@ const categories = [
 export function Contact() {
   return (
     <div className={styles.contact_wrapper}>
-      <NavBar />
       <div className={styles.contact_content}>
 
         {/* Hero */}
