@@ -13,6 +13,8 @@ const loadRazorpayScript = () => {
   });
 };
 
+const BACKEND_URL = import.env.meta.BACKEND_URL 
+
 export const useRazorpay = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -26,7 +28,7 @@ export const useRazorpay = () => {
       if (!loaded) throw new Error("Failed to load Razorpay. Check your internet connection.");
 
       // 1. Get subscription_id from backend
-      const res = await fetch("http://localhost:5000/api/create-subscription", { method: "POST" });
+      const res = await fetch(`${BACKEND_URL}/api/create-subscription`, { method: "POST" });
       if (!res.ok) throw new Error("Failed to create subscription.");
       const { subscription_id } = await res.json();
 
@@ -35,7 +37,7 @@ export const useRazorpay = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         subscription_id,
         name: "Lunaar",
-        description: "Pro Plan · ₹999/month",
+        description: "Pro Plan · ₹399/month",
         image: "/logo.png",
         prefill: {
           name: user?.name || "",
