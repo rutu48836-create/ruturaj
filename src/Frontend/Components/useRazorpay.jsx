@@ -37,7 +37,7 @@ export const useRazorpay = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         subscription_id,
         name: "Lunaar",
-        description: "Pro Plan · ₹399/month",
+        description: "Pro Plan · ₹499/month",
         image: "/logo.png",
         prefill: {
           name: user?.name || "",
