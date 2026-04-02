@@ -37,7 +37,7 @@ export const useRazorpay = () => {
         key: import.meta.env.VITE_RAZORPAY_KEY_ID,
         subscription_id,
         name: "Lunaar",
-        description: "Pro Plan · ₹499/month",
+        description: "Upgrade to the Pro Plan to unlock up to 5 custom chatbots and increase your monthly capacity to 1,100 messages",
         image: "/logo.png",
         prefill: {
           name: user?.name || "",
