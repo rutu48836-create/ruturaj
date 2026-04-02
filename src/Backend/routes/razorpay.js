@@ -104,7 +104,7 @@ const renewProPlan = async (subscriptionId) => {
     .from("users")
     .update({
       credits: 25,
-      monthly_limit: 1000,
+      monthly_limit: 1100,
     })
     .eq("subscription_id", subscriptionId);
 
