@@ -152,7 +152,7 @@ handleUpgrade()
     <button className={styles.upgrade_btn} onClick={() => {
 handleUpgrade()
     }}>Upgrade</button>
-    <button className={styles.pricing_btn}>Pricing</button>
+    <button className={styles.pricing_btn} onClick={() => { alert('The pricing page is currently not available')}>Pricing</button>
   </div>
 
   <div className={styles.User_details_side_bar}>
