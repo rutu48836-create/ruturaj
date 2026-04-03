@@ -38,6 +38,9 @@ setPlan(data.plan)
     }
   })
 
+    return () => unsubscribe(); 
+}, [navigate]);
+
 
   return (
     <div
