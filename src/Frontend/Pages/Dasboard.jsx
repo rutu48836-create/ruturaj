@@ -14,7 +14,7 @@ import { useRazorpay } from '../Components/useRazorpay.jsx'
 
 function Dashboard_sidebar({ active, setActive, setSide_bar_open, currentUser, handleUpgrade}) {
 
- const [plan,setPlan] = useState('free)
+ const [plan,setPlan] = useState('free');
  
    const navigate = useNavigate();
 
