@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
 
 body{
     padding: 0;
@@ -8,6 +9,50 @@ body{
     box-sizing: border-box;
     background:#fcfcfc;
     scrollbar-width: thin;
+background-image: 
+    /* Top-Center Main Amber Glow (Primary Light Source) */
+    radial-gradient(circle at 50% -10%, rgba(255, 152, 0, 0.15) 0%, transparent 60%),
+    
+    /* Subtle Left Amber Accent */
+    radial-gradient(circle at 0% 40%, rgba(255, 193, 7, 0.08) 0%, transparent 40%),
+    
+    /* Bottom Right Warm Lift */
+    radial-gradient(circle at 95% 95%, rgba(255, 160, 0, 0.1) 0%, transparent 35%),
+    
+    /* Central Soft Neutral Fill */
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+
+  background-attachment: fixed;
+  min-height: 100vh;
+  width: 100%;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* The Professional Grid Overlay (from reference) */
+body::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(to right, rgba(0,0,0,0.03) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(0,0,0,0.03) 1px, transparent 1px);
+  background-size: 60px 60px; /* Larger, cleaner grid */
+  mask-image: radial-gradient(circle at center, black, transparent 90%);
+  z-index: -1;
+  pointer-events: none;
+}
+
+/* Subtle "Noise" texture for that premium feel */
+body::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0.015;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  filter: contrast(150%) brightness(100%);
+  z-index: -1;
+  pointer-events: none;
 }
 
 .Homepage_wrapper{
@@ -94,7 +139,7 @@ display: flex;
 flex-direction: column;
 gap: 20px;
 text-align: center;
-margin-top: 40px;
+margin-top: 20px;
 
 }
 
@@ -128,18 +173,18 @@ margin-top: 40px;
 .Hero_section h1{
 
  font-size: 3.8rem;
- font-family: "Inter", sans-serif;
+  font-family: "Merriweather", serif;
  width: 60%;
  margin-bottom: 10px;
  text-shadow: 0px 2px 4px rgba(0,0,0,0.12);
- font-weight: 400;
+ font-weight: 200;
 
 }
 
 .Hero_section span{
 
-width: 40%;
-line-height: 1.2rem;
+width: 52%;
+line-height: 1.8rem;
 color: #464444;
 margin-bottom: 14px;
 
@@ -147,7 +192,7 @@ margin-bottom: 14px;
 
 .Hero_section button{
 
-width: 220px;
+width: 180px;
 height: 40px;
 padding: .6rem;
 background: #000;
@@ -157,6 +202,12 @@ font-family: "Inter",sans-serif;
 border-radius: 20px;
 cursor: pointer;
 font-size: 14px;
+  text-shadow: .2px .2px #fff;
+  box-shadow: 
+    inset 0 1px 0 0 rgba(255, 255, 255, 0.4),  
+    inset 0 10px 20px -10px rgba(255, 255, 255, 0.15), 
+    0 10px 20px -5px rgba(0, 0, 0, 0.4);
+    border: 1px solid #222;
 
 }
 
@@ -166,14 +217,14 @@ font-size: 14px;
 width: 100%;
 min-height: 400px;
 display: flex;
-align-items: center;
+align-items: flex-start;
 justify-content: center;
 
 }
 
 .Steps_wrapper img{
-    min-width:90%;
-    min-height: 450px;
+    min-width:1200px;
+    min-height: 700px;
 }
 
 /* ── Footer ── */
@@ -266,7 +317,7 @@ justify-content: center;
 
     .Hero_section button{
 
-width: 200px;
+width: 180px;
 height: 40px;
 padding: .4rem;
 background: #000;
@@ -279,9 +330,13 @@ border-radius: 20px;
 
 .Hero_section span{
 
-width: 80%;
-font-size: .8rem;
-
+width: 75%;
+font-size: .7rem;
+line-height: 1.2rem;
+font-weight: 500;
+font-family: "Inter",sans-serif;
+text-shadow: 0 0 25px rgba(255, 152, 0, 0.3), 
+               0 0 50px rgba(255, 152, 0, 0.1);
 }    
 
 .Navbar{
@@ -302,5 +357,6 @@ width: 96%;
 .Footer_links {
   gap: 8px;
 }
+
 
 }
