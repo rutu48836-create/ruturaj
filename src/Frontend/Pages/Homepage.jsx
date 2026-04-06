@@ -23,9 +23,9 @@ export function Homepage() {
 
       <div className={styles.Hero_section}>
         <div className={styles.content}>
-          <h1>Let your data chat with customers for free</h1>
+          <h1>Let your data talk for free</h1>
           <span>
-            Make a custom chatbot in seconds with your own PDFs, text and get a
+            Make a chatbot in seconds with your own PDFs, text and get a
             shareable link and use the chatbot anywhere you want
           </span>
           <button onClick={() => window.location.href = "/Dashboard"}>
