@@ -270,7 +270,7 @@ if(!firebase_uid){
       firebase_uid,
       credits: 10,
       plan: "free",
-      monthly_message_limit: 500,
+      monthly_message_limit: 200,
       monthly_message_count: 0
     })
   if (error && error.code !== '23505') {
