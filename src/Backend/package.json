@@ -8,6 +8,16 @@
     "start": "node server.js"
   },
   "keywords": [],
+ {
+  "name": "backend",
+  "version": "1.0.0",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js",
+    "postinstall": "npx puppeteer browsers install chrome"
+  },
+  "keywords": [],
   "author": "",
   "license": "ISC",
   "description": "",
