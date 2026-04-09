@@ -1393,7 +1393,9 @@ gap:10px;
     transition:0.4s ease;
     justify-content:space-between;
     align-items:center;
+    overflow-y:hidden;
 }
+
 
 .activeStyle{
         transition:0.4s ease;
@@ -1622,6 +1624,10 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
     border-radius:12px;
 
 }
+
+    .Dashboard_sidebar_wrapper{
+overflow-y:hidden;
+    }
 
     .user_details{
         display:flex;
