@@ -2,10 +2,16 @@ import puppeteer from 'puppeteer'
 import * as cheerio from 'cheerio'
 
 export async function scrapeWebsite(startUrl, maxPages = 12) {
-const browser = await puppeteer.launch({
-  args: ['--no-sandbox', '--disable-setuid-sandbox']
-});
-  
+  const browser = await puppeteer.launch({
+    headless: 'new', // important for newer puppeteer versions
+    args: [
+      '--no-sandbox',
+      '--disable-setuid-sandbox',
+      '--disable-dev-shm-usage', // prevents crashes on low RAM
+      '--disable-gpu'
+    ]
+  })
+
   const visited = new Set()
   const queue = [startUrl]
   const allText = []
@@ -19,30 +25,45 @@ const browser = await puppeteer.launch({
 
     try {
       const page = await browser.newPage()
-      await page.goto(url, { waitUntil: 'networkidle2', timeout: 10000 })
+
+      await page.goto(url, {
+        waitUntil: 'domcontentloaded', // faster + more reliable than networkidle2
+        timeout: 15000
+      })
+
       const html = await page.content()
       await page.close()
 
       const $ = cheerio.load(html)
 
-      // Extract text
-      $('script, style, nav, footer').remove()
-      const text = $('body').text().replace(/\s+/g, ' ').trim()
+      // Clean unwanted elements
+      $('script, style, nav, footer, header, noscript').remove()
+
+      const text = $('body')
+        .text()
+        .replace(/\s+/g, ' ')
+        .trim()
+
       allText.push({ url, text })
 
-      // Find new links on same domain
+      // Extract links
       $('a[href]').each((_, el) => {
         const href = $(el).attr('href')
         try {
           const full = new URL(href, base).href
-          if (full.startsWith(base) && !visited.has(full)) {
+
+          if (
+            full.startsWith(base) &&
+            !visited.has(full) &&
+            !queue.includes(full)
+          ) {
             queue.push(full)
           }
         } catch {}
       })
 
     } catch (err) {
-      console.log(`Failed to scrape ${url}:`, err.message)
+      console.log(`❌ Failed to scrape ${url}:`, err.message)
     }
   }
 
