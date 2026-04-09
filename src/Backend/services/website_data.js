@@ -2,7 +2,10 @@ import puppeteer from 'puppeteer'
 import * as cheerio from 'cheerio'
 
 export async function scrapeWebsite(startUrl, maxPages = 12) {
-  const browser = await puppeteer.launch({ headless: true })
+const browser = await puppeteer.launch({
+  args: ['--no-sandbox', '--disable-setuid-sandbox']
+});
+  
   const visited = new Set()
   const queue = [startUrl]
   const allText = []
