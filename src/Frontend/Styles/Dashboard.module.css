@@ -1481,6 +1481,9 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0p
     gap:4px;
     margin-left:6px;
     margin-right:30px;
+    position:sticky;
+    margin-bottom:0;
+    margin-top:auto;
 }
 
 .user_details span{
@@ -1582,6 +1585,7 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
         display:grid;
         margin-top:30px;
         height:auto;
+        width:86%;
     }
 
     .footer_active{
@@ -1603,11 +1607,13 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
 
     .Links_wrapper{
 
-    width:90%;
+    width:96%;
     margin-top:80px;
     gap:8px;    
         
     }
+
+    
 .upgrade_btn1{
     display:flex;
     width:100px;
@@ -1873,8 +1879,8 @@ overflow-y:hidden;
         line-height: 1.4rem;
     }
 
-    .Links_wrapper{
-width:80%;
+    .links_wrapper{
+width:86%;
     }
 }
 
