@@ -4,7 +4,6 @@ import * as cheerio from 'cheerio'
 export async function scrapeWebsite(startUrl, maxPages = 12) {
  const browser = await puppeteer.launch({
   headless: 'new',
-  executablePath: puppeteer.executablePath(),
   args: [
     '--no-sandbox',
     '--disable-setuid-sandbox',
