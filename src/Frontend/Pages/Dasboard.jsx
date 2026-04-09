@@ -648,7 +648,7 @@ export function Dashboard() {
                     </div>
                   </div>
 
-                  <div className={styles.field_group}>
+         { /* <div className={styles.field_group}>
                     <label>Website URL</label>
                     <div className={styles.url_input_row}>
                       <input
@@ -662,6 +662,8 @@ export function Dashboard() {
                       />
                     </div>
                   </div>
+
+                  */}
 
                   <div className={styles.field_row}>
                     <div className={styles.field_group} style={{ marginBottom: 0 }}>
