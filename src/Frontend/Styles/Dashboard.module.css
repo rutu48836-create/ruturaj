@@ -11,6 +11,10 @@ body{
     scrollbar-width: thin;
 }
 
+.Links_wrapper button{
+color:black;
+}
+
 .project_delete_wrapper{ 
     position: fixed;
     inset: 0;
