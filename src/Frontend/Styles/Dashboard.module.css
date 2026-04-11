@@ -1646,10 +1646,11 @@ overflow-y:hidden;
         align-items:center;
         justify-content: space-between;
         justify-self:flex-end;
- position: sticky;
+ position:fixed;
   bottom: 0;        
   margin-top: auto;  
         max-height:60px;
+        
     
     }
 
