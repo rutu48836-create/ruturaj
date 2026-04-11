@@ -173,17 +173,9 @@ handleUpgrade()
   <span>Plan</span> <h4>{plan}</h4>
  </div>
 
-
-
-
- <div className={styles.user_usage}>
-  <div className={styles.user_detail_row}>
+<div className={styles.user_detail_row}>
   <span>Credits</span> <h4>{credits}</h4>
  </div> 
- 
- <button onClick={handleUpgrade}>Upgrade</button>
- 
- </div>
 
   </div>
 
