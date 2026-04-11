@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=Instrument+Sans:ital,wght@0,400;0,500;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300..700;1,300..700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Merriweather:ital,opsz,wght@0,18..144,300..900;1,18..144,300..900&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background: #fcfcfc;
+  min-height: 100vh;
+  position: relative;
+  overflow-x: hidden;
+
+ background-image: 
+    radial-gradient(circle at 50% -10%, rgba(255, 152, 0, 0.15) 0%, transparent 60%),
+    
+    radial-gradient(circle at 0% 40%, rgba(255, 193, 7, 0.08) 0%, transparent 40%),
+    
+    radial-gradient(circle at 95% 95%, rgba(255, 160, 0, 0.1) 0%, transparent 35%),
+    
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.8) 0%, transparent 100%);
+
+
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.04) 1px, transparent 1px);
+
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  opacity: 0.02;
+  background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+  pointer-events: none;
+  z-index: -1;
+}
+
+.Homepage_wrapper{
+
+width:100vw;
+min-height: 100vh;
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+box-sizing: border-box;
+overflow: scroll;
+
+}
+
+.Navbar{
+
+width: 30%;
+max-width: 80%;
+height: 40px;
+background: #fff;
+display: flex;
+align-items: center;
+justify-content: space-between;
+padding: .4rem;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+margin-top: 20px;
+border-radius: 60px;
+
+}
+
+.logo{
+
+width: 50px;
+align-items: center;
+margin-left: 20px;
+display: flex;
+flex-direction: row;
+font-weight: 600;
+font-family: "Syne",sans-serif;
+
+}
+
+.Nav_btns{
+
+flex: 1;
+display: flex;
+align-items: center;
+gap: 10px;
+justify-content: flex-end;
+
+}
+
+.login_btn{
+
+width: 60px;
+background: transparent;
+border: none;
+font-family: "Inter",sans-serif;
+cursor: pointer;
+
+}
+
+.sign_up{
+
+width: 100px;
+height: 40px;
+border-radius: 30px;
+border: none;
+background: #000;
+color: #fff;
+font-family: "Inter",sans-serif;
+cursor: pointer;
+
+}
+
+.Pricing_wrapper{
+    width:100%;
+    min-height:60vh;
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:flex-start;
+    margin-top:30px;
+}
+
+.Pricing_wrapper h1{
+    font-weight:520;
+    font-size:2.8rem;
+    margin-bottom: 10px;
+}
+
+.Pricing_wrapper span{
+    font-size:0.9rem;
+    color:#858080;
+    width:40%;
+    text-align: center;
+    line-height: 1.24rem;
+}
+
+.Pricing_cards_wrapper{
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content: center;
+    gap:20px;
+    margin-top: 40px;
+}
+
+.Free_tier_card {
+  position: relative;
+  width: 380px;
+  height: 420px;
+  border-radius: 16px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+
+  background: linear-gradient(180deg, #ffffff, #f3f8ff);
+  border: 1px solid rgba(120, 170, 255, 0.2);
+
+  box-shadow: 
+    0 10px 30px rgba(80, 140, 255, 0.08);
+
+  overflow: hidden;
+}
+
+.Free_tier_card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image: 
+    linear-gradient(rgba(255, 140, 100, 0.08) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 140, 100, 0.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  pointer-events: none;
+}
+
+.Free_tier_card::after {
+  content: "";
+  position: absolute;
+  top: -40%;
+  left: -20%;
+  width: 140%;
+  height: 100%;
+  background: radial-gradient(
+    circle at top left,
+    rgba(255, 150, 120, 0.25),
+    transparent 60%
+  );
+  pointer-events: none;
+}
+
+.Free_tier_card h3{
+
+ font-size: 18px;
+ font-weight: 430;
+ margin-bottom: 0px;
+
+}
+
+.pricing{
+    display:flex;
+    align-items: flex-start;
+    gap:0px;
+    justify-content: flex-start;
+    margin-top: 20px;
+}
+
+.pricing h1{
+    display:flex;
+    align-self: flex-start;
+    margin-top: 0;
+    margin-right: 0;
+}
+
+.pricing p{
+    margin-left: 10px;
+    display: flex;
+        justify-self: flex-end;
+    margin-bottom: -04px;
+    color: #858080;
+    font-weight:380;
+}
+
+.Free_tier_card span{
+
+    width: 80%;
+    text-align: left;
+    line-height: 1.25rem;
+    font-size:12px;
+
+}
+
+.Free_tier_card button{
+    margin-top: 30px;
+    padding:.6rem;
+    border-radius: 8px;
+    background: #fcfcfc;
+    font-family: "Inter",sans-serif;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border: none;
+    cursor: pointer;
+}
+
+.features{
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.features h3{
+    font-size: 14px;
+}
+
+ ul{
+    display: flex;
+    width:100%;
+    height:100px;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    border: red;
+    padding:0;
+    gap:10px;
+}
+
+ ul li{
+    display: flex;
+    width:100%;
+    align-self: flex-start;
+    font-size: 12px;
+    gap:6px;
+}
+
+
+@media (max-width:768px){
+
+.Pricing_cards_wrapper{
+ 
+    flex-direction: column;
+
+}
+
+.Pricing_wrapper span{
+    font-size:12px;
+    width:80%;
+}
+
+.Navbar{
+    width:90%;
+}
+
+}
