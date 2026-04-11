@@ -1,7 +1,7 @@
 
 import { useState,useEffect } from "react";
 import styles from "../Styles/Navbar.module.css"
-import {User,FileTerminal,LogOut,Menu,X,SendHorizontal,BadgeQuestionMark,Wallet, CircleQuestionMark, Circle,Search,PiggyBank} from 'lucide-react';
+import {User,FileTerminal,LogOut,Menu,X,SendHorizontal,BadgeQuestionMark,Wallet, CircleQuestionMark, Circle,Search,PiggyBank,Ban} from 'lucide-react';
 import {data, useNavigate} from "react-router"
 import { useAuth } from "../Components/Auth.jsx";
 import { signOut } from "firebase/auth";
@@ -19,6 +19,8 @@ export function NavBar({credits, Side_bar_open, setSide_bar_open,setActive,activ
     const [Credit, setCredit] = useState(null)
     const [upgrade,setUpgrade] = useState(false)
     const [plan,setPlan] = useState('Free')
+    const [terminate_plan,setTerminate_plan] = useState(false)
+    const [confirm,setConfirm] = useState('')
     console.log(credits)
 
 useEffect(() => {
@@ -74,6 +76,47 @@ setPlan(data.plan)
       },
     });
   };
+
+  async function Plan_cancel(){
+
+
+
+try {
+
+    const { data: userData, error } = await supabase
+      .from('users')
+      .select('subscription_id')
+      .eq('firebase_uid', user.firebase_uid)  
+      .single();
+
+          if (error || !userData?.subscription_id) {
+      console.error('Could not fetch subscription_id:', error);
+      return;
+    }
+
+  const res = await fetch(`${BACKEND_URL}/v1/api/cancel-subscription`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        subscriptionId: userData.subscription_id,
+      }),
+    }); 
+
+    const data = await res.json();
+    console.log(data)
+
+
+  }
+  
+  catch(error){
+
+    console.log('error in cancelling plan',error)
+
+  }
+
+}
 
     
 
@@ -177,6 +220,12 @@ handleUpgrade()
   <span>Credits</span> <h4>{credits}</h4>
  </div> 
 
+ {plan === 'Pro'  && (
+  <div className={styles.user_detail_row}>
+  <span>Cancel Plan</span> <button style={{cursor:'pointer',background:"#ff5959"}} onClick={() => setTerminate_plan(true)}><Ban size={18} color="#fff"/></button>
+ </div> 
+ )}
+
   </div>
 
   </div>
@@ -185,13 +234,41 @@ handleUpgrade()
   </div>
 
   )}
+
+
+  {terminate_plan && (
+    <div className={styles.project_delete_wrapper}>
+              <div className={styles.project_delete_card}>
+                <h3>Cancel Plan</h3>
+                <span>This will cancel your Pro plan and downgraded to the free plan.but only after your billing cycle ends.</span>
+                <label>To confirm, type "Cancel Plan"</label>
+                <input type="text" onChange={(e) => setConfirm(e.target.value)} />
+                <div className={styles.project_delete_btns}>
+                  <button
+                    className={styles.cancel_btn1}
+                    disabled={confirm !== "Cancel Plan"}
+                    onClick={() => {
+                      setTerminate_plan(false);
+                      setConfirm('');
+                      Plan_cancel();
+                    }}
+                  >
+                    Delete
+                  </button>
+                  <button className={styles.confirm_btn} onClick={() => setTerminate_plan(false)}>Cancel</button>
+                </div>
+              </div>
+              </div>
+  )}
+
+  
  
 
 
- </>
 
 
 
+</>
 
  )
 
