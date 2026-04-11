@@ -1332,9 +1332,6 @@ input[type="file"]:hover {
   to { transform: rotate(360deg); }
 }
 
-/* ─────────────────────────────────────────
-   DASHBOARD SIDEBAR — updated to match Chatbase style
-───────────────────────────────────────── */
 
 .Dashboard_sidebar_wrapper {
     min-width: 60px;
@@ -1498,7 +1495,7 @@ input[type="file"]:hover {
     margin-top: 0px;
     height: auto;
     display: none;
-    grid-template-columns: repeat(4,1fr);
+    grid-template-columns: repeat(3,1fr);
     gap: 10px;
     justify-content: center;
 }
@@ -1561,9 +1558,9 @@ input[type="file"]:hover {
         display: grid;
         margin-top: 30px;
         height: auto;
-        width: 80%;
-        margin-bottom: 80px;
-        overflow: hidden;
+        width: auto;
+        max-width:98%;
+        margin-bottom: 150px;
     }
 
     .footer_active {
