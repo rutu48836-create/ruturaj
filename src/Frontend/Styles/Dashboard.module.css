@@ -852,9 +852,7 @@ input[type="file"]:hover {
     cursor: not-allowed;
 }
 
-/* ─────────────────────────────────────────
-   PROJECT CARDS
-───────────────────────────────────────── */
+
 .existing_projects_section{
     min-width: 100vw;
     margin-left: 40px;
@@ -863,7 +861,7 @@ input[type="file"]:hover {
     align-items: flex-start;
     justify-content: flex-start;
     grid-template-columns: repeat(3, 400px);
-    gap: 40px;
+    gap: 30px;
     margin-top: 20px;
 }
 
