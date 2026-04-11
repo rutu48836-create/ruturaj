@@ -9,6 +9,7 @@ import { About } from './Frontend/Pages/About'
 import { Homepage } from './Frontend/Pages/Homepage'
 import { Guide } from './Frontend/Pages/Guide'
 import {Privacy} from './Frontend/Pages/Privacy'
+import {Pricing} from './Frontend/Pages/Pricing'
 
 function App() {
  
@@ -25,6 +26,8 @@ function App() {
                <Route path="/" element={<Homepage/>}/>
                <Route path="/Guide" element={<Guide/>}/>
                <Route path="/Privacy" element={<Privacy/>}/>
+               <Route path="/Pricing" element={<Pricing/>}/>
+
       </Routes>
     </BrowserRouter>
     </>
