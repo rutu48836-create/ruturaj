@@ -1594,10 +1594,12 @@ box-shadow: rgba(0, 0, 0, 0.05) 0px 0px 0px 1px, rgb(209, 213, 219) 0px 0px 0px 
 
     .footer_active{
     width:100%;
-    min-height:70px;
+    min-height:60px;
+        max-height:62px;
     display:flex;
     align-items:center;
     box-shadow: rgba(0, 0, 0, 0.05) 0px 6px 24px 0px, rgba(0, 0, 0, 0.08) 0px 0px 0px 1px;
+    position:fixed;    
 }
 
     .activeStyle{
