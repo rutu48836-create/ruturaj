@@ -118,12 +118,26 @@ function Projects({
   const [selectedProject, setSelectedProject] = useState(null)
 
  function getTextColor(bgColor) {
-  const hex = parseInt(bgColor.replace('#', ''), 16)
-  if(hex < 0x918989) return '#ffffff'
-  else if(hex < #dbd7d7)  return '#000'  
-  else if(hex < #0xcccccc) return '#000000'
-     
-  else return '#ffffff'
+ let r, g, b;
+    let cleanHex = hex.replace('#', '');
+    if (cleanHex.length === 3) {
+        r = parseInt(cleanHex[0] + cleanHex[0], 16);
+        g = parseInt(cleanHex[1] + cleanHex[1], 16);
+        b = parseInt(cleanHex[2] + cleanHex[2], 16);
+    } else {
+        r = parseInt(cleanHex.substring(0, 2), 16);
+        g = parseInt(cleanHex.substring(2, 4), 16);
+        b = parseInt(cleanHex.substring(4, 6), 16);
+    }
+
+        const brightness = (r * 299 + g * 587 + b * 114) / 1000;
+if (brightness < 216) {
+        return '#000';
+    }
+
+    else{
+return '#fff'
+    }
 }
 
   const delete_confirm = confirmation !== 'delete project'
