@@ -240,7 +240,7 @@ handleUpgrade()
     <div className={styles.project_delete_wrapper}>
               <div className={styles.project_delete_card}>
                 <h3>Cancel Plan</h3>
-                <span>This will cancel your Pro plan and downgraded to the free plan.but only after your billing cycle ends.</span>
+                <span>This will cancel your Pro plan and downgraded to the free plan, you will downgraded immediately.no refunds</span>
                 <label>To confirm, type "Cancel Plan"</label>
                 <input type="text" onChange={(e) => setConfirm(e.target.value)} />
                 <div className={styles.project_delete_btns}>
@@ -253,7 +253,7 @@ handleUpgrade()
                       Plan_cancel();
                     }}
                   >
-                    Delete
+                    Terminate
                   </button>
                   <button className={styles.confirm_btn} onClick={() => setTerminate_plan(false)}>Cancel</button>
                 </div>
