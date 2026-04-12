@@ -11,6 +11,18 @@ import {sendConfirmation,sendUserCancelled,sendUserConfirmed,pendingBookings} fr
 import { bookCalendarEvent } from './services/google_calender.js'
 import { google } from 'googleapis' 
 import paymentRoutes from "./routes/payment.js";
+import {
+  createSubscription,
+  verifyPaymentSignature,
+  verifyWebhookSignature,
+  cancelSubscription,
+  handleWebhookEvent,
+} from "./routes/razorpay.js";
+
+const razorpay = new Razorpay({
+  key_id: process.env.RAZORPAY_KEY_ID,
+  key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 dotenv.config()
 
@@ -365,6 +377,29 @@ app.get('/auth/google/callback', async (req, res) => {
 app.use("/api", paymentRoutes);
 
 app.use("/api", chatRoutes)
+
+app.post('/v1/api/cancel-subscription', async (req,res) => {
+
+ const {subscriptionId} = req.body;
+
+ console.log('recieved req', subscriptionId)
+
+ try{
+
+  const cancelResult = await razorpay.subscriptions.cancel(subscriptionId);
+
+    await supabase
+      .from("users")
+      .update({ plan: "free", subscription_id: null,credits:10,monthly_message_limit:200})
+      .eq("subscription_id", subscriptionId);
+
+
+ res.json({success:true})
+
+ } catch(error){
+  return res.status(500).json({error:error.message})
+ }
+})
 
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`)
