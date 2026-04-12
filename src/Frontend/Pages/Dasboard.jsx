@@ -138,6 +138,8 @@ if (brightness < 216) {
     else{
 return '#fff'
     }
+
+    return hex
 }
 
   const delete_confirm = confirmation !== 'delete project'
