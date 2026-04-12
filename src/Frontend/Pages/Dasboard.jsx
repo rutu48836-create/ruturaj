@@ -39,6 +39,11 @@ function Dashboard_sidebar({ active, setActive, setSide_bar_open, currentUser, h
           {active && <span>Contact Us</span>}
         </button>
 
+           <button className={active ? styles.btn_active : styles.btn_dashboard_sidebar} onClick={() => navigate('/Terms')}>
+<FileTerminal  color="#3b3b3b" size={20} strokeWidth={1.50}/>
+              {active && <span>Terms & refund</span>}
+        </button>
+
         <button
           className={active ? styles.btn_active : styles.btn_dashboard_sidebar}
           onClick={() => setSide_bar_open(true)}
