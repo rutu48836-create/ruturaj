@@ -647,11 +647,11 @@ export function Dashboard() {
                     </div>
                   </div>
 
-        * <div className={styles.field_group}>
+         <div className={styles.field_group}>
                     <label>Website URL</label>
                     <div className={styles.url_input_row}>
                       <input
-                        disabled={formData.pdfs.length > 0}
+                        disabled={formData.pdfs.length > 0 && plan === "free"}
                         id="web"
                         type="text"
                         className={styles.url_domain_input}
@@ -730,7 +730,7 @@ export function Dashboard() {
                       accept=".pdf,application/pdf"
                       multiple
                       onChange={handlePDFChange}
-                      disabled={!!formData.website}
+                      disabled={formData.website.length > 0 && plan === "free"}
                     />
                   </div>
 
