@@ -12,34 +12,9 @@ import No_agent from "../assets/No_agent.png"
 import { useRazorpay } from '../Components/useRazorpay.jsx'
 
 
-function Dashboard_sidebar({ active, setActive, setSide_bar_open, currentUser, handleUpgrade}) {
+function Dashboard_sidebar({ active, setActive, setSide_bar_open, currentUser, handleUpgrade,plan}) {
 
- const [plan,setPlan] = useState('free');
- 
    const navigate = useNavigate();
-
- useEffect(() => {
-  const unsubscribe = onAuthStateChanged(auth, async (user) => {
-    if (!user){
-navigate('/Login')
-    }
-
-    const response = await fetch(`${BACKEND_URL}/api/credits/${user.uid}`)
-
-
-    const data = await response.json()
-    if (data.credits !== undefined) {
-      setCredit(data.credits)
-    }
-
-    if(data.credits > 200){
-setPlan("Pro")
-    }
-  })
-
-    return () => unsubscribe(); 
-}, [navigate]);
-
 
   return (
     <div
@@ -114,7 +89,7 @@ setPlan("Pro")
               className={styles.upgrade_btn1}
               style={{ justifySelf: 'flex-end' }}
               onClick={handleUpgrade}
-             disabled = {plan != "free"}
+             disabled = {plan === "Pro"}
             >
               Upgrade
             </button>
@@ -575,6 +550,7 @@ export function Dashboard() {
           setSide_bar_open={setSide_bar_open}
           currentUser={currentUser}
           handleUpgrade={handleUpgrade}
+         plan={plan}
         />
 
         <Projects
