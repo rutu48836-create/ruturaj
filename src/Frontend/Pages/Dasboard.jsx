@@ -120,7 +120,9 @@ function Projects({
  function getTextColor(bgColor) {
   const hex = parseInt(bgColor.replace('#', ''), 16)
   if(hex < 0x918989) return '#ffffff'
+  else if(hex < #dbd7d7)  return '#000'  
   else if(hex < 0xcccccc) return '#000000'
+     
   else return '#ffffff'
 }
 
