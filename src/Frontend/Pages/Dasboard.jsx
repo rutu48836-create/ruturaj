@@ -28,13 +28,12 @@ navigate('/Login')
 
 
     const data = await response.json()
-    console.log('credits response:', data)
     if (data.credits !== undefined) {
       setCredit(data.credits)
     }
 
-    if(data.plan !== undefined){
-setPlan(data.plan)
+    if(data.credits > 200){
+setPlan("Pro")
     }
   })
 
@@ -115,7 +114,7 @@ setPlan(data.plan)
               className={styles.upgrade_btn1}
               style={{ justifySelf: 'flex-end' }}
               onClick={handleUpgrade}
-             disabled = {plan === 'pro' || 'Pro'}
+             disabled = {plan != "free"}
             >
               Upgrade
             </button>
