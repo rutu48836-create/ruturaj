@@ -1,6 +1,3 @@
-import { NavBar } from "../Components/NavBar";
-import styles from "../Styles/Terms.module.css";
-
 const sections = [
   {
     number: "01",
@@ -37,6 +34,27 @@ const sections = [
   },
   {
     number: "04",
+    title: "Pricing & billing",  // ← new section
+    items: [
+      "The Lunaar Pro plan is priced at ₹399 per month. Dollar and other currency pricing may vary based on region and exchange rates.",
+      "You will be billed at the start of each billing cycle.",
+      "All prices are exclusive of applicable taxes unless stated otherwise.",
+      "We reserve the right to change pricing with reasonable notice to existing subscribers.",
+    ],
+  },
+  {
+    number: "05",
+    title: "Refund policy",  // ← new section
+    items: [
+      "All payments made to Lunaar are non-refundable. We do not offer refunds for any reason, including partial use of a billing period.",
+      "You are not required to complete a full 12-month commitment — you may cancel your Pro plan at any time.",
+      "Upon cancellation, your plan will be downgraded to the free tier immediately and you will lose access to Pro features.",
+      "No refund will be issued for the remaining days in your current billing cycle after cancellation.",
+      "If you believe you have been charged in error, contact us at LunaarOffical@gmail.com within 7 days of the charge.",
+    ],
+  },
+  {
+    number: "06",
     title: "Data & privacy",
     items: [
       "We collect only the data necessary to operate the service.",
@@ -46,7 +64,7 @@ const sections = [
     ],
   },
   {
-    number: "05",
+    number: "07",
     title: "Intellectual property",
     items: [
       "You retain ownership of all content you upload to Lunaar.",
@@ -55,7 +73,7 @@ const sections = [
     ],
   },
   {
-    number: "06",
+    number: "08",
     title: "Limitation of liability",
     items: [
       "Lunaar is provided 'as is' without warranties of any kind, express or implied.",
@@ -64,7 +82,7 @@ const sections = [
     ],
   },
   {
-    number: "07",
+    number: "09",
     title: "Changes to these terms",
     items: [
       "We may update these Terms at any time. Continued use of the platform after changes constitutes acceptance.",
@@ -72,64 +90,10 @@ const sections = [
     ],
   },
   {
-    number: "08",
+    number: "10",
     title: "Contact",
     items: [
       "For questions about these Terms, reach us at LunaarOffical@gmail.com.",
     ],
   },
 ];
-
-export function Terms() {
-  return (
-    <div className={styles.terms_wrapper}>
-      <div className={styles.terms_content}>
-
-        {/* Hero */}
-        <section className={styles.hero}>
-          <span className={styles.eyebrow}>Legal</span>
-          <h1>Terms & Conditions</h1>
-          <p>Last updated — March 2026. Please read these terms carefully before using Lunaar.</p>
-        </section>
-
-        {/* Beta banner */}
-        <div className={styles.beta_banner}>
-          <span className={styles.beta_icon}>⚠️</span>
-          <div>
-            <strong>Beta product</strong>
-            <span>Lunaar is currently in beta. Features are actively being developed and may change without notice.</span>
-          </div>
-        </div>
-
-        {/* Sections */}
-        <div className={styles.sections_list}>
-          {sections.map((section) => (
-            <div
-              key={section.number}
-              className={`${styles.section} ${section.highlight ? styles.highlighted : ''}`}
-            >
-              <div className={styles.section_header}>
-                <span className={styles.section_number}>{section.number}</span>
-                <h2 className={styles.section_title}>{section.title}</h2>
-              </div>
-              <ul className={styles.section_items}>
-                {section.items.map((item, i) => (
-                  <li key={i} className={styles.section_item}>
-                    <span className={styles.bullet} />
-                    <span>{item}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
-        </div>
-
-        <div className={styles.footer_note}>
-          Questions? Email us at{" "}
-          <a href="mailto:LunaarOffical@gmail.com">LunaarOffical@gmail.com</a>
-        </div>
-
-      </div>
-    </div>
-  );
-}
