@@ -11,6 +11,7 @@ import {sendConfirmation,sendUserCancelled,sendUserConfirmed,pendingBookings} fr
 import { bookCalendarEvent } from './services/google_calender.js'
 import { google } from 'googleapis' 
 import paymentRoutes from "./routes/payment.js";
+import Razorpay from "razorpay";
 import {
   createSubscription,
   verifyPaymentSignature,
