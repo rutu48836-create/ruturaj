@@ -66,7 +66,7 @@ historyRef.current.push({ role: 'user', content: message })
     }
 
 function getTextColor(bgColor) {
-  const hex = bgColor.replace('#', '');
+  const hex = bgColor.replace('#', '').substring(0, 6);
   const r = parseInt(hex.substring(0, 2), 16);
   const g = parseInt(hex.substring(2, 4), 16);
   const b = parseInt(hex.substring(4, 6), 16);
