@@ -73,7 +73,7 @@ historyRef.current.push({ role: 'user', content: message })
   else return '#ffffff'
 }
 
-    if (!chatbot) return <div>Loading chatbot...</div>
+    if (!chatbot) return <div>cannot find the chatbot... please wait a few secondes</div>
 
     const userMessageStyle = {
         padding: '.6rem .9rem',
