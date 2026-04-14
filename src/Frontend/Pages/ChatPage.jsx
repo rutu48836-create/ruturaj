@@ -70,10 +70,10 @@ historyRef.current.push({ role: 'user', content: message })
   if(hex < 0x918989) {
      return '#ffffff'
   }
-  else if(hex < #0xcccccc){
+  else if(hex < 0xcccccc){
      return '#000000'
   }
-     else if(hex < #0xdbd7d7){
+     else if(hex < 0xdbd7d7){
         return '#000'
      }
   else{
