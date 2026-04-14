@@ -125,9 +125,10 @@ function Projects({
   else if(hex < 0xcccccc){
      return '#000000'
   }
-     else if(hex < 0xdbd7d7){
+     else if(hex <= 0xdbd7d7){
         return '#000'
      }
+        
   else{
      return '#ffffff'
   }
