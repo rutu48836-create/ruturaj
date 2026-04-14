@@ -94,8 +94,10 @@ function getTextColor(bgColor) {
     return (
         <div className={styles.ChatPage_wrapper} style={{color : getTextColor(chatbot.color)}}>
             <div className={styles.ChatPage_header}  style={{
-    backgroundColor: `${chatbot.color || '#000'}20`,
-box-shadow: `rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px`,
+    backgroundColor: `${chatbot.color || '#000'}90`,
+backdropFilter: 'blur(12px)',
+                    WebkitBackdropFilter: 'blur(12px)',
+                    boxShadow: `0 4px 24px ${project.color}10`,          
             color : getTextColor(chatbot.color)
   }}>
                 <div className={styles.header_right}>
