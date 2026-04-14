@@ -111,7 +111,7 @@ function getTextColor(bgColor) {
 
             <div className={styles.Chat_bot_message_container} style={{color : getTextColor(chatbot.color)}}>
                 
-                <div style={{ ...userMessageStyle, alignSelf: 'flex-start', marginLeft: '20px', backgroundColor:chatbot.color, color: '#ffffff' }}>
+                <div style={{ ...userMessageStyle, alignSelf: 'flex-start', marginLeft: '20px', backgroundColor:chatbot.color, color:getTextColor(chatbot.color) }}>
                     Hi, I am {chatbot.name}. How can I help you?
                 </div>
 
@@ -132,7 +132,7 @@ function getTextColor(bgColor) {
     backgroundColor: chatbot.color || '#000',
     boxShadow: `inset 0 1px 0 rgba(255,255,255,0.25), 0 4px 12px ${chatbot.color || '#000'}40`
   }}>
-                        <SendHorizontal size={20} color="#fff" />
+                        <SendHorizontal size={20} style={{color:getTextColor(chatbot.color),background:chatbot.color}}  />
                     </button>
                 </div>
             </div>
