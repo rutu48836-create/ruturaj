@@ -65,12 +65,20 @@ historyRef.current.push({ role: 'user', content: message })
         setMessages(prev => [...prev, botMessage])
     }
 
-    function getTextColor(bgColor) {
+   function getTextColor(bgColor) {
   const hex = parseInt(bgColor.replace('#', ''), 16)
-  if(hex < 0x918989) return '#ffffff'
-  else if(hex < #0xcccccc) return '#000000'
-        else if(hex < #0xdbd7d7)  return '#000'  
-  else return '#ffffff'
+  if(hex < 0x918989) {
+     return '#ffffff'
+  }
+  else if(hex < #0xcccccc){
+     return '#000000'
+  }
+     else if(hex < #0xdbd7d7){
+        return '#000'
+     }
+  else{
+     return '#ffffff'
+  }
 }
 
     if (!chatbot) return <div>cannot find the chatbot... please wait a few secondes</div>
