@@ -97,7 +97,7 @@ function getTextColor(bgColor) {
     backgroundColor: `${chatbot.color || '#000'}90`,
 backdropFilter: 'blur(12px)',
                     WebkitBackdropFilter: 'blur(12px)',
-                    boxShadow: `0 4px 24px ${project.color}10`,          
+                    boxShadow: `0 4px 24px ${chatbot.color}10`,          
             color : getTextColor(chatbot.color)
   }}>
                 <div className={styles.header_right}>
