@@ -6,7 +6,7 @@ import multer from 'multer'
 import { Chat_handler } from './controllers/chatController.js'
 import chatRoutes from "./routes/chat.js";
 import {scrapeWebsite} from './services/website_data.js'
-import { extractPDFText } from './services/pdf_data.js'
+import { extractFileContent } from './services/pdf_data.js'
 import {sendConfirmation,sendUserCancelled,sendUserConfirmed,pendingBookings} from "./services/email_assistant.js"
 import { bookCalendarEvent } from './services/google_calender.js'
 import { google } from 'googleapis' 
@@ -30,12 +30,11 @@ dotenv.config()
 const app = express();
 const PORT = process.env.PORT || 5000
 
-// Configure multer for file uploads (store in memory)
 const storage = multer.memoryStorage()
 const upload = multer({ 
   storage: storage,
   limits: {
-    fileSize: 50 * 1024 * 1024 // 50MB max
+    fileSize: 50 * 1024 * 1024 
   }
 })
 
@@ -54,7 +53,7 @@ app.post('/api/create',
 
   upload.fields([
     { name: 'logo', maxCount: 1 },
-    { name: 'pdfs', maxCount: 10 }
+    { name: 'docs', maxCount: 4 }
   ]), 
   async (req, res) => {
     try {
@@ -65,7 +64,6 @@ console.log('name:', name)
 console.log('body:', req.body)
 
 
-// Move cleanText BEFORE it's used
 function cleanText(text) {
   if (!text) return ''
   return text
@@ -81,7 +79,7 @@ async function prepareScrapedContent(pages, maxTokens = 8000) {
   let result = ''
 
   for (const page of pages) {
-    // ✅ use page.url not content_pages.url
+
     const chunk = `\n\n--- ${page.url} ---\n${page.text}`
     if ((result + chunk).length > maxChars) break
     result += chunk
@@ -117,12 +115,11 @@ trimmed = content.slice(0, 32000)
 
 
 
-  let pdfText = ""
-
-if (req.files?.pdfs) {
-  for (const file of req.files.pdfs) {
-    const text = await extractPDFText(file.buffer)
-    pdfText += text + "\n"
+let docText = "";
+if (req.files?.docs) {
+  for (const file of req.files.docs) {
+    const text = await extractFileContent(file.buffer, file.mimetype, file.originalname);
+    docText += text + "\n";
   }
 }
 
@@ -132,15 +129,11 @@ if (req.files?.pdfs) {
         })
       }
 
-      // Access uploaded files
       const logoFile = req.files?.logo?.[0]
-      const pdfFiles = req.files?.pdfs || []
 
       console.log('Received data:', { name, systemPrompt, userId, website })
       console.log('Logo file:', logoFile?.originalname)
-      console.log('PDF files:', pdfFiles.length)
 
-      // Upload logo to Supabase Storage
       let logoUrl = null
       if (logoFile) {
         const fileExt = logoFile.originalname.split('.').pop()
@@ -164,30 +157,28 @@ if (req.files?.pdfs) {
       }
 
       // Upload PDFs to Supabase Storage
-      const pdfUrls = []
-      for (const pdf of pdfFiles) {
-        const fileExt = pdf.originalname.split('.').pop()
-        const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`
-        const filePath = `pdfs/${fileName}`
+      const docUrls = [];
+for (const doc of (req.files?.docs || [])) {
+  const fileExt = doc.originalname.split('.').pop();
+  const fileName = `${Date.now()}_${Math.random().toString(36).substring(7)}.${fileExt}`;
+  const filePath = `docs/${fileName}`;
 
-        const { data: pdfData, error: pdfError } = await supabase.storage
-          .from('chatbot-logos')
-          .upload(filePath, pdf.buffer, {
-            contentType: pdf.mimetype,
-            cacheControl: '3600'
-          })
+  const { error: uploadError } = await supabase.storage
+    .from('chatbot-logos')
+    .upload(filePath, doc.buffer, {
+      contentType: doc.mimetype,
+      cacheControl: '3600'
+    });
 
-        if (pdfError) throw pdfError
+  if (uploadError) throw uploadError;
 
-        const { data: { publicUrl } } = supabase.storage
-          .from('chatbot-logos')
-          .getPublicUrl(filePath)
+  const { data: { publicUrl } } = supabase.storage
+    .from('chatbot-logos')
+    .getPublicUrl(filePath);
 
-        pdfUrls.push(publicUrl)
-      }
+  docUrls.push(publicUrl);
+}
 
-
-      // Generate share token
       const shareToken =
         Math.random().toString(36).substring(2, 15) +
         Math.random().toString(36).substring(2, 15)
@@ -203,8 +194,8 @@ const { data, error } = await supabase.rpc(
     p_logo_url: logoUrl,
     p_website_url: website || null,
     p_website_content: trimmed || '',
-    p_pdf_content: pdfText || null,
-    p_pdf_urls: pdfUrls.length > 0 ? JSON.stringify(pdfUrls) : null,
+    p_pdf_content: docText || null,
+    p_pdf_urls: docUrls.length > 0 ? JSON.stringify(docUrls) : null,
     p_color: color || "#000",
     p_agent_type: agentType || 'info',
     p_notification_email: notificationEmail || null,
@@ -332,13 +323,12 @@ app.get('/auth/google', (req, res) => {
     access_type: 'offline',
     prompt: 'consent',
     scope: ['https://www.googleapis.com/auth/calendar'],
-    state: shareToken  // passes through OAuth flow
+    state: shareToken 
   })
 
   res.redirect(url)
 })
 
-// Step 2 — Google redirects back here after login
 app.get('/auth/google/callback', async (req, res) => {
   const { code, state: shareToken } = req.query
 
