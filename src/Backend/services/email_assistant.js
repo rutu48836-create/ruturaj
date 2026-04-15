@@ -46,22 +46,103 @@ export async function sendConfirmation(chatbot,booking) {
       to: chatbot.notification_email,
       subject: `New request from ${chatbot.name}`,
       html: `
-    <h3>New Reservation Request</h3>
-    <p><b>Name:</b> ${booking.name}</p>
-    <p><b>Phone:</b> ${booking.phone}</p>
-    <p><b>Requested Time:</b> ${booking.datetime}</p>
-    <p>br>Extra details If any:${JSON.stringify(booking.details)}}
-    <br>
-     <a href="${process.env.BASE_URL}/approve/${bookingId}"
-       style="background:#16a34a;color:white;padding:12px 24px;border-radius:6px;text-decoration:none">
-      ✅ Confirm
-    </a>
-    &nbsp;&nbsp;
-            <a href="${process.env.BASE_URL}/cancel/${bookingId}"
-       style="background:#dc2626;color:white;padding:12px 24px;border-radius:6px;text-decoration:none">
-      ❌ Cancel
-    </a>
-  `
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+</head>
+<body style="margin:0;padding:0;background:#f4f4f5;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif">
+  <table width="100%" cellpadding="0" cellspacing="0" style="padding:40px 20px">
+    <tr>
+      <td align="center">
+        <table width="520" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 1px 4px rgba(0,0,0,0.08)">
+          
+          <!-- Header -->
+          <tr>
+            <td style="background:#18181b;padding:28px 36px">
+              <p style="margin:0;font-size:11px;font-weight:600;letter-spacing:1.5px;color:#a1a1aa;text-transform:uppercase">Incoming Request</p>
+              <h1 style="margin:6px 0 0;font-size:22px;font-weight:700;color:#ffffff">New Reservation</h1>
+            </td>
+          </tr>
+
+          <!-- Body -->
+          <tr>
+            <td style="padding:32px 36px">
+
+              <!-- Details card -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="background:#f9f9f9;border-radius:8px;border:1px solid #e4e4e7;margin-bottom:24px">
+                <tr>
+                  <td style="padding:20px 24px">
+                    <table width="100%" cellpadding="0" cellspacing="0">
+                      <tr>
+                        <td style="padding:8px 0;border-bottom:1px solid #e4e4e7">
+                          <span style="font-size:11px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:1px">Name</span><br>
+                          <span style="font-size:15px;font-weight:600;color:#18181b;margin-top:2px;display:block">${booking.name}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:8px 0;border-bottom:1px solid #e4e4e7">
+                          <span style="font-size:11px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:1px">Phone</span><br>
+                          <span style="font-size:15px;font-weight:600;color:#18181b;margin-top:2px;display:block">${booking.phone}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:8px 0;border-bottom:1px solid #e4e4e7">
+                          <span style="font-size:11px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:1px">Requested Time</span><br>
+                          <span style="font-size:15px;font-weight:600;color:#18181b;margin-top:2px;display:block">${booking.datetime}</span>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td style="padding:8px 0">
+                          <span style="font-size:11px;font-weight:600;color:#a1a1aa;text-transform:uppercase;letter-spacing:1px">Extra Details</span><br>
+                          <span style="font-size:15px;color:#3f3f46;margin-top:2px;display:block;line-height:1.5">${booking.details ? JSON.stringify(booking.details) : '—'}</span>
+                        </td>
+                      </tr>
+                    </table>
+                  </td>
+                </tr>
+              </table>
+
+              <!-- Action buttons -->
+              <table width="100%" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td width="48%" align="center">
+                    <a href="${process.env.BASE_URL}/approve/${bookingId}"
+                       style="display:block;background:#16a34a;color:#ffffff;font-size:14px;font-weight:600;text-decoration:none;padding:14px 0;border-radius:8px;text-align:center;letter-spacing:0.3px">
+                      ✅ Confirm Booking
+                    </a>
+                  </td>
+                  <td width="4%"></td>
+                  <td width="48%" align="center">
+                    <a href="${process.env.BASE_URL}/cancel/${bookingId}"
+                       style="display:block;background:#ffffff;color:#dc2626;font-size:14px;font-weight:600;text-decoration:none;padding:14px 0;border-radius:8px;text-align:center;border:1.5px solid #dc2626;letter-spacing:0.3px">
+                      ❌ Cancel Booking
+                    </a>
+                  </td>
+                </tr>
+              </table>
+
+            </td>
+          </tr>
+
+          <!-- Footer -->
+          <tr>
+            <td style="padding:20px 36px;border-top:1px solid #f4f4f5">
+              <p style="margin:0;font-size:12px;color:#a1a1aa;text-align:center">
+                This email was sent automatically. Do not reply.
+              </p>
+            </td>
+          </tr>
+
+        </table>
+      </td>
+    </tr>
+  </table>
+</body>
+</html>
+`
+  
     })
     console.log('Email sent successfully:', result.messageId)
   } catch (err) {
@@ -83,7 +164,7 @@ export async function sendUserConfirmed(bookingId) {
       to: booking.email, 
       subject: 'Your booking is confirmed! ✅',
       html: `
-        <h2>Hi ${booking.name}! Your booking is confirmed 🎉</h2>
+        <h2>Hi ${booking.name}! Your reservation is confirmed 🎉</h2>
         <p><b>Date & Time:</b> ${booking.datetime}</p>
         <p>See you soon!</p>
         <p>— ${booking.chatbot.name}</p>
