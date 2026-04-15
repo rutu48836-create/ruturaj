@@ -369,7 +369,7 @@ export function Dashboard() {
     systemPrompt: '',
     website: '',
     logo: null,
-    pdfs: [],
+    docs: [],
     color: "#1a1a1a",
     agentType: '',
     notificationEmail: null,
@@ -474,7 +474,7 @@ export function Dashboard() {
       formPayload.append("systemPrompt", formData.systemPrompt)
       formPayload.append("website", formData.website)
       if (formData.logo) formPayload.append("logo", formData.logo)
-      formData.pdfs.forEach((pdf) => formPayload.append("pdfs", pdf))
+formData.docs.forEach((doc) => formPayload.append("docs", doc));
 
       const response = await fetch(`${BACKEND_URL}/api/create`, { method: "POST", body: formPayload })
       const result = await response.json()
@@ -483,7 +483,7 @@ export function Dashboard() {
       alert("Chatbot created successfully!")
       await fetchProjects()
       setBuilder(false)
-      setFormData({ name: "", systemPrompt: "", website: "", logo: null, pdfs: [], color: "#000" })
+      setFormData({ name: "", systemPrompt: "", website: "", logo: null, docs: [], color: "#000" })
       document.getElementById("logo").value = ""
       document.getElementById("pdfs").value = ""
     } catch (error) {
@@ -504,14 +504,15 @@ export function Dashboard() {
     }
   }
 
-  const handlePDFChange = (e) => {
-    const files = Array.from(e.target.files)
-    const invalidFiles = files.filter(file => file.type !== 'application/pdf')
-    if (invalidFiles.length > 0) { alert('Please upload only PDF files'); e.target.value = ''; return }
-    const totalSize = files.reduce((sum, file) => sum + file.size, 0)
-    if (totalSize > 50 * 1024 * 1024) { alert('Total PDF size must be less than 50MB'); e.target.value = ''; return }
-    setFormData({ ...formData, pdfs: files })
-  }
+const handleDocChange = (e) => {
+  const files = Array.from(e.target.files);
+  const allowed = ['application/pdf', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document', 'image/jpeg', 'image/png'];
+  const invalid = files.filter(f => !allowed.includes(f.type) && !f.name.match(/\.(pdf|docx|jpg|jpeg|png)$/i));
+  if (invalid.length > 0) { alert('Supported formats: PDF, Word (.docx), JPEG, PNG'); e.target.value = ''; return; }
+  const totalSize = files.reduce((sum, f) => sum + f.size, 0);
+  if (totalSize > 50 * 1024 * 1024) { alert('Total size must be less than 50MB'); e.target.value = ''; return; }
+  setFormData({ ...formData, docs: files });
+};
 
   const delete_project = async (id) => {
     try {
@@ -635,7 +636,7 @@ export function Dashboard() {
                     <label>Website URL</label>
                     <div className={styles.url_input_row}>
                       <input
-                        disabled={formData.pdfs.length > 0 && plan === "free"}
+                        disabled={formData.docs.length > 0 && plan === "free"}
                         id="web"
                         type="text"
                         className={styles.url_domain_input}
@@ -707,13 +708,13 @@ export function Dashboard() {
                   <div className={styles.builder_section_label}>Knowledge</div>
 
                   <div className={styles.field_group}>
-                    <label htmlFor="pdfs">Upload PDFs</label>
+                    <label htmlFor="docs">Upload PDFs</label>
                     <input
                       type="file"
-                      id="pdfs"
-                      accept=".pdf,application/pdf"
+                      id="docs"
+  accept=".pdf,application/pdf,.docx,application/vnd.openxmlformats-officedocument.wordprocessingml.document,image/jpeg,image/png,.jpg,.jpeg,.png"
                       multiple
-                      onChange={handlePDFChange}
+                      onChange={handleDocChange}
                       disabled={formData.website.length > 0 && plan === "free"}
                     />
                   </div>
