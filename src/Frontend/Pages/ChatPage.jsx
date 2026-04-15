@@ -117,8 +117,8 @@ backdropFilter: 'blur(12px)',
                 </div>
 
                 {messages.map((msg, i) => (
-                    <div key={i} className={styles.message_row} style={{ display: 'flex', justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: '10px'}}>
-                        <div style={msg.role === "user" ? userMessageStyle : { ...userMessageStyle, backgroundColor:chatbot.color, color: '#ebebeb', alignSelf: 'flex-start', marginLeft: '20px',   
+                    <div key={i} className={styles.message_row} style={{ display: 'flex', justifyContent: msg.role === "user" ? "flex-end" : "flex-start", marginBottom: '10px', color: getTextColor(chatbot.color)}}>
+                        <div style={msg.role === "user" ? userMessageStyle : { ...userMessageStyle, backgroundColor:chatbot.color, color: getTextColor(chatbot.color), alignSelf: 'flex-start', marginLeft: '20px',   
 }}>
                             {msg.content}
                         </div>
