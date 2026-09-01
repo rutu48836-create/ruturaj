@@ -169,7 +169,7 @@ export function Privacy() {
 
       <h2 style={styles.h2}>8. Contact</h2>
       <p style={styles.p}>
-        Questions about this policy or your data can be sent to [your contact email].
+        Questions about this policy or your data can be sent to rutu48836@gmail.com
       </p>
 
       <div style={styles.footerNote}>

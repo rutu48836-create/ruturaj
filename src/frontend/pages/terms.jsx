@@ -1,4 +1,3 @@
-
 import { Telescope } from "lucide-react";
 
 const styles = {
