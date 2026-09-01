@@ -1,0 +1,292 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+
+body,html{
+    box-sizing: border-box;
+}
+
+.sidebar_disabled{
+    width: 40px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #ccc;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: .6rem;
+    align-items: center;
+    padding-top: 6rem;
+    background: #eeecec;
+}
+
+.sidebar_active{
+    background: #eeecec;
+    padding-top: 1rem;
+    width: 260px;
+    height: 100vh;
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    padding: .6rem;
+    align-items: center;
+    z-index: 8888;
+    border: 1px solid red;
+        border: 1px solid #ccc;
+
+}
+
+.logo_disabled{
+    width: 100%;
+    height:auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.logo_active{
+    width: 100%;
+    height: auto;
+    flex-direction: row;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.logo_active h3{
+    font-family: "Sora", sans-serif;
+}
+
+.logo_active button{
+    width: 38px;
+    height:38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+}
+
+.courses_btn{
+    width: 100%;
+ background:
+    radial-gradient(circle at 20% 15%, rgba(255,255,255,0.25) 0%, transparent 40%),
+    linear-gradient(135deg, #000000 0%, #000000 50%, #3d3532 100%);border: 1px solid red;
+padding: 1rem;
+border: 2px solid white;
+        font-family: "Sora", sans-serif;
+    color: white;
+    border-radius:10px ;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.links{
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    list-style-type: none;
+    border: 1px solid black;
+    place-content: center;
+    place-items: center;
+    gap: 10px;
+}
+
+.link_full{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    gap: 20px;
+    height: auto;
+    flex-direction: column;
+}
+
+.link_full_li{
+    width: 100%;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+}
+
+.link_full_li h4{
+    font-family: "Sora", sans-serif;
+    font-weight: 500;
+    color: #2c2c2c;
+}
+
+.link_full_li:hover{
+    width: 100%;
+    background: linear-gradient(135deg, #f5f4f4 0%, #ece7e5 100%);
+    box-shadow: 0 4px 0 #222121;    border-radius: 10px;
+    padding: .4rem;
+}
+
+.link_icon{
+        margin: 0;
+    padding: 0;
+    margin-top: 100px;
+    gap: 10px;
+}
+
+.link_full{
+    margin: 0;
+    padding: 0;
+    margin-top: 20px;
+}
+
+.link_icon{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    list-style: none;
+    justify-content: center;
+    gap: 20px;
+    height: auto;
+    flex-direction: column;
+}
+
+.top_nav_wrapper{
+    width: 100%;
+    height: 46px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-self: flex-start;
+    justify-self: flex-start;
+    top: 0;
+    position: fixed;
+    place-self: flex-start;
+    right: 0;
+    padding: .6rem;
+    border-bottom: 1px solid #ccc;
+}
+
+.left_side{
+    width: 40%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.left_side button{
+    display: none;
+}
+
+.right_side{
+    flex: 1;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+.user_icon{
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: grey;
+    margin-right: 20px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: "Inter",sans-serif;
+}
+
+.User_overview{
+    width: 30%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 40px;
+}
+
+.User_overview h3{
+    font-size: 12.8px;
+    font-family: "Sora",sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.sidebar_disabled .history{
+    display: none;
+}
+
+.sidebar_disabled .history_title{
+    display: none;
+}
+
+.sidebar_active .history_title{
+    font-family: "sora",sans-serif;
+    display: flex;
+    justify-self: flex-start;
+    align-self: flex-start;
+    margin-top: 20px;
+}
+
+.history{
+    width: 100%;
+    height: auto;
+    min-height: 0; 
+    display: flex;
+    flex-direction: column;
+    margin-top: 30px;
+    overflow-y: scroll;
+    gap: 20px;
+    padding-bottom: 4rem;
+    scrollbar-width: thin;
+}
+
+.history h4{
+        font-family: "Sora", sans-serif;
+}
+
+.history_card{
+    width: 100%;
+    height: 38px;
+    font-size: 12.8px;
+    font-family: "Sora",sans-serif;
+    cursor: pointer;
+}
+
+@media(max-width:768px){
+
+.User_overview{
+    display: none;
+}
+
+.sidebar_disabled{
+    display: none;
+}
+
+.top_nav_wrapper{
+    width: 100%;
+}
+
+.left_side button{
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border: none;
+   background: transparent;
+   margin-left: 20px;
+}
+
+
+}

@@ -1,0 +1,501 @@
+
+
+
+body{
+    padding:0;
+    margin: 0;
+}
+
+.Sign_in_wrapper{
+    width:100vw;
+    min-height:100vh;
+    display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    background-color: black; 
+    color: white;
+    flex-direction: column;
+    font-family: "Inter",sans-serif;
+}
+
+.Sign_in_head{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: space-between;
+}
+
+.Sign_in_head h2{
+    font-size: 14px;
+    font-weight: 480;
+    margin-left: 16px;
+    color: #ccc;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.Sign_in_head span{
+    margin-right: 20px;
+}
+
+.content{
+    width:58%;
+    height:100%;
+    display:flex;
+    flex-direction: column;
+}
+
+.content h1{
+    margin-bottom: 0;
+        margin-top: 50px;
+
+}
+
+.content h2{
+        font-family:'DM Sans', sans-serif;
+    margin-bottom: 14px;
+}
+
+.Main_form{
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    width: 60%;
+    border-radius: 20px;
+    padding: 0;
+    overflow: hidden;
+    min-height: 400px;
+    margin-top: 30px;
+    gap:20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+    top: 0;
+    border: 1px solid #242323;
+}
+
+.Main_form span{
+    margin-bottom: 30px;
+    font-size: 14px;
+    color: #8b8585;
+    margin-top: 0;
+}
+
+.Main_form input,
+.Sign_in_provider {
+    width: 100%;
+    box-sizing: border-box;
+    font-family: "Inter",sans-serif;
+}
+
+.Main_form button{
+  width:90%;
+  font-family:"Inter",sans-serif;
+  font-weight:500;
+}
+
+
+.Main_form input{
+    height: 44px;
+    padding: 0 .8rem;
+    margin-top: 0px;
+    border-radius: 12px;
+    background: #222121;
+    color: #fff;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    outline: none;
+    transition: border 0.15s;
+}
+
+.Main_form input:focus{
+    border-color: #444;
+}
+
+.Main_form button{
+    height: 44px;
+    padding: 0 .8rem;
+    margin-top: 0px;
+    border-radius: 12px;
+    border: 2px solid #2c2b2b;
+    background: #e9e5e5;
+    color: #181717;
+    font-family: "Inter", sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.15s;
+}
+
+.Main_form button:hover{
+    opacity: 0.85;
+}
+
+.Sign_in_provider{
+    margin-top: 0px;
+    padding: 0;
+    gap:20px;
+}
+
+.Sign_in_provider button:last-child{
+    margin-top:100px;
+}
+
+.provider_card_2{
+    width: 90%;
+    height: 44px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: radial-gradient(
+      ellipse at bottom,
+      rgba(71, 81, 92, 1) 0%,
+      rgba(11, 21, 30, 1) 45%
+    );
+    color: rgb(255, 255, 255, 0.66);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.15s;
+    margin-top: 10px;
+}
+
+.provider_card{
+    width: 90%;
+    height: 44px;
+    box-sizing: border-box;
+    border-radius: 12px;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
+    background: radial-gradient(
+      ellipse at bottom,
+      rgba(71, 81, 92, 1) 0%,
+      rgba(11, 21, 30, 1) 45%
+    );
+    color: rgb(255, 255, 255, 0.66);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    font-family: "Inter", sans-serif;
+    color: #fff;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    transition: border-color 0.15s;
+}
+
+.provider_card:last-child{
+    margin-top:40px;
+}
+
+.provider_card:hover{
+    border-color: #444;
+}
+
+/* ── Solar background card ── */
+.solar_bg{
+  position: relative;
+  width: 100%;
+  height: 450px;
+  overflow: hidden;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  background-image: url("../public/bg.png");
+  background-position: center;
+  color: #fff;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.caution_msg{
+  display: flex;
+  margin-top: 100px;
+  width: 100%;
+}
+
+.content{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.content h3{
+  margin-bottom: 0;
+}
+
+.welcome_msg{
+  margin-top: -30px;
+  width: 80%;
+  text-align: flex-end;
+  align-items: flex-start;
+}
+
+.solar_bg img{
+ width: 100%;
+ height: 100%;
+}
+
+/* Planet glow — partially visible arc emerging from the bottom */
+.planet {
+  position: absolute;
+  bottom: -55%;
+  left: 50%;
+  width: 140%;
+  aspect-ratio: 1 / 1;
+  transform: translateX(-50%);
+  border-radius: 50%;
+  z-index: 0;
+
+  background: radial-gradient(
+    circle at 50% 35%,
+    rgba(255, 255, 255, 0.9) 0%,
+    rgba(255, 255, 255, 0.6) 35%,
+    rgba(255, 255, 255, 0.2) 60%,
+    rgba(255, 255, 255, 0) 78%
+  );
+
+  filter: blur(18px);
+}
+
+/* Soft highlight simulating light hitting the sphere */
+.highlight {
+  position: absolute;
+  top: 6%;
+  left: 18%;
+  width: 55%;
+  height: 55%;
+  border-radius: 50%;
+
+  background: radial-gradient(
+    circle at 30% 30%,
+    rgba(255, 255, 255, 0.5) 0%,
+    rgba(255, 255, 255, 0.15) 40%,
+    rgba(255, 255, 255, 0) 70%
+  );
+
+  filter: blur(12px);
+  pointer-events: none;
+}
+
+/* Curved orbit lines wrapping the planet */
+.orbit_lines {
+  position: absolute;
+  inset: -6%;
+  border-radius: 50%;
+  pointer-events: none;
+
+  background:
+    repeating-radial-gradient(
+      circle at 50% 35%,
+      rgba(255, 255, 255, 0.08) 0px,
+      rgba(255, 255, 255, 0.08) 1px,
+      transparent 1px,
+      transparent 28px
+    );
+
+  mask-image: radial-gradient(
+    circle at 50% 35%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0) 80%
+  );
+  -webkit-mask-image: radial-gradient(
+    circle at 50% 35%,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 1) 60%,
+    rgba(0, 0, 0, 0) 80%
+  );
+}
+
+/* Glowing accent stars */
+.star {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+  z-index: 1;
+  box-shadow:
+    0 0 8px 2px rgba(255, 255, 255, 0.6),
+    0 0 16px 6px rgba(255, 255, 255, 0.12);
+}
+
+.star_one {
+  top: 18%;
+  left: 22%;
+}
+
+.star_two {
+  top: 32%;
+  right: 18%;
+  width: 3px;
+  height: 3px;
+}
+
+.logo_card{
+    position: relative;
+    z-index: 2;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.15);
+}
+
+.mobile_space{
+  display: none;
+}
+
+@media (max-width:768px){
+
+.bottomArc {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 260px;
+  overflow: hidden;
+
+  background: linear-gradient(
+    180deg,
+    #0a0a0a 0%,
+    #030303 50%,
+    #000000 100%
+  );
+
+  border-top-left-radius: 100% 120px;
+  border-top-right-radius: 100% 120px;
+}
+
+/* Curved lines */
+.arc {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 50%;
+}
+
+.arc1 {
+  width: 120%;
+  height: 400px;
+  bottom: -260px;
+}
+
+.arc2 {
+  width: 150%;
+  height: 500px;
+  bottom: -340px;
+}
+
+.arc3 {
+  width: 180%;
+  height: 600px;
+  bottom: -430px;
+}
+
+.arc4 {
+  width: 210%;
+  height: 700px;
+  bottom: -520px;
+}
+
+/* Small glowing star */
+.star {
+  position: absolute;
+  left: 70px;
+  top: 85px;
+  width: 3px;
+  height: 3px;
+  background: white;
+  border-radius: 50%;
+  box-shadow: 0 0 10px 3px rgba(255, 255, 255, 0.9);
+}
+
+.star::before,
+.star::after {
+  content: "";
+  position: absolute;
+  background: white;
+}
+
+.star::before {
+  width: 1px;
+  height: 24px;
+  left: 1px;
+  top: -10px;
+}
+
+.star::after {
+  width: 24px;
+  height: 1px;
+  left: -10px;
+  top: 1px;
+}
+
+  .mobile_space{
+    display: flex;
+    width: 100%;
+    min-height: 100px;
+    background-image: url("../assets/mobile.png");
+    border: 1px solid black;
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .provider_card,.provider_card_2{
+    width:100%;
+  }
+
+    .Main_form{
+        width: 90%;
+        margin-top: 30px;
+        box-shadow: none;
+        border:none;
+        height:auto;
+    }
+
+    .solar_bg {
+      width: 100%;
+      height: 220px;
+      display: none;
+    }
+
+    .caution_msg{
+      margin-top: 70px;
+      display: flex;
+      place-self: center;
+      margin-left: 80px;
+
+    }
+
+    .planet {
+      bottom: -45%;
+      width: 180%;
+      filter: blur(14px);
+    }
+}

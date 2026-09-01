@@ -1,0 +1,164 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@100..800&display=swap');
+
+body,html{
+    box-sizing: border-box;
+}
+
+.home_container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    align-items: flex-start;
+    justify-content: flex-start;
+    display: flex;
+    flex-direction: row;
+}
+
+.hero_wrapper{
+    width:100%;
+    height:100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: rgb(248, 245, 245);
+}
+
+.hero_wrapper h1{
+    font-family: "Sora", sans-serif;
+}
+
+.hero_wrapper_textarea{
+    width:50%;
+    height:100px;
+    padding: 1.2rem;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    background: rgb(248, 245, 245);
+    border-radius: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.hero_wrapper_textarea textarea{
+    width: 100%;
+    border: none;
+    background: transparent;
+    font-family: "Sora", sans-serif;
+    outline: none;
+    resize: none;
+}
+
+.textarea_btns{
+    width:100%;
+    height:40px;
+    display:flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+}
+
+.textarea_btns button{
+      background: linear-gradient(135deg, #FF9A6C 0%, #FF6B35 50%, #E8551E 100%);
+      width: 38px;
+      height:38px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: none;
+      cursor: pointer;
+      box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+      flex-direction: row-reverse;
+}
+
+.btns{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 26px;
+    gap: 10px;
+}
+
+.btns button{
+    width: auto;
+    padding: .6rem;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;
+    border: none;
+    font-family: "Inter",sans-serif;
+    cursor: pointer;
+    font-size: 12.8px;
+}
+
+.waiting_wrapper{
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgb(248, 248, 248);
+    position: absolute;
+    z-index: 9999;
+    flex-direction: column;
+}
+
+.waiting_wrapper h2{
+    font-family: "Sora",sans-serif;
+}
+
+.waiting_wrapper p{
+    font-size: 14px;
+    font-family: "Inter",sans-serif;
+    color: #555353;
+    margin-top: 0;
+    margin-bottom: 20px;
+}
+
+.comet_img {
+  animation: comet_float 3s ease-in-out infinite;
+  transform-origin: center bottom;
+}
+
+@keyframes comet_float {
+  0% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-8px) rotate(-4deg);
+  }
+  50% {
+    transform: translateY(0px) rotate(0deg);
+  }
+  75% {
+    transform: translateY(-4px) rotate(3deg);
+  }
+  100% {
+    transform: translateY(0px) rotate(0deg);
+  }
+}
+
+@media(max-width:768px){
+    .hero_wrapper{
+        width: 100%;
+        height: 100vh;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .hero_wrapper_textarea{
+        width: 80%;
+    }
+
+    .waiting_wrapper h2{
+        font-size: 18px;
+    }
+
+    .waiting_wrapper p{
+        font-size: 12px;
+    }
+}

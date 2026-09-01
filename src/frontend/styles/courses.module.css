@@ -1,0 +1,232 @@
+
+body,html{
+    box-sizing: border-box;
+}
+
+.home_container{
+    width: 100%;
+    height: 100vh;
+    position: fixed;
+    align-items: flex-start;
+    justify-content:space-between;
+    display: flex;
+    flex-direction: row; 
+    overflow-y: auto;
+}
+
+.main_content{
+    padding-bottom: 10rem;
+    flex: 1;
+    min-height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-left: .4rem;
+}
+
+.courses_header{
+    width: 90%;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 120px;
+    margin-left: 100px;    
+}
+
+.course_icon{
+    width: 100%;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.course_icon button{
+    width: 38px;
+    height: 38px;
+    background: black;
+    color: white;
+    border-radius: 50%;
+    border: none;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.icon_wrapper{
+    width: 38px;
+    height: 38px;
+    background: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.courses_header h2{
+    font-family: "Sora", sans-serif;
+}
+
+.courses_header button{
+    width: 220px;
+    padding: .8rem;
+    background: black;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-family: "Sora", sans-serif;
+    cursor: pointer;
+}
+
+.new_lesson_btn{
+    width: 100%;
+    height: 38px;
+    padding: .4rem;
+    position: fixed;
+    bottom: 0;
+    border-top: 1px solid #ccc;
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.new_lesson_btn button{
+    width: 96%;
+    height: 36px;
+    margin-left: 0px;
+    background: black;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    font-family: "Sora", sans-serif;
+}
+
+.courses_cards{
+    width: 90%;
+    min-height: 300px;
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    align-items: center;
+    justify-content: center;
+    margin-top: 30px;
+    margin-left: 100px;
+    row-gap: 30px;
+}
+
+.course_card{
+    padding: .4rem;
+    width: 90%;
+    height: 100%;
+box-shadow: rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px;    
+border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid #ccc;
+    color: white;
+}
+
+.course_detail{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    font-family: "Inter",sans-serif;
+    color: white;
+}
+
+.course_text{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.course_text h3{
+    font-family: "Sora",sans-serif;
+    margin-left: 8px;
+    font-size: 12.8px;
+    color: white;
+}
+
+.progress {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    margin-top: 10px;
+}
+
+.progress h3 {
+    font-family: "Sora", sans-serif;
+    font-weight: 700;
+    color: #fff;
+    margin: 0;
+    font-size: 14px;
+}
+
+.progress_bar_track {
+    width: 100%;
+    height: 8px;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 999px;
+    overflow: hidden;
+    margin-top: 10px;
+}
+
+.progress_bar_fill {
+    height: 100%;
+    background: white;
+    border-radius: 999px;
+    transition: width 0.4s ease;
+}
+
+.progress span {
+    font-family: "Inter", sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.stats{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.stats h3{
+    font-size: 13px;
+}
+
+@media(max-width:768px){
+    .courses_header{
+        width: 100%;
+        margin-left: 10px;
+    }
+
+    .courses_header button{
+        display: none;
+    }
+
+    .new_lesson_btn{
+        display: flex;
+        background: white;
+    }
+
+    .courses_cards{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin-left: 0;
+    }
+
+    .course_card{
+        width: 90%;
+        height: 150px;
+        padding-bottom: .4rem;
+        padding-left: .4rem;
+    }
+}
