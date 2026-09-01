@@ -18,6 +18,10 @@ app.use("/db", dbRoutes);
 
 const PORT = process.env.PORT || 5000;
 
+app.get("/health",() => {
+  res.status(200).json({ message: "Server is running!" });
+});
+
 app.listen(PORT, () => {
   console.log(`Server running on port ${PORT}`);
 });
