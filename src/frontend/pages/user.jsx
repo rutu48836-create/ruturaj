@@ -10,7 +10,7 @@ import { supabase } from "../compoents/supabaseConfig"
 
 function Main_content(){
 
-const {user,loading} = useAuth()
+    const {user,loading} = useAuth()
     const [courses, setCourses] = useState([])
     const [progressMap, setProgressMap] = useState({})
     const [sidebar_active,setSidebar_active] = useState(false)
@@ -122,10 +122,9 @@ const {user,loading} = useAuth()
   navigate('/auth');
 };
 
-
 return(
     <div className={styles.Main_content_wrapper}>
-    <Top_nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active}/>
+            <Top_nav setSidebar_active={setSidebar_active} sidebar_active={sidebar_active}/>
     <div className={styles.User_content}>
     
     <div className={styles.User_icon}>

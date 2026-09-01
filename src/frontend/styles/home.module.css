@@ -161,4 +161,8 @@ body,html{
     .waiting_wrapper p{
         font-size: 12px;
     }
+
+    .hero_wrapper h2{
+        font-size:22px;
+    }
 }

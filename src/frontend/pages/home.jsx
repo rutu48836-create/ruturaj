@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import styles from "../styles/home.module.css"
 import { ArrowUp,Sofa } from 'lucide-react';
 import { Nav } from "../compoents/nav";
