@@ -15,9 +15,12 @@ export function Home(){
  const [sidebar_active, setSidebar_active] = useState(false);
  const navigate = useNavigate()
 
- if(!user && !loading) {
+useEffect(() => {
+  if(!user && !loading) {
   navigate('/auth')
  }
+},[user,loading])
+
 
  const send_message = async () => {
   if (!message.trim()) return;
@@ -33,7 +36,7 @@ export function Home(){
 
   try {
     setWaiting(true)
-    const request = await fetch('http://localhost:5000/llm/create_lessons', {
+    const request = await fetch(`${import.meta.env.VITE_BACKEND_KEY}/llm/create_lessons`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

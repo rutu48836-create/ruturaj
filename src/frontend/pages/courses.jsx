@@ -21,7 +21,7 @@ export function Courses(){
 
         const check_lessons = async () => {
 
-            const res = await fetch(`http://localhost:5000/db/query_courses/${user.id}`, {
+            const res = await fetch(`${import.meta.env.VITE_BACKEND_KEY}/db/query_courses/${user.id}`, {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
