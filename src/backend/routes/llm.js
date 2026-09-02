@@ -1,14 +1,12 @@
 import express from 'express';
-import { GoogleAuth } from 'google-auth-library';
+import { GoogleGenAI } from '@google/genai';
 import supabase from '../utlis/supabaseConfig.js';
 import crypto from 'crypto';
 
 const router = express.Router();
 
-// Initialize GoogleAuth client with generative language scopes
-const auth = new GoogleAuth({
-  scopes: 'https://www.googleapis.com/auth/generativelanguage'
-});
+// Initialize the Google GenAI SDK using your environment variable
+const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 router.post('/create_lessons', async (req, res) => {
   const { message, user_id } = req.body;
@@ -138,42 +136,16 @@ Return ONLY valid JSON matching this exact schema. No markdown fences, no preamb
 USER TOPIC: ${message}`;
 
   try {
-    // 1. Obtain an Access Token from Google Auth Library
-    const client = await auth.getClient();
-    const tokenResponse = await client.getAccessToken();
-    const token = tokenResponse.token;
-
-    // 2. Query Gemini generateContent using the OAuth2 Bearer token
-    const geminiRes = await fetch(
-      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${token}`
-        },
-        body: JSON.stringify({
-          contents: [
-            {
-              parts: [{ text: prompt }]
-            }
-          ],
-          generationConfig: {
-            response_mime_type: 'application/json'
-          }
-        })
+    // 1. Generate content using the official SDK
+    const response = await ai.models.generateContent({
+      model: 'gemini-2.5-flash',
+      contents: prompt,
+      config: {
+        responseMimeType: 'application/json'
       }
-    );
+    });
 
-    if (!geminiRes.ok) {
-      const errText = await geminiRes.text();
-      throw new Error(`Gemini API error: ${geminiRes.status} ${errText}`);
-    }
-
-    const geminiJson = await geminiRes.json();
-
-    // 3. Extract text response safely from candidates array
-    const responseText = geminiJson.candidates?.[0]?.content?.parts?.[0]?.text;
+    const responseText = response.text;
 
     if (!responseText) {
       throw new Error('No content returned from Gemini');
@@ -194,7 +166,7 @@ USER TOPIC: ${message}`;
 
     const random = crypto.randomUUID();
 
-    // 4. Save generated Course to Supabase
+    // 2. Insert into Supabase
     const { data: course, error: courseError } = await supabase
       .from('courses')
       .insert({
@@ -212,7 +184,6 @@ USER TOPIC: ${message}`;
 
     if (courseError) throw courseError;
 
-    // 5. Format & batch insert individual items/lessons
     const itemsToInsert = courseData.items.map((item, index) => ({
       course_id: random,
       order_index: index,
