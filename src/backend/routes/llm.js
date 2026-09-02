@@ -5,7 +5,7 @@ import crypto from 'crypto';
 
 const router = express.Router();
 
-// Initialize the Google GenAI SDK using your environment variable
+// Initialize the Google GenAI SDK
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 router.post('/create_lessons', async (req, res) => {
@@ -136,7 +136,7 @@ Return ONLY valid JSON matching this exact schema. No markdown fences, no preamb
 USER TOPIC: ${message}`;
 
   try {
-    // 1. Generate content using the official SDK
+    // 1. Generate content using @google/genai SDK
     const response = await ai.models.generateContent({
       model: 'gemini-2.5-flash',
       contents: prompt,
