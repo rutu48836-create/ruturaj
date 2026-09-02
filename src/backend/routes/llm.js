@@ -1,21 +1,21 @@
-import express from 'express'
+import express from 'express';
+import { GoogleAuth } from 'google-auth-library';
 import supabase from '../utlis/supabaseConfig.js';
-import { GoogleGenerativeAI } from '@google/generative-ai';
-import crypto from 'crypto'
-
-const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
+import crypto from 'crypto';
 
 const router = express.Router();
 
-router.post('/create_lessons', async (req, res) => {
+// Initialize GoogleAuth client with generative language scopes
+const auth = new GoogleAuth({
+  scopes: 'https://www.googleapis.com/auth/generativelanguage'
+});
 
+router.post('/create_lessons', async (req, res) => {
   const { message, user_id } = req.body;
 
   if (!message || !user_id) {
     return res.status(400).json({ error: 'message and user_id are required' });
   }
-
-  console.log(message)
 
   const prompt = `You are an expert course designer for Lunaar, a platform that teaches any skill through short, byte-sized lessons.
 
@@ -135,26 +135,55 @@ Return ONLY valid JSON matching this exact schema. No markdown fences, no preamb
   ]
 }
 
-USER TOPIC: ${message}`
+USER TOPIC: ${message}`;
 
   try {
+    // 1. Obtain an Access Token from Google Auth Library
+    const client = await auth.getClient();
+    const tokenResponse = await client.getAccessToken();
+    const token = tokenResponse.token;
 
-    const model = genAI.getGenerativeModel({
-      model: "gemini-3.5-flash-lite",
-      generationConfig: {
-        temperature: 1,
-        maxOutputTokens: 16000,
-        responseMimeType: "application/json"
+    // 2. Query Gemini generateContent using the OAuth2 Bearer token
+    const geminiRes = await fetch(
+      'https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+        },
+        body: JSON.stringify({
+          contents: [
+            {
+              parts: [{ text: prompt }]
+            }
+          ],
+          generationConfig: {
+            response_mime_type: 'application/json'
+          }
+        })
       }
-    });
+    );
 
-    const result = await model.generateContent(prompt);
-    const responseText = result.response.text();
+    if (!geminiRes.ok) {
+      const errText = await geminiRes.text();
+      throw new Error(`Gemini API error: ${geminiRes.status} ${errText}`);
+    }
 
-    const sanitizeJSON = (str) => str
-      .replace(/```json|```/g, '')
-      .trim()
-      .replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+    const geminiJson = await geminiRes.json();
+
+    // 3. Extract text response safely from candidates array
+    const responseText = geminiJson.candidates?.[0]?.content?.parts?.[0]?.text;
+
+    if (!responseText) {
+      throw new Error('No content returned from Gemini');
+    }
+
+    const sanitizeJSON = (str) =>
+      str
+        .replace(/```json|```/g, '')
+        .trim()
+        .replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
 
     let courseData;
     try {
@@ -165,8 +194,9 @@ USER TOPIC: ${message}`
 
     const random = crypto.randomUUID();
 
+    // 4. Save generated Course to Supabase
     const { data: course, error: courseError } = await supabase
-      .from("courses")
+      .from('courses')
       .insert({
         user_id: user_id,
         title: courseData.title,
@@ -178,10 +208,11 @@ USER TOPIC: ${message}`
         id: random
       })
       .select()
-      .single()
+      .single();
 
     if (courseError) throw courseError;
 
+    // 5. Format & batch insert individual items/lessons
     const itemsToInsert = courseData.items.map((item, index) => ({
       course_id: random,
       order_index: index,
@@ -208,12 +239,10 @@ USER TOPIC: ${message}`
     if (itemsError) throw itemsError;
 
     res.json({ course, lessons: courseData.items });
-
   } catch (err) {
-    console.log(err)
+    console.error(err);
     res.status(500).json({ error: 'Failed to generate course' });
   }
+});
 
-})
-
-export default router
+export default router;
