@@ -138,7 +138,7 @@ USER TOPIC: ${message}`;
   try {
     // 1. Generate content using @google/genai SDK
     const response = await ai.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-1.5-flash',
       contents: prompt,
       config: {
         responseMimeType: 'application/json'
