@@ -9,10 +9,12 @@ const router = express.Router();
 
 router.post('/create_lessons', async (req, res) => {
 
-  const { message, user_id } = req.body
-   const { data: { user }, error } = await supabaseAdmin.auth.getUser(user_id);
+  const { message, user_id } = req.body;
 
-  if (error || !user) return res.status(401).json({ error: 'invalid token' });
+  if (!message || !user_id) {
+    return res.status(400).json({ error: 'message and user_id are required' });
+  }
+
   console.log(message)
 
   const prompt = `You are an expert course designer for Lunaar, a platform that teaches any skill through short, byte-sized lessons.
@@ -37,7 +39,7 @@ CHECKPOINTS:
 
 BOSS CHALLENGE:
 - The FINAL item in the course must be type "boss_challenge".
-- It contains 5-8 questions that together cover the full breadth of the course, mixing "mcq", "true_false", and "fill_blank" quiz_types.
+- It contains 5-8 questions that together cover the full breadth of the course, mixing "mcq", "true_false", and"fill_blank" quiz_types.
 - Frame its title and intro like a real final test/boss fight moment, not just "Final Quiz".
 
 GENERAL RULES:

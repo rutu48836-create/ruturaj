@@ -1,4 +1,4 @@
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import styles from "../styles/home.module.css"
 import { ArrowUp,Sofa } from 'lucide-react';
 import { Nav } from "../compoents/nav";
@@ -8,7 +8,6 @@ import {useNavigate} from "react-router-dom"
 import comet_normal from "../assets/comet_normal.png"
 
 export function Home(){
-
  const [message, setMessage] = useState('')
  const [waiting,setWaiting] = useState(false)
  const { user, loading } = useAuth()
@@ -21,19 +20,14 @@ useEffect(() => {
  }
 },[user,loading])
 
-
  const send_message = async () => {
   if (!message.trim()) return;
   if(waiting) return alert('pls wait');
-
     const learning_keywords = ['teach', 'explain', 'learn', 'how to', 'what is', 'course on', 'guide to'];
   const looks_like_request = learning_keywords.some(k => message.toLowerCase().includes(k));
-
   if (!looks_like_request) {
     return alert('Try phrasing it like "Teach me about..." or "Explain..."');
   }
-
-
   try {
     setWaiting(true)
     const request = await fetch(`${import.meta.env.VITE_BACKEND_KEY}/llm/create_lessons`, {
@@ -42,7 +36,7 @@ useEffect(() => {
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
-      body: JSON.stringify({ message,user_id:user.id })
+      body: JSON.stringify({ message, user_id: user.id })
     })
     const data = await request.json()
     setWaiting(false)
@@ -52,7 +46,6 @@ useEffect(() => {
     setWaiting(false)
   }
  }
-
     return(
         <div className={styles.home_container}>
             <Nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active}/>
@@ -62,7 +55,6 @@ useEffect(() => {
             <h1>
                What should we learn?
             </h1>
-
             <div className={styles.hero_wrapper_textarea}>
 <textarea 
   placeholder="Teach me about french revolution"
@@ -73,7 +65,6 @@ useEffect(() => {
     <button type="button" onClick={() => send_message()} disabled={waiting}><ArrowUp color="white"/></button>
 </div>
             </div>
-
             <div className={styles.btns}>
               <button onClick={() => setMessage("teach me python")}>Code</button>
               <button onClick={() => setMessage("teach me Spanish")}>Spanish</button>
@@ -81,7 +72,6 @@ useEffect(() => {
               <button onClick={() => setMessage("teach me about India")}>India</button>
             </div>
            </div>
-
          {waiting && 
          
          <div className={styles.waiting_wrapper}>
@@ -91,8 +81,6 @@ useEffect(() => {
           </div>
          
          }
-
         </div>
     )
-
 }

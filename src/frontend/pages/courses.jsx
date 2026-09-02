@@ -137,7 +137,7 @@ export function Courses(){
                 </div>
 
                 <div className={styles.new_lesson_btn}>
-                    <button type="button">New Course</button>
+                    <button type="button" onClick={() => navigate('/dashboard')}>New Course</button>
                 </div>
             </div>
 
