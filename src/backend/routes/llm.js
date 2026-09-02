@@ -9,8 +9,7 @@ const router = express.Router();
 
 router.post('/create_lessons', async (req, res) => {
 
-  const { message, user_id } = req.bo
-  dy
+  const { message, user_id } = req.body
    const { data: { user }, error } = await supabaseAdmin.auth.getUser(user_id);
 
   if (error || !user) return res.status(401).json({ error: 'invalid token' });
