@@ -636,3 +636,11 @@ body, html {
 .listen_btn:active {
     transform: scale(0.96);
 }
+
+@media(max-widtt:768px){
+
+    .lesson_wrapper{
+     overflow-y:scroll;
+    }
+
+}
