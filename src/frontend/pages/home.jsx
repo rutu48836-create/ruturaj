@@ -198,13 +198,7 @@ export function Home() {
   return (
     <div className={styles.home_container}>
       <Nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active} />
-      <div className={styles.right_side_nav}>
-        <div className={styles.streak}>
-          <img src={fire} />
-          <h3>{user_details.current_streak}</h3>
-          <span>current streak</span>
-        </div>
-      </div>
+      
       <div className={styles.hero_wrapper}>
         <Top_nav setSidebar_active={setSidebar_active} sidebar_active={sidebar_active} />
         <img src={comet_normal} width={100} height={100} className={styles.comet_img} />
