@@ -796,6 +796,12 @@ body,html{
         justify-content: center;
     }
 
+    .hero_wrapper h1{
+      font-size:22px;
+      width:100%;
+      text-align:center;
+    }
+
     .hero_wrapper_textarea{
         width: 80%;
     }
