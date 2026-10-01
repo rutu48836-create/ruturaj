@@ -3,7 +3,7 @@ import { supabase } from "../compoents/supabaseConfig";
 import styles from "../styles/courses.module.css"
 import { Nav, Top_nav } from "../compoents/nav";
 import { useState, useEffect } from "react";
-import { GraduationCap, MoveRight,CodeXml,Languages,LibraryBig } from "lucide-react"
+import { GraduationCap, MoveRight,CodeXml,Languages,LibraryBig,Trash } from "lucide-react"
 import { useNavigate } from "react-router-dom"
 
 export function Courses(){
@@ -29,8 +29,16 @@ export function Courses(){
                 }
             });
 
-            const data = await res.json()
-            setCourses(data.courses || data)
+           const data = await res.json();
+
+const coursesArray = Array.isArray(data?.courses)
+  ? data.courses
+  : Array.isArray(data)
+  ? data
+  : [];
+
+setCourses(coursesArray);
+
         }
 
         check_lessons()
@@ -85,6 +93,26 @@ export function Courses(){
         return Icons[category] || < LibraryBig size={18} color="#1b1a1a" />
     }
 
+    async function Delete_course(id){
+
+    if(!id) return;
+
+    const {data,error} = await supabase
+    .from("courses")
+    .delete()
+    .eq("id",id)
+
+    if(error){
+        console.log(error)
+        alert('Could not delete item.');
+    }
+
+    else{
+setCourses(prev => prev.filter(item => item.id !== id))
+    }
+
+    }
+
     return (
         <div className={styles.home_container}>
             <Nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active} />
@@ -93,7 +121,7 @@ export function Courses(){
                 <Top_nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active} />
 
                 <div className={styles.courses_header}>
-                    <h2>Your Courses</h2> <button type="button">New Course</button>
+                    <h2>Your Courses</h2> <button type="button" onClick={() => navigate("/Dashboard")}>New Course</button>
                 </div>
 
                 <div className={styles.courses_cards}>
@@ -114,9 +142,12 @@ export function Courses(){
                                         <div className={styles.icon_wrapper}>
                                             {getIcon(c.category)}
                                         </div>
+                                        <div className={styles.course_btn}>
                                         <button type="button" onClick={() => navigate(`/lesson/${c.id}`)}>
                                             <MoveRight size={18} />
                                         </button>
+                                        <button onClick={() => Delete_course(c.id)}><Trash/></button>
+                                        </div>
                                     </div>
                                    <div className={styles.progress}>
     <h3>{c.title}</h3>

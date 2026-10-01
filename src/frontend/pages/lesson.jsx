@@ -1,9 +1,12 @@
 import { useParams, useNavigate } from "react-router";
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { supabase } from "../compoents/supabaseConfig";
 import styles from "../styles/lesson.module.css"
 import { useAuth } from "../compoents/authcontext";
-import { ArrowLeft, BookOpen, Lightbulb, Target, HelpCircle, Trophy, Volume2, VolumeX, Terminal, MessagesSquare, CornerDownLeft, Eye } from "lucide-react";
+import { useRef } from "react";
+import { House, X, ArrowLeft, Trophy, Volume2, VolumeX, CornerDownLeft, Eye, Book, MessageCircle, Sparkles } from "lucide-react";
+import comet_normal from "../assets/comet_normal.png"
+import Lua from "../assets/Lua.png"
 
 function normalizeCommand(str) {
   return (str || "").trim().replace(/\s+/g, " ");
@@ -11,6 +14,15 @@ function normalizeCommand(str) {
 
 function normalizePhrase(str) {
   return (str || "").trim().toLowerCase().replace(/[.,!?¿¡'"]/g, "").replace(/\s+/g, " ");
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
 }
 
 function TerminalSimulator({ lesson, onComplete }) {
@@ -149,7 +161,6 @@ function ConversationSimulator({ lesson, onComplete }) {
   return (
     <div className={styles.sim_wrapper}>
       <p className={styles.sim_scenario}>{lesson.scenario}</p>
-
       <div className={styles.chat_box}>
         {messages.map((m, i) => (
           <div key={i} className={`${styles.chat_bubble_row} ${m.speaker === "user" ? styles.chat_row_user : ""}`}>
@@ -187,6 +198,311 @@ function ConversationSimulator({ lesson, onComplete }) {
   )
 }
 
+function DragCategorizeSimulator({ lesson, onComplete }) {
+  const items = lesson.items || [];
+  const zones = lesson.zones || [];
+  const correctMap = lesson.correct_map || {};
+  const itemsById = Object.fromEntries(items.map(it => [it.id, it]));
+
+  const [pool, setPool] = useState(() => shuffle(items.map(it => it.id)));
+  const [placements, setPlacements] = useState({});
+  const [shakeId, setShakeId] = useState(null);
+  const [draggedId, setDraggedId] = useState(null);
+  const [dragOverZone, setDragOverZone] = useState(null);
+  const [done, setDone] = useState(false);
+
+  const handleDrop = (zoneId) => {
+    setDragOverZone(null);
+    if (draggedId === null) return;
+
+    if (correctMap[draggedId] === zoneId) {
+      setPlacements(p => ({ ...p, [zoneId]: [...(p[zoneId] || []), draggedId] }));
+      setPool(p => {
+        const next = p.filter(id => id !== draggedId);
+        if (next.length === 0) {
+          setDone(true);
+          onComplete();
+        }
+        return next;
+      });
+    } else {
+      setShakeId(draggedId);
+      setTimeout(() => setShakeId(null), 400);
+    }
+    setDraggedId(null);
+  }
+
+  return (
+    <div className={styles.sim_wrapper}>
+      <p className={styles.sim_scenario}>{lesson.scenario}</p>
+
+      <div className={styles.dnd_zones}>
+        {zones.map(zone => (
+          <div
+            key={zone.id}
+            className={`${styles.dnd_zone} ${dragOverZone === zone.id ? styles.dnd_zone_active : ""}`}
+            onDragOver={(e) => { e.preventDefault(); setDragOverZone(zone.id); }}
+            onDragLeave={() => setDragOverZone(null)}
+            onDrop={() => handleDrop(zone.id)}
+          >
+            <span className={styles.dnd_zone_label}>{zone.label}</span>
+            <div className={styles.dnd_zone_items}>
+              {(placements[zone.id] || []).map(id => (
+                <div key={id} className={styles.dnd_chip_locked}>
+                  {itemsById[id].label}
+                </div>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className={styles.dnd_pool}>
+        {pool.map(id => (
+          <div
+            key={id}
+            draggable
+            onDragStart={() => setDraggedId(id)}
+            className={`${styles.dnd_chip} ${shakeId === id ? styles.dnd_chip_shake : ""}`}
+          >
+            {itemsById[id].label}
+          </div>
+        ))}
+        {pool.length === 0 && !done && (
+          <span className={styles.dnd_pool_empty}>Nice — check the zones above.</span>
+        )}
+      </div>
+    </div>
+  )
+}
+
+function DragOrderSimulator({ lesson, onComplete }) {
+  const items = lesson.items || [];
+  const correctOrder = lesson.correct_order || [];
+  const itemsById = Object.fromEntries(items.map(it => [it.id, it]));
+
+  const [order, setOrder] = useState(() => shuffle(items.map(it => it.id)));
+  const [draggedIndex, setDraggedIndex] = useState(null);
+  const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [result, setResult] = useState(null);
+  const [done, setDone] = useState(false);
+
+  const handleDrop = (index) => {
+    setDragOverIndex(null);
+    if (draggedIndex === null || draggedIndex === index) return;
+    setOrder(o => {
+      const next = [...o];
+      const [moved] = next.splice(draggedIndex, 1);
+      next.splice(index, 0, moved);
+      return next;
+    });
+    setDraggedIndex(null);
+    setResult(null);
+  }
+
+  const handleCheck = () => {
+    const isCorrect = order.every((id, i) => id === correctOrder[i]);
+    setResult(isCorrect ? "correct" : "wrong");
+    if (isCorrect) {
+      setDone(true);
+      onComplete();
+    }
+  }
+
+  return (
+    <div className={styles.sim_wrapper}>
+      <p className={styles.sim_scenario}>{lesson.scenario}</p>
+
+      <div className={styles.dnd_order_list}>
+        {order.map((id, index) => (
+          <div
+            key={id}
+            draggable={!done}
+            onDragStart={() => setDraggedIndex(index)}
+            onDragOver={(e) => { e.preventDefault(); setDragOverIndex(index); }}
+            onDragLeave={() => setDragOverIndex(null)}
+            onDrop={() => handleDrop(index)}
+            className={`${styles.dnd_order_item} ${result === "wrong" ? styles.dnd_chip_shake : ""} ${done ? styles.dnd_chip_locked : ""} ${dragOverIndex === index ? styles.dnd_order_item_over : ""}`}
+          >
+            <span className={styles.dnd_order_index}>{index + 1}</span>
+            {itemsById[id].label}
+          </div>
+        ))}
+      </div>
+
+      {!done && (
+        <button type="button" className={styles.btn_continue} onClick={handleCheck}>
+          Check order
+        </button>
+      )}
+      {result === "wrong" && (
+        <div className={`${styles.quiz_feedback} ${styles.wrong}`}>Not quite the right order — drag to rearrange and try again.</div>
+      )}
+    </div>
+  )
+}
+
+function DragDropSimulator({ lesson, onComplete }) {
+  return lesson.mode === "order"
+    ? <DragOrderSimulator lesson={lesson} onComplete={onComplete} />
+    : <DragCategorizeSimulator lesson={lesson} onComplete={onComplete} />
+}
+
+function SliderPlayground({ lesson }) {
+  const [value, setValue] = useState(lesson.default ?? lesson.min ?? 1);
+  const [dropping, setDropping] = useState(false);
+  const [landed, setLanded] = useState(false);
+
+  const baseDuration = 1.6;
+  const safeValue = value > 0 ? value : 0.1;
+  const duration = (baseDuration / safeValue).toFixed(2);
+
+  const handleDrop = () => {
+    setLanded(false);
+    setDropping(false);
+    requestAnimationFrame(() => requestAnimationFrame(() => setDropping(true)));
+  }
+
+  return (
+    <div className={styles.slider_playground}>
+      <div className={styles.slider_stage}>
+        <div
+          key={dropping ? "falling" : "idle"}
+          className={`${styles.slider_ball} ${dropping ? styles.slider_ball_falling : ""}`}
+          style={{ animationDuration: `${duration}s` }}
+          onAnimationEnd={() => setLanded(true)}
+        />
+        <div className={`${styles.slider_ground} ${landed ? styles.slider_ground_hit : ""}`} />
+      </div>
+      <div className={styles.slider_controls}>
+        <span className={styles.slider_value_label}>{lesson.variable_label}: {value}x</span>
+        <input
+          type="range"
+          min={lesson.min}
+          max={lesson.max}
+          step={lesson.step}
+          value={value}
+          onChange={(e) => { setValue(parseFloat(e.target.value)); setLanded(false); }}
+          className={styles.slider_input}
+        />
+        <button type="button" className={styles.btn_continue} onClick={handleDrop}>
+          Drop it
+        </button>
+      </div>
+    </div>
+  )
+}
+
+function SliderSimulator({ lesson, onComplete }) {
+  const steps = lesson.steps || [];
+  const [stepIndex, setStepIndex] = useState(0);
+  const [selected, setSelected] = useState(null);
+  const [done, setDone] = useState(false);
+
+  const currentStep = steps[stepIndex];
+  const isLastStep = stepIndex === steps.length - 1;
+
+  const handleSelect = (i) => {
+    if (selected !== null) return;
+    setSelected(i);
+  }
+
+  const handleNext = () => {
+    if (isLastStep) {
+      setDone(true);
+      onComplete();
+    } else {
+      setStepIndex(stepIndex + 1);
+      setSelected(null);
+    }
+  }
+
+  return (
+    <div className={styles.sim_wrapper}>
+      <p className={styles.sim_scenario}>{lesson.scenario}</p>
+
+      <SliderPlayground lesson={lesson} />
+
+      {!done && currentStep && (
+        <>
+          <p className={styles.quiz_question}>{currentStep.prompt}</p>
+          <QuizOptions
+            quiz_type="mcq"
+            options={currentStep.options}
+            correct_index={currentStep.correct_index}
+            selected={selected}
+            onSelect={handleSelect}
+          />
+          {selected !== null && (
+            <>
+              <div className={`${styles.quiz_feedback} ${selected === currentStep.correct_index ? styles.correct : styles.wrong}`}>
+                {currentStep.explanation}
+              </div>
+              <button type="button" className={styles.btn_continue} onClick={handleNext}>
+                {isLastStep ? "Finish" : "Next"}
+              </button>
+            </>
+          )}
+        </>
+      )}
+    </div>
+  )
+}
+
+class DiagramBoundary extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { hasError: false };
+  }
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error) {
+    console.log(error);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return <div className={styles.diagram_error}>This diagram couldn't be displayed.</div>;
+    }
+    return this.props.children;
+  }
+}
+
+function DiagramRenderer({ lesson }) {
+  const [DiagramComponent, setDiagramComponent] = useState(null);
+  const [buildError, setBuildError] = useState(null);
+
+  useEffect(() => {
+    try {
+      const factory = new Function("React", `${lesson.code}\nreturn Diagram;`);
+      const Comp = factory(React);
+      setDiagramComponent(() => Comp);
+      setBuildError(null);
+    } catch (e) {
+      setBuildError(e.message);
+      setDiagramComponent(null);
+    }
+  }, [lesson.code]);
+
+  return (
+    <div className={styles.diagram_wrapper}>
+      {lesson.caption && <p className={styles.sim_scenario}>{lesson.caption}</p>}
+      {buildError || !DiagramComponent ? (
+        <div className={styles.diagram_error}>This diagram couldn't be displayed.</div>
+      ) : (
+        <div className={styles.diagram_stage}>
+          <DiagramBoundary>
+            <DiagramComponent />
+          </DiagramBoundary>
+        </div>
+      )}
+    </div>
+  )
+}
+
 function renderBoldText(text) {
   if (!text) return null;
   const parts = text.split(/(\*\*.*?\*\*)/g);
@@ -199,13 +515,16 @@ function renderBoldText(text) {
 }
 
 const BADGES = {
-  learn: { label: "Lesson", icon: BookOpen, className: "lesson" },
-  example: { label: "Example", icon: Lightbulb, className: "example" },
-  challenge: { label: "Challenge", icon: Target, className: "challenge" },
-  quiz: { label: "Quick Check", icon: HelpCircle, className: "quiz" },
-  boss_challenge: { label: "Boss Challenge", icon: Trophy, className: "boss" },
-  simulator_terminal: { label: "Terminal", icon: Terminal, className: "simulator" },
-  simulator_conversation: { label: "Conversation", icon: MessagesSquare, className: "simulator" },
+  learn: { label: "Lesson", className: "lesson" },
+  example: { label: "Example", className: "Lesson" },
+  challenge: { label: "Challenge", className: "challenge" },
+  quiz: { label: "Quick Check", className: "quiz" },
+  boss_challenge: { label: "Boss Challenge", className: "boss" },
+  diagram: { label: "Diagram", className: "lesson" },
+  simulator_terminal: { label: "Terminal", className: "simulator" },
+  simulator_conversation: { label: "Conversation", className: "simulator" },
+  simulator_drag_drop: { label: "Drag & Drop", className: "simulator" },
+  simulator_slider: { label: "Playground", className: "simulator" },
 }
 
 function QuizOptions({ quiz_type, options, correct_index, selected, onSelect }) {
@@ -249,13 +568,55 @@ export function Lesson(){
   const [isSpeaking, setIsSpeaking] = useState(false)
   const [ttsSupported, setTtsSupported] = useState(true)
 
+  const [message_content,setMessage_content] = useState("")
   const [bossStarted, setBossStarted] = useState(false)
   const [bossIndex, setBossIndex] = useState(0)
   const [bossSelected, setBossSelected] = useState(null)
   const [bossAnswers, setBossAnswers] = useState([])
   const [bossFinished, setBossFinished] = useState(false)
-
+  const [chat_active,setChat_active] = useState(false)
   const [simDone, setSimDone] = useState(false)
+  const historyRef = useRef([]);
+  const [messages,setMessages] = useState([])
+
+  const Send_msg = async () => {
+
+    if(!message_content.trim()) return
+
+    const originalMessage = message_content;
+    setMessage_content("")
+
+      const userMessage = { 
+      role: "user" , 
+      content: originalMessage 
+    };
+
+    historyRef.current.push(userMessage);
+    setMessages(prev => [...prev, userMessage]);
+
+    try{
+      const res = await fetch(`${import.meta.env.VITE_BACKEND_KEY}/llm/chat`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({user_message: originalMessage, history: historyRef.current})
+      });
+
+      const data = await res.json();
+
+      const aiResponse = data.message
+
+       const botMessage = { 
+        role: "assistant", 
+        content: aiResponse,
+      };
+
+      historyRef.current.push(botMessage);
+      setMessages(prev => [...prev, botMessage]);
+    }catch(error){
+      console.log(error)
+    }
+
+  }
 
   useEffect(() => {
 
@@ -273,7 +634,6 @@ export function Lesson(){
       }
 
       if (!data || data.length === 0) {
-        console.log("no data")
         return;
       }
 
@@ -319,12 +679,12 @@ export function Lesson(){
   const isChallengeOpen = currentLesson.type === "challenge" && !currentLesson.options;
   const isBoss = currentLesson.type === "boss_challenge";
   const isSimulator = currentLesson.type === "simulator";
+  const isDiagram = currentLesson.type === "diagram";
   const isAnswerable = isQuiz || isChallengeMCQ;
 
   const badge = isSimulator
     ? BADGES[`simulator_${currentLesson.simulator_type}`] || BADGES.challenge
     : BADGES[currentLesson.type] || BADGES.learn;
-  const BadgeIcon = badge.icon;
 
   const bossQuestions = currentLesson.questions || [];
   const currentBossQuestion = bossQuestions[bossIndex];
@@ -338,6 +698,7 @@ export function Lesson(){
     }
     if (isAnswerable) return currentLesson.question || currentLesson.content;
     if (isSimulator) return currentLesson.scenario;
+    if (isDiagram) return currentLesson.caption || currentLesson.title;
     return currentLesson.content;
   }
 
@@ -373,8 +734,6 @@ export function Lesson(){
           lesson_id: currentLesson.id,
         },
         { onConflict: 'user_id,lesson_id' })
-
-        console.log('progress upsert:', { data, error })
 
         if(error){
           console.log(error)
@@ -429,8 +788,6 @@ const update_streak = async (user_id) => {
     .eq('id', user_id)
     .single();
 
-  console.log('streak fetch:', { profile, error });
-
   if (error || !profile) return;
 
   if (profile.last_active_date === today) return;
@@ -460,12 +817,26 @@ const update_streak = async (user_id) => {
 
   const isCorrect = selectedAnswer !== null && selectedAnswer === currentLesson.correct_index;
 
+  const avatarInitial = (user?.email?.[0] || "U").toUpperCase();
+
   return(
     <div className={styles.lesson_wrapper}>
 
+      <div className={styles.top_nav}>
+        <div className={styles.brand}>
+          <span className={styles.brand_mark}><img src={comet_normal} width={40} height={40}/></span>
+          Lunaar
+        </div>
+        <div className={styles.nav_links}>
+          <button className={styles.nav_link}><House size={16} /> Home</button>
+          <button className={styles.nav_link}><Book size={16} /> Courses</button>
+          <div className={styles.nav_avatar}>{avatarInitial}</div>
+        </div>
+      </div>
+
       <div className={styles.progress_header}>
         <button type="button" className={styles.progress_back_btn} onClick={goBack}>
-          <ArrowLeft size={22} />
+          <ArrowLeft size={18} />
         </button>
         <div className={styles.progress_track}>
           <div className={styles.progress_fill} style={{ width: `${progressPercent}%` }} />
@@ -474,36 +845,33 @@ const update_streak = async (user_id) => {
       </div>
 
       <div className={styles.lesson_card}>
-
-        <div className={styles.lesson_card_img}>
-          <div className={styles.badge_row}>
-            <div className={`${styles.lesson_type_badge} ${styles[badge.className]}`}>
-              <BadgeIcon size={13} />
-              {badge.label}
-            </div>
-
-            {ttsSupported && (
-              <button type="button" className={styles.listen_btn} onClick={toggleSpeech}>
-                {isSpeaking ? <VolumeX size={14} /> : <Volume2 size={14} />}
-                {isSpeaking ? "Stop" : "Listen"}
-              </button>
-            )}
-          </div>
-          <h2>{currentLesson.title}</h2>
-        </div>
-
         <div className={styles.lesson_card_content}>
+
+          <div className={styles.lesson_header}>
+            <div className={styles.lesson_header_row}>
+              <div className={`${styles.lesson_type_badge} ${styles[badge.className]}`}>
+                <span className={styles.badge_dot}></span>
+              </div>
+              {ttsSupported && (
+                <button type="button" className={styles.listen_btn} onClick={toggleSpeech}>
+                  {isSpeaking ? <VolumeX size={13} /> : <Volume2 size={13} />}
+                  {isSpeaking ? "Stop" : "Listen"}
+                </button>
+              )}
+            </div>
+            <h2>{currentLesson.title}</h2>
+          </div>
 
           {isBoss ? (
             !bossStarted ? (
               <div className={styles.boss_intro}>
-                <Trophy size={40} className={styles.boss_intro_icon} />
+                <div className={styles.boss_intro_icon}><Trophy size={32} /></div>
                 <p>{currentLesson.intro}</p>
                 <span className={styles.boss_meta}>{bossQuestions.length} questions stand between you and victory</span>
               </div>
             ) : bossFinished ? (
               <div className={styles.boss_result}>
-                <Trophy size={40} className={styles.boss_intro_icon} />
+                <div className={styles.boss_intro_icon}><Trophy size={32} /></div>
                 <h3>{bossScore}/{bossQuestions.length} correct</h3>
                 <p>
                   {bossScore === bossQuestions.length
@@ -519,7 +887,7 @@ const update_streak = async (user_id) => {
                 {currentBossQuestion.quiz_type === "fill_blank" ? (
                   <p className={styles.quiz_question}>{renderBoldText(currentBossQuestion.content)}</p>
                 ) : (
-                  <p className={styles.quiz_question}>{currentBossQuestion.question}</p>
+                  <p className={styles.quiz_question}>{currentBossQuestion.question || currentBossQuestion.content}</p>
                 )}
                 <QuizOptions
                   quiz_type={currentBossQuestion.quiz_type}
@@ -538,15 +906,21 @@ const update_streak = async (user_id) => {
           ) : isSimulator ? (
             currentLesson.simulator_type === "terminal" ? (
               <TerminalSimulator key={currentIndex} lesson={currentLesson} onComplete={() => setSimDone(true)} />
-            ) : (
+            ) : currentLesson.simulator_type === "conversation" ? (
               <ConversationSimulator key={currentIndex} lesson={currentLesson} onComplete={() => setSimDone(true)} />
+            ) : currentLesson.simulator_type === "drag_drop" ? (
+              <DragDropSimulator key={currentIndex} lesson={currentLesson} onComplete={() => setSimDone(true)} />
+            ) : (
+              <SliderSimulator key={currentIndex} lesson={currentLesson} onComplete={() => setSimDone(true)} />
             )
+          ) : isDiagram ? (
+            <DiagramRenderer key={currentIndex} lesson={currentLesson} />
           ) : isAnswerable ? (
             <>
               {currentLesson.type === "quiz" && currentLesson.quiz_type === "fill_blank" ? (
                 <p className={styles.quiz_question}>{renderBoldText(currentLesson.content)}</p>
               ) : (
-                <p className={styles.quiz_question}>{currentLesson.question}</p>
+                <p className={styles.quiz_question}>{currentLesson.question || currentLesson.content}</p>
               )}
               <QuizOptions
                 quiz_type={currentLesson.quiz_type}
@@ -592,8 +966,55 @@ const update_streak = async (user_id) => {
           </div>
 
         </div>
-
       </div>
+
+      <button type="button" className={styles.chat_launcher} onClick={() => setChat_active(true)}>
+        <MessageCircle size={22} />
+      </button>
+
+      {chat_active && (
+        <>
+          <div className={styles.chatbox_backdrop} onClick={() => setChat_active(false)} />
+          <div className={styles.chatbox}>
+            <div className={styles.chatbox_header}>
+              <div className={styles.c_header_left}>
+                <img src={Lua} alt="Lua" />
+                <div>
+                  <h3>Lua</h3>
+                  <span>● Online</span>
+                </div>
+              </div>
+              <div className={styles.c_header_right}>
+                <button onClick={() => setChat_active(false)}><X size={16} /></button>
+              </div>
+            </div>
+            <div className={styles.chat_main}>
+              <div className={styles.welcome_msg}>
+                Sup. What can I help with?
+              </div>
+
+              {messages.map((m, index) => (
+                <div
+                  key={index}
+                  className={`${styles.message_bubble} ${m.role === 'user' ? styles.user : styles.assistant}`}
+                >
+                  <p>{m.content}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className={styles.input_wrapper}>
+              <input
+                value={message_content}
+                onChange={(e) => setMessage_content(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && Send_msg()}
+                placeholder="Ask Lua something"
+              />
+              <button onClick={Send_msg}><CornerDownLeft size={16} /></button>
+            </div>
+          </div>
+        </>
+      )}
 
     </div>
   )
