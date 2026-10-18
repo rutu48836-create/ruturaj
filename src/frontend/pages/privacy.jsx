@@ -1,181 +1,122 @@
-import { Telescope } from "lucide-react";
+import styles from "../Styles/Docs.module.css";
+import { Navbar } from "../components/landing_nav";
 
-const styles = {
-  page: {
-    background: "#ffffff",
-    color: "#15140f",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    maxWidth: "720px",
-    margin: "0 auto",
-    padding: "64px 24px 96px",
-    lineHeight: 1.6,
+const steps = [
+  {
+    number: "01",
+    title: "Name your bot and set its purpose",
+    text: "Give your bot a name and describe what it should do — its role, tone, personality, and the kinds of questions it should handle. The more specific your instructions, the closer the bot behaves to what you have in mind.",
   },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    marginBottom: "8px",
+  {
+    number: "02",
+    title: "Select a provider",
+    text: "Choose which AI provider powers your bot: Groq, Claude, or Gemini. Each provider responds a little differently, so you can switch providers to compare results.",
   },
-  logoText: {
-    fontWeight: 700,
-    fontSize: "1.1rem",
+  {
+    number: "03",
+    title: "Paste your API key",
+    text: "Enter your own API key for the selected provider. Lunaar is bring-your-own-key, so you stay in control of your key and pay your provider directly at their rates. Lunaar itself charges nothing.",
   },
-  updated: {
-    color: "#6c6a62",
-    fontSize: "0.9rem",
-    marginBottom: "40px",
+  {
+    number: "04",
+    title: "Add knowledge",
+    text: "Add the content your bot should rely on, such as FAQs, product details, policies, or documentation. Your bot uses this knowledge to give accurate answers about your business instead of guessing.",
   },
-  h1: {
-    fontSize: "2rem",
-    fontWeight: 700,
-    margin: "0 0 8px",
+  {
+    number: "05",
+    title: "Test and embed your bot",
+    text: "Chat with your bot in the live preview and adjust its instructions until it responds the way you want. When you are happy, copy the embed snippet and paste it into your website to go live.",
   },
-  banner: {
-    border: "1px solid #e2531c",
-    background: "#fdf1ec",
-    color: "#8a350f",
-    borderRadius: "10px",
-    padding: "16px 20px",
-    fontSize: "0.95rem",
-    margin: "0 0 40px",
+  {
+    number: "06",
+    title: "No sign up needed",
+    text: "There is no account to create and no login to remember. Open the builder, add your key, and start building your bot right away.",
   },
-  h2: {
-    fontSize: "1.2rem",
-    fontWeight: 700,
-    margin: "40px 0 12px",
-  },
-  p: {
-    fontSize: "0.98rem",
-    color: "#2b2a25",
-    margin: "0 0 14px",
-  },
-  ul: {
-    paddingLeft: "20px",
-    margin: "0 0 14px",
-  },
-  li: {
-    fontSize: "0.98rem",
-    color: "#2b2a25",
-    marginBottom: "8px",
-  },
-  table: {
-    width: "100%",
-    borderCollapse: "collapse",
-    margin: "0 0 20px",
-    fontSize: "0.92rem",
-  },
-  th: {
-    textAlign: "left",
-    borderBottom: "2px solid #15140f",
-    padding: "8px 10px 8px 0",
-  },
-  td: {
-    borderBottom: "1px solid #e6e3dc",
-    padding: "10px 10px 10px 0",
-    color: "#2b2a25",
-  },
-  footerNote: {
-    marginTop: "56px",
-    paddingTop: "24px",
-    borderTop: "1px solid #e6e3dc",
-    color: "#6c6a62",
-    fontSize: "0.85rem",
-  },
-};
+];
 
-export function Privacy() {
+const Docs = () => {
   return (
-    <div style={styles.page}>
-      <div style={styles.header}>
-        <Telescope size={22} strokeWidth={1.8} color="#e2531c" />
-        <span style={styles.logoText}>Lunaar</span>
-      </div>
-      <p style={styles.updated}>Last updated: {new Date().toLocaleDateString()}</p>
+    <div className={styles.page}>
+      <Navbar />
 
-      <h1 style={styles.h1}>Privacy Policy</h1>
+      <header className={styles.hero}>
+        <p className={styles.eyebrow}>Documentation</p>
+        <h1 className={styles.title}>How to use Lunaar</h1>
+        <p className={styles.subtitle}>
+          A step-by-step guide to building AI chatbots — from first
+          instructions to a live bot on your site.
+        </p>
+      </header>
 
-      <div style={styles.banner}>
-        Lunaar is currently in beta. As we keep building the product, what data we collect and
-        how we handle it may change — check back here for updates.
-      </div>
+      <main className={styles.content}>
+        <section className={styles.stepsSection}>
+          {steps.map((step) => (
+            <div key={step.number} className={styles.stepCard}>
+              <span className={styles.stepNumber}>{step.number}</span>
+              <div className={styles.stepBody}>
+                <h2 className={styles.stepTitle}>{step.title}</h2>
+                <p className={styles.stepText}>{step.text}</p>
+              </div>
+            </div>
+          ))}
+        </section>
 
-      <h2 style={styles.h2}>1. What we collect</h2>
-      <table style={styles.table}>
-        <thead>
-          <tr>
-            <th style={styles.th}>Data</th>
-            <th style={styles.th}>Why</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td style={styles.td}>Email address</td>
-            <td style={styles.td}>Account creation, login, and account-related emails</td>
-          </tr>
-          <tr>
-            <td style={styles.td}>Course prompts and generated lessons</td>
-            <td style={styles.td}>To generate and display your courses</td>
-          </tr>
-          <tr>
-            <td style={styles.td}>Progress and streak data</td>
-            <td style={styles.td}>To save your place and track daily activity</td>
-          </tr>
-          <tr>
-            <td style={styles.td}>Basic usage data</td>
-            <td style={styles.td}>To understand what's working and fix what isn't</td>
-          </tr>
-        </tbody>
-      </table>
+        <section className={styles.noteSection}>
+          <h2 className={styles.noteTitle}>Free and BYOK</h2>
+          <div className={styles.noteGrid}>
+            <div className={styles.noteCard}>
+              <span className={styles.noteHighlight}>$0</span>
+              <p className={styles.noteText}>
+                Lunaar is completely free. There are no plans, tiers, or
+                trials.
+              </p>
+            </div>
+            <div className={styles.noteCard}>
+              <span className={styles.noteHighlight}>Your key</span>
+              <p className={styles.noteText}>
+                AI usage is billed by your provider directly, with no markup
+                from Lunaar.
+              </p>
+            </div>
+            <div className={styles.noteCard}>
+              <span className={styles.noteHighlight}>No sign up</span>
+              <p className={styles.noteText}>
+                Start building immediately without creating an account.
+              </p>
+            </div>
+          </div>
+        </section>
 
-      <h2 style={styles.h2}>2. How we store it</h2>
-      <p style={styles.p}>
-        Account data, course content, and progress are stored with Supabase. Emails sent from
-        Lunaar (like account notifications) are delivered through Amazon SES. We don't sell your
-        data to third parties.
-      </p>
+        <section className={styles.tipSection}>
+          <h2 className={styles.tipTitle}>Quick tips</h2>
+          <ul className={styles.tipList}>
+            <li className={styles.tipItem}>
+              Keep your API key private and revoke it with your provider if
+              you ever think it has been exposed.
+            </li>
+            <li className={styles.tipItem}>
+              Write clear instructions for your bot, including what it
+              should and should not talk about.
+            </li>
+            <li className={styles.tipItem}>
+              Message limits depend on your provider's plan, so check your
+              provider's dashboard if responses ever stop.
+            </li>
+            <li className={styles.tipItem}>
+              Keep your knowledge content up to date so your bot always
+              answers with current information.
+            </li>
+          </ul>
+        </section>
+      </main>
 
-      <h2 style={styles.h2}>3. AI-generated content</h2>
-      <p style={styles.p}>
-        When you type a prompt to generate a course, that prompt is sent to a third-party AI
-        provider to generate lesson content. Avoid including sensitive personal information in
-        your prompts.
-      </p>
-
-      <h2 style={styles.h2}>4. Cookies and sessions</h2>
-      <p style={styles.p}>
-        We use cookies or local storage to keep you logged in and remember basic preferences like
-        sidebar state. We don't use third-party advertising trackers.
-      </p>
-
-      <h2 style={styles.h2}>5. Your rights</h2>
-      <ul style={styles.ul}>
-        <li style={styles.li}>You can request a copy of the data we hold about you.</li>
-        <li style={styles.li}>You can request that your account and associated data be deleted.</li>
-        <li style={styles.li}>You can update your account information at any time.</li>
-      </ul>
-
-      <h2 style={styles.h2}>6. Data retention</h2>
-      <p style={styles.p}>
-        We keep your data for as long as your account is active. If you delete your account, we
-        remove your personal data within a reasonable period, except where we're required to keep
-        it for legal reasons.
-      </p>
-
-      <h2 style={styles.h2}>7. Changes to this policy</h2>
-      <p style={styles.p}>
-        We may update this policy as Lunaar changes, especially during the beta period. Material
-        changes will be reflected by updating the date at the top of this page.
-      </p>
-
-      <h2 style={styles.h2}>8. Contact</h2>
-      <p style={styles.p}>
-        Questions about this policy or your data can be sent to rutu48836@gmail.com
-      </p>
-
-      <div style={styles.footerNote}>
-        This is a general template and not legal advice. Have a lawyer review it before relying
-        on it for a live product.
-      </div>
+      <footer className={styles.footer}>
+        <p className={styles.footerText}>
+          © {new Date().getFullYear()} Lunaar. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
-}
+};
+
+export default Docs;
