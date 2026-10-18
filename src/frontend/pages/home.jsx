@@ -1,447 +1,410 @@
-import { useState, useEffect, useRef } from "react";
-import styles from "../styles/home.module.css"
-import { ArrowUp, Sofa, X, Settings, Paperclip, FileText, Upload } from 'lucide-react';
-import { Nav } from "../compoents/nav";
-import { useAuth } from "../compoents/authcontext";
-import { Top_nav } from "../compoents/nav";
-import { useNavigate } from "react-router-dom"
-import comet_normal from "../assets/comet_normal.png"
-import { supabase } from "../compoents/supabaseConfig.js"
-import fire from "../assets/fire.png"
+import styles from "../Styles/Landing.module.css"
+import {
+  ArrowRight,
+  Bot,
+  Brain,
+  Check,
+  Code,
+  Globe,
+  Key,
+  MessageSquare,
+  Palette,
+  Plug,
+  ShieldCheck,
+  Sparkles,
+  Zap,
+} from "lucide-react"
 
-const GOAL_TYPES = [
-  { value: "job_prep", label: "Job / interview prep" },
-  { value: "project", label: "Building a specific project" },
-  { value: "academic", label: "Exam / coursework" },
-  { value: "conversation_practice", label: "Conversation practice" },
-  { value: "curiosity", label: "Just curious, no deadline" },
-];
+const BUILDER_URL = "/builder"
 
-const DIFFICULTY_LEVELS = [
-  { value: "beginner", label: "Beginner", hint: "Assume no prior knowledge." },
-  { value: "intermediate", label: "Intermediate", hint: "I know the basics." },
-  { value: "advanced", label: "Advanced", hint: "Push me with harder material." },
-];
+const NAV_LINKS = [
+  { label: "Features", href: "#features" },
+  { label: "How it works", href: "#how" },
+  { label: "BYOK", href: "#byok" },
+  { label: "FAQ", href: "#faq" },
+]
 
-const MAX_PDF_MB = 20;
+const FEATURES = [
+  {
+    icon: Brain,
+    title: "Trained on your content",
+    text: "Feed your bot docs, FAQs and product info so it answers like someone who actually knows your business.",
+  },
+  {
+    icon: Palette,
+    title: "Your brand, your voice",
+    text: "Set the name, personality, tone and colors. Make it friendly, formal or playful in a few clicks.",
+  },
+  {
+    icon: Code,
+    title: "Embed anywhere",
+    text: "Drop a single snippet into any website, React app or landing page and your bot is live.",
+  },
+  {
+    icon: Plug,
+    title: "Pick your model",
+    text: "Connect the AI provider you prefer with your own API key and switch models whenever you want.",
+  },
+  {
+    icon: MessageSquare,
+    title: "Real conversations",
+    text: "Bots keep context across a chat, handle follow-ups and stay on topic instead of repeating canned replies.",
+  },
+  {
+    icon: Globe,
+    title: "Works on every screen",
+    text: "A fast, responsive chat widget that feels native on desktop, tablet and mobile.",
+  },
+]
 
-const formatSize = (bytes) => {
-  if (!bytes && bytes !== 0) return "";
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(0)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-};
+const STEPS = [
+  {
+    title: "Add your API key",
+    text: "Paste the key from your AI provider. You stay in control of usage and spend.",
+  },
+  {
+    title: "Build your bot",
+    text: "Name it, write its instructions, add your knowledge and preview it live.",
+  },
+  {
+    title: "Embed and go live",
+    text: "Copy the snippet, paste it into your site, and your bot starts answering.",
+  },
+]
 
-export function Home() {
-  const [message, setMessage] = useState('')
-  const [waiting, setWaiting] = useState(false)
-  const { user, loading } = useAuth()
-  const [sidebar_active, setSidebar_active] = useState(false)
-  const [select_pdf, setSelect_pdf] = useState(false)
-  const [setting_panel, setSetting_panel] = useState(false)
-  const [pdf, setPdf] = useState(null)
-  const [pdf_url, setPdf_url] = useState(null)
-  const [pdf_name, setPdf_name] = useState("")
-  const [pdf_size, setPdf_size] = useState(0)
-  const [pdf_error, setPdf_error] = useState("")
-  const [pdf_uploading, setPdf_uploading] = useState(false)
-  const [dragging, setDragging] = useState(false)
-  const file_input = useRef(null)
-  const navigate = useNavigate()
+const BYOK_POINTS = [
+  "Lunaar is completely free, no plans, no tiers, no trial",
+  "You pay your AI provider directly at their own rates",
+  "Zero markup on tokens or messages",
+  "No account needed to get started",
+]
 
-  const [goal_type, setGoal_type] = useState('')
-  const [goal_detail, setGoal_detail] = useState('')
-  const [difficulty, setDifficulty] = useState('')
-  const [user_details, setUser_details] = useState([])
+const FAQS = [
+  {
+    q: "Is Lunaar really free?",
+    a: "Yes. Building and running bots on Lunaar costs nothing. The only cost is what your AI provider charges for your own API usage, and many providers offer generous free tiers.",
+  },
+  {
+    q: "What does BYOK mean?",
+    a: "Bring Your Own Key. You connect your own API key from an AI provider, so you decide which model powers your bot and you pay that provider directly.",
+  },
+  {
+    q: "Do I need to sign up?",
+    a: "No. There is no sign up or login step. Open the builder and start creating your bot.",
+  },
+  {
+    q: "Where can I put my bot?",
+    a: "Anywhere you can add a script or a component: websites, web apps, landing pages and storefronts.",
+  },
+  {
+    q: "Can I customize how my bot behaves?",
+    a: "Absolutely. You define its name, personality, instructions and the knowledge it should rely on.",
+  },
+]
 
-  const selected_level = DIFFICULTY_LEVELS.find(d => d.value === difficulty)
-
-  useEffect(() => {
-    if (!user && !loading) {
-      navigate('/auth')
-    }
-  }, [user, loading])
-
-  const send_message = async () => {
-    if (!message.trim()) return;
-    if (waiting) return alert('pls wait');
-    const learning_keywords = ['teach', 'explain', 'learn', 'how to', 'what is', 'course on', 'guide to'];
-    const looks_like_request = learning_keywords.some(k => message.toLowerCase().includes(k));
-    if (!looks_like_request) {
-      return alert('Try phrasing it like "Teach me about..." or "Explain..."');
-    }
-    try {
-      setWaiting(true)
-      const request = await fetch(`${import.meta.env.VITE_BACKEND_KEY}/llm/create_lessons`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Accept': 'application/json',
-        },
-        body: JSON.stringify({
-          message,
-          user_id: user.id,
-          goal_type: goal_type || null,
-          goal: goal_detail || null,
-          current_level: difficulty || null,
-          pdf_path: pdf_url || null
-        })
-      })
-      await request.json()
-      setWaiting(false)
-      navigate('/courses')
-    } catch (err) {
-      console.error('Failed to generate course:', err)
-      setWaiting(false)
-    }
-  }
-
-  useEffect(() => {
-    if (!user) return
-
-    const check = async () => {
-      const { data, error } = await supabase
-        .from("profiles")
-        .select("*")
-        .eq("id", user?.id)
-
-      if (error) console.log(error);
-      if (data && data.length > 0) {
-        setUser_details(data[0])
-      }
-    }
-
-    check()
-  }, [user])
-
-  const stageFile = (file) => {
-    setPdf_error("")
-    if (!file) return
-    if (file.type !== 'application/pdf') {
-      setPdf(null)
-      setPdf_error("Only PDF files are supported.")
-      return
-    }
-    if (file.size > MAX_PDF_MB * 1024 * 1024) {
-      setPdf(null)
-      setPdf_error(`File is too large. Max size is ${MAX_PDF_MB} MB.`)
-      return
-    }
-    setPdf(file)
-  }
-
-  const handleFileChange = (e) => {
-    stageFile(e.target.files[0])
-    e.target.value = ""
-  }
-
-  const handleDrop = (e) => {
-    e.preventDefault()
-    setDragging(false)
-    stageFile(e.dataTransfer.files[0])
-  }
-
-  const closePdfModal = () => {
-    if (pdf_uploading) return
-    setSelect_pdf(false)
-    setPdf(null)
-    setPdf_error("")
-    setDragging(false)
-  }
-
-  const removeAttachment = () => {
-    setPdf_url(null)
-    setPdf_name("")
-    setPdf_size(0)
-  }
-
-  const resetPersonalization = () => {
-    setGoal_type('')
-    setGoal_detail('')
-    setDifficulty('')
-  }
-
-  const handleUpload = async (e) => {
-    e.preventDefault();
-    if (!pdf || pdf_uploading) return
-
-    try {
-      setPdf_uploading(true)
-      setPdf_error("")
-
-      const unique = `${Date.now()}_${Math.random().toString(36).slice(2)}.pdf`
-      const filePath = `pdfs/${unique}`
-
-      const { error } = await supabase.storage
-        .from("pdf")
-        .upload(filePath, pdf, {
-          contentType: 'application/pdf',
-          cacheControl: '3600',
-          upsert: false,
-        });
-
-      if (error) throw error;
-
-      setPdf_url(filePath)
-      setPdf_name(pdf.name)
-      setPdf_size(pdf.size)
-      setPdf(null)
-      setSelect_pdf(false)
-    } catch (err) {
-      console.log(err)
-      setPdf_error("Upload failed. Please try again.")
-    } finally {
-      setPdf_uploading(false)
-    }
-  }
-
+function Nav() {
   return (
-    <div className={styles.home_container}>
-      <Nav sidebar_active={sidebar_active} setSidebar_active={setSidebar_active} />
-      
-      <div className={styles.hero_wrapper}>
-        <Top_nav setSidebar_active={setSidebar_active} sidebar_active={sidebar_active} />
-        <img src={comet_normal} width={100} height={100} className={styles.comet_img} />
-        <h1>
-          What should we learn?
-        </h1>
-        <div className={styles.hero_wrapper_textarea}>
-          {pdf_url && (
-            <div className={styles.pdf_display}>
-              <div className={styles.pdf_chip}>
-                <div className={styles.pdf_chip_icon}>
-                  <FileText size={16} />
-                </div>
-                <div className={styles.pdf_chip_meta}>
-                  <span className={styles.pdf_chip_name}>{pdf_name}</span>
-                  <span className={styles.pdf_chip_size}>PDF · {formatSize(pdf_size)}</span>
-                </div>
-                <button
-                  type="button"
-                  className={styles.pdf_chip_remove}
-                  onClick={removeAttachment}
-                  aria-label="Remove attachment"
-                >
-                  <X size={14} />
-                </button>
-              </div>
-            </div>
-          )}
-          <textarea
-            placeholder="Teach me about french revolution"
-            value={message}
-            onChange={(e) => setMessage(e.target.value)}
-          />
-          <div className={styles.textarea_btns}>
-            <button onClick={() => setSetting_panel(true)} style={{ background: "transparent" }}>
-              {goal_type || difficulty ? 'Personalized ✓' : <Settings />}
-            </button>
-            <div className={styles.txt_area_right_btns}>
-              <button type="button" onClick={() => setSelect_pdf(true)} aria-label="Attach PDF">
-                <Paperclip size={20} />
-              </button>
-              <button type="button" onClick={() => send_message()} disabled={waiting}><ArrowUp color="white" /></button>
-            </div>
-          </div>
-        </div>
-        <div className={styles.btns}>
-          <button onClick={() => setMessage("teach me python")}>Code</button>
-          <button onClick={() => setMessage("teach me Spanish")}>Spanish</button>
-          <button onClick={() => setMessage("teach me about the french revolution")}>French Revolution</button>
-          <button onClick={() => setMessage("teach me about India")}>India</button>
+    <header className={styles.nav}>
+      <a href="#top" className={styles.brand}>
+        <span className={styles.brand_mark}>
+          <Bot size={18} />
+        </span>
+        Lunaar
+      </a>
+      <nav className={styles.nav_links}>
+        {NAV_LINKS.map((l) => (
+          <a key={l.href} href={l.href}>
+            {l.label}
+          </a>
+        ))}
+      </nav>
+      <a href={BUILDER_URL} className={styles.nav_cta}>
+        Build a bot
+        <ArrowRight size={15} />
+      </a>
+    </header>
+  )
+}
+
+function ChatPreview() {
+  return (
+    <div className={styles.chat}>
+      <div className={styles.chat_head}>
+        <span className={styles.chat_avatar}>
+          <Bot size={16} />
+        </span>
+        <div>
+          <strong>Luna</strong>
+          <small>
+            <i /> Online
+          </small>
         </div>
       </div>
-      {waiting &&
-
-        <div className={styles.waiting_wrapper}>
-          <h2>Please Wait... while we generate your course</h2>
-          <p>you will be redirected once the course is generated.it may take upto 2 mins</p>
-          <Sofa size={100} />
+      <div className={styles.chat_body}>
+        <p className={`${styles.msg} ${styles.msg_bot}`}>
+          Hi! I'm Luna. Ask me anything about our products, pricing or shipping.
+        </p>
+        <p className={`${styles.msg} ${styles.msg_user}`}>
+          Do you ship internationally?
+        </p>
+        <p className={`${styles.msg} ${styles.msg_bot}`}>
+          Yes, we ship to 40+ countries. Delivery usually takes 5 to 9 business days.
+        </p>
+        <div className={`${styles.msg} ${styles.msg_bot} ${styles.typing}`}>
+          <span />
+          <span />
+          <span />
         </div>
+      </div>
+      <div className={styles.chat_input}>
+        <span>Type a message...</span>
+        <ArrowRight size={16} />
+      </div>
+    </div>
+  )
+}
 
-      }
+function Hero() {
+  return (
+    <section id="top" className={styles.hero}>
+      <div className={styles.hero_text}>
+        <span className={styles.pill}>
+          <Sparkles size={14} />
+          Free forever &middot; Bring your own key
+        </span>
+        <h1>
+          Build AI chatbots <br />
+          <em>without the bill.</em>
+        </h1>
+        <p>
+          Lunaar bots answer your customers, explain your product and run on your website
+          around the clock. Plug in your own API key and launch in minutes. No sign up, no
+          subscription.
+        </p>
+        <div className={styles.hero_actions}>
+          <a href={BUILDER_URL} className={styles.btn_primary}>
+            Start building
+            <ArrowRight size={16} />
+          </a>
+          <a href="#features" className={styles.btn_ghost}>
+            See what bots can do
+          </a>
+        </div>
+        <ul className={styles.hero_badges}>
+          <li>
+            <Check size={14} /> 100% free
+          </li>
+          <li>
+            <Check size={14} /> BYOK
+          </li>
+          <li>
+            <Check size={14} /> No account needed
+          </li>
+        </ul>
+      </div>
+      <div className={styles.hero_visual}>
+        <div className={styles.glow} />
+        <ChatPreview />
+      </div>
+    </section>
+  )
+}
 
-      {select_pdf && (
-        <div className={styles.panel_wrapper} onClick={closePdfModal}>
-          <div className={styles.pdf_modal} onClick={(e) => e.stopPropagation()}>
-            <div className={styles.pdf_modal_header}>
-              <div>
-                <h3>Attach a PDF</h3>
-                <p>We'll use it as source material for your course.</p>
-              </div>
-              <button type="button" onClick={closePdfModal} aria-label="Close">
-                <X size={16} />
-              </button>
+function Stats() {
+  return (
+    <section className={styles.stats}>
+      <div>
+        <strong>$0</strong>
+        <span>platform cost</span>
+      </div>
+      <div>
+        <strong>1 key</strong>
+        <span>is all you need</span>
+      </div>
+      <div>
+        <strong>2 min</strong>
+        <span>to your first bot</span>
+      </div>
+      <div>
+        <strong>0</strong>
+        <span>sign ups required</span>
+      </div>
+    </section>
+  )
+}
+
+function Features() {
+  return (
+    <section id="features" className={styles.section}>
+      <div className={styles.section_head}>
+        <span className={styles.eyebrow}>What bots can do</span>
+        <h2>Everything you need to put a smart assistant on your site</h2>
+        <p>Simple to set up, flexible enough to fit any business.</p>
+      </div>
+      <div className={styles.feature_grid}>
+        {FEATURES.map(({ icon: Icon, title, text }) => (
+          <article key={title} className={styles.card}>
+            <span className={styles.card_icon}>
+              <Icon size={20} />
+            </span>
+            <h3>{title}</h3>
+            <p>{text}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function How() {
+  return (
+    <section id="how" className={styles.section}>
+      <div className={styles.section_head}>
+        <span className={styles.eyebrow}>How it works</span>
+        <h2>From idea to live bot in three steps</h2>
+      </div>
+      <div className={styles.steps}>
+        {STEPS.map((s, i) => (
+          <div key={s.title} className={styles.step}>
+            <span className={styles.step_num}>0{i + 1}</span>
+            <h3>{s.title}</h3>
+            <p>{s.text}</p>
+          </div>
+        ))}
+      </div>
+      <div className={styles.code}>
+        <div className={styles.code_bar}>
+          <i />
+          <i />
+          <i />
+          <span>index.html</span>
+        </div>
+        <pre>
+          <code>{`<script
+  src="https://lunaar.online/widget.js"
+  data-bot-id="YOUR_BOT_ID"
+  defer
+></script>`}</code>
+        </pre>
+      </div>
+    </section>
+  )
+}
+
+function Byok() {
+  return (
+    <section id="byok" className={styles.section}>
+      <div className={styles.byok}>
+        <div className={styles.byok_text}>
+          <span className={styles.eyebrow}>BYOK &middot; Free</span>
+          <h2>Your key. Your model. Your costs.</h2>
+          <p>
+            Most chatbot platforms charge you per message on top of what the AI costs. Lunaar
+            skips the middleman. Bring your own API key, and pay only your provider's rates,
+            nothing extra to us.
+          </p>
+          <ul>
+            {BYOK_POINTS.map((p) => (
+              <li key={p}>
+                <span>
+                  <Check size={14} />
+                </span>
+                {p}
+              </li>
+            ))}
+          </ul>
+          <a href={BUILDER_URL} className={styles.btn_primary}>
+            Add your key and start
+            <ArrowRight size={16} />
+          </a>
+        </div>
+        <div className={styles.byok_visual}>
+          <div className={styles.key_card}>
+            <div className={styles.key_row}>
+              <Key size={18} />
+              <span>API key</span>
+              <em>connected</em>
             </div>
-
-            <div className={styles.pdf_modal_body}>
-              <input
-                ref={file_input}
-                type="file"
-                accept="application/pdf"
-                onChange={handleFileChange}
-                className={styles.pdf_hidden_input}
-              />
-
-              {!pdf ? (
-                <div
-                  className={dragging ? styles.pdf_dropzone_active : styles.pdf_dropzone}
-                  onClick={() => file_input.current?.click()}
-                  onDragOver={(e) => { e.preventDefault(); setDragging(true) }}
-                  onDragLeave={() => setDragging(false)}
-                  onDrop={handleDrop}
-                  role="button"
-                  tabIndex={0}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault()
-                      file_input.current?.click()
-                    }
-                  }}
-                >
-                  <div className={styles.pdf_dropzone_icon}>
-                    <Upload size={18} />
-                  </div>
-                  <p className={styles.pdf_dropzone_title}>
-                    <span>Click to upload</span> or drag and drop
-                  </p>
-                  <p className={styles.pdf_dropzone_hint}>PDF up to {MAX_PDF_MB} MB</p>
-                </div>
-              ) : (
-                <div className={styles.pdf_selected}>
-                  <div className={styles.pdf_selected_icon}>
-                    <FileText size={18} />
-                  </div>
-                  <div className={styles.pdf_selected_meta}>
-                    <span className={styles.pdf_selected_name}>{pdf.name}</span>
-                    <span className={styles.pdf_selected_size}>{formatSize(pdf.size)}</span>
-                  </div>
-                  <button
-                    type="button"
-                    className={styles.pdf_selected_remove}
-                    onClick={() => { setPdf(null); setPdf_error("") }}
-                    disabled={pdf_uploading}
-                    aria-label="Remove file"
-                  >
-                    <X size={14} />
-                  </button>
-                </div>
-              )}
-
-              {pdf_error && <p className={styles.pdf_error}>{pdf_error}</p>}
-            </div>
-
-            <div className={styles.pdf_modal_footer}>
-              <button
-                type="button"
-                className={styles.pdf_btn_ghost}
-                onClick={closePdfModal}
-                disabled={pdf_uploading}
-              >
-                Cancel
-              </button>
-              <button
-                type="button"
-                className={styles.pdf_btn_primary}
-                onClick={handleUpload}
-                disabled={!pdf || pdf_uploading}
-              >
-                {pdf_uploading ? (
-                  <>
-                    <span className={styles.pdf_spinner} />
-                    Uploading
-                  </>
-                ) : (
-                  "Attach"
-                )}
-              </button>
+            <div className={styles.key_value}>sk-••••••••••••••••••••3f9a</div>
+            <div className={styles.key_meta}>
+              <ShieldCheck size={14} />
+              Billed by your provider, not by Lunaar
             </div>
           </div>
-        </div>
-      )}
-
-      {setting_panel && (
-        <div className={styles.panel_wrapper} onClick={() => setSetting_panel(false)}>
-          <div className={styles.panel_card} onClick={(e) => e.stopPropagation()}>
-
-            <div className={styles.panel_header}>
-              <div>
-                <h2>Personalize this course</h2>
-                <p>Optional. We'll infer from your prompt if you skip it.</p>
-              </div>
-              <button type="button" onClick={() => setSetting_panel(false)} aria-label="Close">
-                <X size={16} />
-              </button>
+          <div className={styles.key_card}>
+            <div className={styles.key_row}>
+              <Zap size={18} />
+              <span>Platform fee</span>
+              <em>$0.00</em>
             </div>
-
-            <div className={styles.Main_content_panel}>
-
-              <div className={styles.field_group}>
-                <label>What's this for?</label>
-                <div className={styles.chip_group}>
-                  {GOAL_TYPES.map(g => (
-                    <button
-                      key={g.value}
-                      type="button"
-                      className={goal_type === g.value ? styles.chip_active : styles.chip}
-                      onClick={() => setGoal_type(goal_type === g.value ? '' : g.value)}
-                    >
-                      {g.label}
-                    </button>
-                  ))}
-                </div>
-              </div>
-
-              <div className={styles.field_group}>
-                <label>Any specifics? <span className={styles.optional_tag}>optional</span></label>
-                <input
-                  type="text"
-                  placeholder="e.g. React Native interview next week"
-                  value={goal_detail}
-                  onChange={(e) => setGoal_detail(e.target.value)}
-                />
-              </div>
-
-              <div className={styles.field_group}>
-                <label>Your current level</label>
-                <div className={styles.segmented}>
-                  {DIFFICULTY_LEVELS.map(d => (
-                    <button
-                      key={d.value}
-                      type="button"
-                      className={difficulty === d.value ? styles.segment_active : styles.segment}
-                      onClick={() => setDifficulty(difficulty === d.value ? '' : d.value)}
-                    >
-                      {d.label}
-                    </button>
-                  ))}
-                </div>
-                {selected_level && <p className={styles.segment_hint}>{selected_level.hint}</p>}
-              </div>
-
-            </div>
-
-            <div className={styles.panel_footer}>
-              <button
-                type="button"
-                className={`${styles.pdf_btn_ghost} ${styles.panel_reset}`}
-                onClick={resetPersonalization}
-                disabled={!goal_type && !goal_detail && !difficulty}
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                className={styles.pdf_btn_primary}
-                onClick={() => setSetting_panel(false)}
-              >
-                Save
-              </button>
-            </div>
+            <div className={styles.key_meta}>No tiers. No limits on bots we charge for.</div>
           </div>
         </div>
-      )}
+      </div>
+    </section>
+  )
+}
 
+function Faq() {
+  return (
+    <section id="faq" className={styles.section}>
+      <div className={styles.section_head}>
+        <span className={styles.eyebrow}>FAQ</span>
+        <h2>Questions, answered</h2>
+      </div>
+      <div className={styles.faq}>
+        {FAQS.map((f) => (
+          <details key={f.q}>
+            <summary>{f.q}</summary>
+            <p>{f.a}</p>
+          </details>
+        ))}
+      </div>
+    </section>
+  )
+}
+
+function Cta() {
+  return (
+    <section className={styles.cta}>
+      <h2>Ready to meet your new support team?</h2>
+      <p>Build your first Lunaar bot now. It's free and it takes minutes.</p>
+      <a href={BUILDER_URL} className={styles.btn_primary}>
+        Build my bot
+        <ArrowRight size={16} />
+      </a>
+    </section>
+  )
+}
+
+function Footer() {
+  return (
+    <footer className={styles.footer}>
+      <span className={styles.brand}>
+        <span className={styles.brand_mark}>
+          <Bot size={16} />
+        </span>
+        Lunaar
+      </span>
+      <small>&copy; {new Date().getFullYear()} Lunaar. Free and BYOK.</small>
+    </footer>
+  )
+}
+
+export default function LandingPage() {
+  return (
+    <div className={styles.page}>
+      <Nav />
+      <main>
+        <Hero />
+        <Stats />
+        <Features />
+        <How />
+        <Byok />
+        <Faq />
+        <Cta />
+      </main>
+      <Footer />
     </div>
   )
 }
