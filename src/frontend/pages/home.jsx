@@ -1,4 +1,4 @@
-import styles from "../Styles/landing.module.css"
+import styles from "../styles/landing.module.css"
 import {
   ArrowRight,
   Bot,
