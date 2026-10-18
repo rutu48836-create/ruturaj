@@ -1,152 +1,163 @@
-import { Telescope } from "lucide-react";
+import { Link } from "react-router-dom";
+import styles from "../Styles/terms.module.css";
+import { Navbar } from "../components/landing_nav"
 
-const styles = {
-  page: {
-    background: "#ffffff",
-    color: "#15140f",
-    fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    maxWidth: "720px",
-    margin: "0 auto",
-    padding: "64px 24px 96px",
-    lineHeight: 1.6,
-  },
-  header: {
-    display: "flex",
-    alignItems: "center",
-    gap: "10px",
-    marginBottom: "8px",
-  },
-  logoText: {
-    fontWeight: 700,
-    fontSize: "1.1rem",
-  },
-  updated: {
-    color: "#6c6a62",
-    fontSize: "0.9rem",
-    marginBottom: "40px",
-  },
-  h1: {
-    fontSize: "2rem",
-    fontWeight: 700,
-    margin: "0 0 8px",
-  },
-  banner: {
-    border: "1px solid #e2531c",
-    background: "#fdf1ec",
-    color: "#8a350f",
-    borderRadius: "10px",
-    padding: "16px 20px",
-    fontSize: "0.95rem",
-    margin: "0 0 40px",
-  },
-  h2: {
-    fontSize: "1.2rem",
-    fontWeight: 700,
-    margin: "40px 0 12px",
-  },
-  p: {
-    fontSize: "0.98rem",
-    color: "#2b2a25",
-    margin: "0 0 14px",
-  },
-  ul: {
-    paddingLeft: "20px",
-    margin: "0 0 14px",
-  },
-  li: {
-    fontSize: "0.98rem",
-    color: "#2b2a25",
-    marginBottom: "8px",
-  },
-  footerNote: {
-    marginTop: "56px",
-    paddingTop: "24px",
-    borderTop: "1px solid #e6e3dc",
-    color: "#6c6a62",
-    fontSize: "0.85rem",
-  },
-};
-
-export function Terms() {
+const Terms = () => {
   return (
-    <div style={styles.page}>
-      <div style={styles.header}>
-        <Telescope size={22} strokeWidth={1.8} color="#e2531c" />
-        <span style={styles.logoText}>Lunaar</span>
-      </div>
-      <p style={styles.updated}>Last updated: {new Date().toLocaleDateString()}</p>
+    <div className={styles.page}>
+      <Navbar/>
+      <header className={styles.hero}>
+        <p className={styles.eyebrow}>Legal</p>
+        <h1 className={styles.title}>Terms &amp; Conditions</h1>
+        <p className={styles.subtitle}>
+          AI Chatbot Builder — please read carefully before using
+          Lunaar's chatbot tools.
+        </p>
+        <p className={styles.updated}>Last updated: October 18, 2026</p>
+      </header>
 
-      <h1 style={styles.h1}>Terms and Conditions</h1>
+      <main className={styles.content}>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>01</span>
+            Acceptance of Terms
+          </h2>
+          <p className={styles.text}>
+            By accessing or using Lunaar's chatbot builder, you agree to be
+            bound by these Terms &amp; Conditions. If you do not agree with
+            any part of these terms, you must not use this service.
+          </p>
+        </section>
 
-      <div style={styles.banner}>
-        Lunaar is currently in beta. Features may change, break, or be removed without notice,
-        and courses, lessons, or progress data may be reset or lost as we continue building the
-        product. Use it with that in mind.
-      </div>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>02</span>
+            Ownership of Content &amp; Knowledge Data
+          </h2>
+          <p className={styles.text}>
+            Documents, text, images, and other content you provide to train,
+            instruct, or inform your bot remain{" "}
+            <strong className={styles.highlight}>
+              the property of you or the respective original creator or
+              rights holder, and not of Lunaar or any individual associated
+              with Lunaar
+            </strong>
+            . Lunaar makes no ownership claim over this content and does not
+            warrant that use of any third-party material is free of
+            third-party rights.
+          </p>
+          <p className={styles.text}>
+            Users are responsible for ensuring they have the appropriate
+            rights, licenses, or permissions for any content they add to a
+            bot, and for giving proper attribution where required by the
+            original rights holder.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>1. Agreement to these terms</h2>
-      <p style={styles.p}>
-        By creating a Lunaar account, you agree to these Terms and Conditions in full. If you do
-        not agree with any part of these terms, do not create an account or use the service.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>03</span>
+            Changes to These Terms
+          </h2>
+          <p className={styles.text}>
+            Lunaar reserves the right to modify, update, or replace these
+            Terms &amp; Conditions at any time, at our sole discretion and
+            without prior notice. Continued use of the service after any
+            changes are posted constitutes acceptance of the revised terms.
+            It is your responsibility to review this page periodically.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>2. Changes to these terms</h2>
-      <p style={styles.p}>
-        We may update, modify, or replace any part of these terms at any time, at our sole
-        discretion. Continued use of Lunaar after a change is posted means you accept the revised
-        terms. It is your responsibility to check this page periodically for updates.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>04</span>
+            Bot Usage License
+          </h2>
+          <p className={styles.text}>
+            Subject to your compliance with these terms, Lunaar grants you a
+            free license to build, deploy, and use the bots you create, and
+            the responses they produce, for personal or commercial
+            purposes. This license does not extend to any underlying
+            third-party content, which remains subject to its original
+            owners' rights as described above.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>3. Beta status</h2>
-      <p style={styles.p}>
-        Lunaar is under active development and is not a finished product. We do not guarantee
-        uptime, accuracy of AI-generated course content, data persistence, or that any given
-        feature will continue to exist in its current form. The service is provided on an
-        as-is, as-available basis during this beta period.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>05</span>
+            Prohibited Use
+          </h2>
+          <p className={styles.text}>
+            You may not use the service to build bots that produce or
+            promote content that is unlawful, infringing, defamatory,
+            obscene, deceptive, or that violates the intellectual property
+            or privacy rights of any third party. Lunaar reserves the right
+            to suspend or block access to bots found to be in violation of
+            this policy.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>4. Your account</h2>
-      <ul style={styles.ul}>
-        <li style={styles.li}>You're responsible for keeping your login credentials secure.</li>
-        <li style={styles.li}>You're responsible for activity that happens under your account.</li>
-        <li style={styles.li}>You must provide accurate information when creating an account.</li>
-      </ul>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>06</span>
+            Limitation of Liability
+          </h2>
+          <p className={styles.text}>
+            The service is provided "as is" without warranties of any kind.
+            Bot responses are generated by third-party AI models and may be
+            inaccurate or incomplete. Lunaar shall not be liable for any
+            indirect, incidental, or consequential damages arising from your
+            use of the service, from bot responses, or from any third-party
+            content or provider charges.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>5. Acceptable use</h2>
-      <p style={styles.p}>
-        You agree not to misuse Lunaar — including attempting to disrupt the service, accessing
-        another user's account without permission, or using the platform to generate or
-        distribute unlawful, harmful, or abusive content.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>07</span>
+            API Key Responsibility
+          </h2>
+          <p className={styles.text}>
+            Lunaar is free to use and works on a bring-your-own-key basis.
+            You are responsible for keeping your API keys confidential, for
+            all usage and charges incurred with your AI provider, and for
+            all activity that occurs through your keys. Revoke and replace
+            any key you believe has been compromised.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>6. Course content</h2>
-      <p style={styles.p}>
-        Lessons and courses on Lunaar are generated with AI based on your prompts. Content may
-        contain errors or inaccuracies. Don't treat generated content as professional, medical,
-        legal, or financial advice.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>08</span>
+            Governing Law
+          </h2>
+          <p className={styles.text}>
+            These Terms &amp; Conditions are governed by and construed in
+            accordance with applicable local laws, without regard to
+            conflict of law principles.
+          </p>
+        </section>
 
-      <h2 style={styles.h2}>7. Termination</h2>
-      <p style={styles.p}>
-        We may suspend or terminate your account at any time, particularly during this beta
-        period, if we discontinue a feature, discontinue the service, or believe these terms have
-        been violated.
-      </p>
+        <section className={styles.section}>
+          <h2 className={styles.sectionTitle}>
+            <span className={styles.sectionNumber}>09</span>
+            Contact
+          </h2>
+          <p className={styles.text}>
+            For questions about these Terms &amp; Conditions, reach out
+            through the contact options available on the Lunaar website.
+          </p>
+        </section>
+      </main>
 
-      <h2 style={styles.h2}>8. Limitation of liability</h2>
-      <p style={styles.p}>
-        To the fullest extent permitted by law, Lunaar and its creators are not liable for any
-        indirect, incidental, or consequential damages arising from your use of the service,
-        including loss of data or progress during the beta period.
-      </p>
-
-      <h2 style={styles.h2}>9. Contact</h2>
-      <p style={styles.p}>Questions about these terms can be sent to [your contact email].</p>
-
-      <div style={styles.footerNote}>
-        This is a general template and not legal advice. Have a lawyer review it before relying
-        on it for a live product.
-      </div>
+      <footer className={styles.footer}>
+        <p className={styles.footerText}>
+          © {new Date().getFullYear()} Lunaar. All rights reserved.
+        </p>
+      </footer>
     </div>
   );
-}
+};
+
+export default Terms;
